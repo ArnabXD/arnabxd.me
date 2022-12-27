@@ -1,7 +1,6 @@
 module.exports = {
-  extends: ["turbo", "prettier"],
+  extends: ["turbo", "prettier", "plugin:react/recommended"],
   rules: {
-    "@next/next/no-html-link-for-pages": "off",
     "react/jsx-key": "off",
   },
 };
