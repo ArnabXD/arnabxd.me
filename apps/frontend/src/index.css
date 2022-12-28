@@ -6,3 +6,23 @@ body {
   @apply bg-bg-light dark:bg-bg-dark;
   @apply text-bg-dark dark:text-bg-light;
 }
+
+.root {
+  @apply max-w-lg;
+}
+
+.main {
+  @apply px-12 md:px-16;
+}
+
+@media (min-width: 768px) {
+  .main {
+    height: calc(100vh - 200px);
+  }
+}
+
+@media (max-width: 768px) {
+  .main {
+    padding-top: 80px;
+  }
+}
