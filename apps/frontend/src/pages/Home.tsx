@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "@tanstack/react-location";
 import NavigationBar from "../components/NavigationBar";
 
 export const Home = () => {
@@ -15,12 +16,12 @@ export const Home = () => {
               Developer, Freelancer, Open-Source Enthusiast
             </p>
             <div className="pt-10 flex flex-row flex-wrap items-center">
-              <a href="/contact">
+              <Link to="/contact">
                 <div className="bg-primary text-bg-dark text-2xl inline-block px-8 py-4 my-2 rounded-lg font-semibold">
                   Contact Me
                 </div>
-              </a>
-              <a href="/projects">
+              </Link>
+              <Link to="/projects">
                 <span className="text-lg md:text-2xl md:px-6 py-4 my-2 font-semibold inline-flex flex-row">
                   <svg
                     width="52"
@@ -37,7 +38,7 @@ export const Home = () => {
                   </svg>
                   View Projects
                 </span>
-              </a>
+              </Link>
             </div>
           </div>
         </div>
