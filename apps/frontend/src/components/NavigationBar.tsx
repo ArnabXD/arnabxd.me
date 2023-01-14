@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "@tanstack/react-location";
 
-const NavigationBar = () => {
+export const NavigationBar = () => {
   return (
     <nav className="flex items-center justify-between px-12 py-12 md:px-16 md:py-12">
       <Link to="/">
@@ -22,5 +22,3 @@ const NavigationBar = () => {
     </nav>
   );
 };
-
-export default NavigationBar;

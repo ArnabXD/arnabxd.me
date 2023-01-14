@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "@tanstack/react-location";
-import NavigationBar from "../components/NavigationBar";
+import { NavigationBar } from "../components";
 
 export const Home = () => {
   return (
