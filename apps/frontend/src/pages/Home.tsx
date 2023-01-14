@@ -15,14 +15,14 @@ export const Home = () => {
             <p className="text-xl py-1">
               Developer, Freelancer, Open-Source Enthusiast
             </p>
-            <div className="pt-10 flex flex-row flex-wrap items-center">
+            <div className="pt-10 grid md:grid-cols-2 gap-x-1.5">
               <Link to="/contact">
                 <div className="bg-primary text-bg-dark text-2xl inline-block px-8 py-4 my-2 rounded-lg font-semibold">
                   Contact Me
                 </div>
               </Link>
               <Link to="/projects">
-                <span className="text-lg md:text-2xl md:px-6 py-4 my-2 font-semibold inline-flex flex-row">
+                <span className="text-lg md:text-2xl py-4 my-2 font-semibold inline-flex flex-row">
                   <svg
                     width="52"
                     height="44"
@@ -42,7 +42,7 @@ export const Home = () => {
             </div>
           </div>
         </div>
-        <img className="hidden md:block" src="/dev.svg" />
+        <img className="hidden xl:block" src="/dev.svg" />
       </div>
     </div>
   );
