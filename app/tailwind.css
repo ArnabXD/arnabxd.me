@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-bg-light dark:bg-bg-dark;
+  @apply text-bg-dark dark:text-bg-light;
+}
+
+.root {
+  @apply max-w-lg;
+}
+
+.main {
+  @apply px-8 md:px-16;
+}
+
+.s-middle {
+  height: calc(100vh - 100px);
+}
+
+@media (min-width: 768px) {
+  .main {
+    min-height: calc(100vh - 200px);
+  }
+}
+
+@media (max-width: 768px) {
+  .main {
+    padding-top: 80px;
+  }
+}
