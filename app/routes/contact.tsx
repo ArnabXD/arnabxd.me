@@ -1,12 +1,13 @@
+import { useRef } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ActionFunctionArgs, MetaFunction } from "@remix-run/cloudflare";
-import { Form, useActionData } from "@remix-run/react";
+import { Form, useActionData, json } from "@remix-run/react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import toast, { Toaster } from "react-hot-toast";
 
 import { Input, TextArea } from "~/components/input";
-import { useDebounce } from "~/hooks/useDeboune";
+import { useDebounce } from "~/hooks/debounce";
 import { useEffect } from "react";
 
 export const meta: MetaFunction = () => {
@@ -37,24 +38,26 @@ const schema = z.object({
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   const data = await request.formData();
-  const json = Object.fromEntries(data);
+  const _json = Object.fromEntries(data);
 
-  const result = await schema.safeParseAsync(json);
-  console.log(JSON.stringify(result, null, 2));
+  const result = await schema.safeParseAsync(_json);
+  if (!result.success) {
+    return json(result);
+  }
 
-  return Response.json({ ...result });
+  return json({ success: true });
 };
-
-
 
 export default function Contact() {
   const {
     register,
     formState: { errors },
     reset,
+    handleSubmit,
   } = useForm({
     resolver: zodResolver(schema),
   });
+  const formRef = useRef<HTMLFormElement>(null);
 
   const showMessage = useDebounce((message: string, success: boolean) => {
     if (success) {
@@ -65,7 +68,7 @@ export default function Contact() {
   }, 500);
   const debouncedReset = useDebounce(reset, 500);
 
-  const data = useActionData<{ success: boolean }>();
+  const data = useActionData<typeof action>();
 
   useEffect(() => {
     if (data) {
@@ -93,6 +96,10 @@ export default function Contact() {
           action="/contact"
           fetcherKey="contact"
           method="post"
+          ref={formRef}
+          // reloadDocument
+          preventScrollReset
+          onSubmit={handleSubmit(() => formRef.current?.submit())}
         >
           <Input
             label="First name*"
