@@ -4,11 +4,11 @@ import { Views } from "./icons";
 export type BlogData = Awaited<ReturnType<typeof fetchLatestPosts>>;
 
 type BlogProps = {
-  blogData: BlogData;
+  data: BlogData;
 };
 
-const Blog = ({ blogData }: BlogProps) => {
-  if (!blogData || blogData.posts.length === 0) return null;
+const Blog = ({ data }: BlogProps) => {
+  if (!data || data.posts.length === 0) return null;
 
   return (
     <>
@@ -25,7 +25,7 @@ const Blog = ({ blogData }: BlogProps) => {
           </div>
 
           <div className="-mx-4 flex flex-wrap">
-            {blogData.posts.map((post) => (
+            {data.posts.map((post) => (
               <BlogCard
                 key={post.id}
                 image={post.coverImage?.url || "/blog-placeholder.webp"}
@@ -43,26 +43,28 @@ const Blog = ({ blogData }: BlogProps) => {
   );
 };
 
-const BlogCard = ({
-  image,
-  date,
-  title,
-  description,
-  views,
-  url,
-}: {
+interface BlogCardProps {
   image?: string;
   date: string;
   title: string;
   description: string;
   views: number;
   url: string;
-}) => {
+}
+
+function BlogCard({
+  image,
+  date,
+  title,
+  description,
+  views,
+  url,
+}: BlogCardProps) {
   return (
     <>
       <div className="w-full px-4 pt-10 lg:pt-0 md:w-1/2 lg:w-1/3">
         <div className="mb-10x w-full">
-          <div className="mb-8 overflow-hidden rounded-lg">
+          <div className="mb-6 overflow-hidden rounded-lg">
             <a href={url} rel="noopener noreferrer" target="_blank">
               <img
                 src={image}
@@ -74,7 +76,7 @@ const BlogCard = ({
           <div>
             <div className="flex flex-row justify-between">
               <span className="mb-5 inline-block rounded-lg bg-surface px-4 py-1 text-center text-sm font-semibold leading-loose">
-                <span className="drop-shadow">{date}</span>
+                <span className="drop-shadow align-middle">{date}</span>
               </span>
               <span className="mb-5 inline-block rounded-lg px-4 py-1 text-center text-sm font-semibold leading-loose">
                 <Views
@@ -86,7 +88,6 @@ const BlogCard = ({
                 <span className="align-middle ml-2">{views}</span>
               </span>
             </div>
-
             <h3>
               <a
                 href={url}
@@ -105,6 +106,6 @@ const BlogCard = ({
       </div>
     </>
   );
-};
+}
 
 export default Blog;

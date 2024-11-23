@@ -10,6 +10,7 @@ import {
 import "./tailwind.css";
 import { NavigationBar } from "./components/navbar";
 import Footer from "./components/footer";
+import { Toaster } from "react-hot-toast";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -41,6 +42,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body>
         <NavigationBar />
         {children}
+        <Toaster position="top-center" />
         <Footer />
         <ScrollRestoration />
         <Scripts />

@@ -1,14 +1,13 @@
-import { useRef } from "react";
+import { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ActionFunctionArgs, MetaFunction } from "@remix-run/cloudflare";
-import { Form, useActionData, json } from "@remix-run/react";
+import { MetaFunction } from "@remix-run/cloudflare";
+import { Form, useSubmit } from "@remix-run/react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 import { Input, TextArea } from "~/components/input";
 import { useDebounce } from "~/hooks/debounce";
-import { useEffect } from "react";
 
 export const meta: MetaFunction = () => {
   return [
@@ -36,19 +35,24 @@ const schema = z.object({
     .max(1000, "Message must be at most 1000 characters long"),
 });
 
-export const action = async ({ request }: ActionFunctionArgs) => {
-  const data = await request.formData();
-  const _json = Object.fromEntries(data);
+// export const action = async ({ request }: ActionFunctionArgs) => {
+//   const data = await request.formData();
+//   const _json = Object.fromEntries(data);
 
-  const result = await schema.safeParseAsync(_json);
-  if (!result.success) {
-    return json(result);
-  }
+//   const result = await schema.safeParseAsync(_json);
+//   if (!result.success) {
+//     return json(result);
+//   }
 
-  return json({ success: true });
-};
+//   return json({ success: true });
+// };
+export interface ContactProps {
+  data?: {
+    success: boolean;
+  };
+}
 
-export default function Contact() {
+export default function Contact({ data }: ContactProps) {
   const {
     register,
     formState: { errors },
@@ -57,7 +61,7 @@ export default function Contact() {
   } = useForm({
     resolver: zodResolver(schema),
   });
-  const formRef = useRef<HTMLFormElement>(null);
+  const submit = useSubmit();
 
   const showMessage = useDebounce((message: string, success: boolean) => {
     if (success) {
@@ -67,8 +71,6 @@ export default function Contact() {
     }
   }, 500);
   const debouncedReset = useDebounce(reset, 500);
-
-  const data = useActionData<typeof action>();
 
   useEffect(() => {
     if (data) {
@@ -86,19 +88,19 @@ export default function Contact() {
   return (
     <div className="py-6 sm:py-8 lg:py-12">
       <div className="max-w-screen-2xl px-8 mx-auto">
-        <div className="mb-10 md:mb-16">
-          <h2 className="text-2xl lg:text-3xl font-bold text-center mb-4 md:mb-6">
-            Get in touch
-          </h2>
+        <div className="-mx-4 flex flex-wrap">
+          <div className="w-full px-4">
+            <div className="mx-auto mb-[60px] max-w-[510px] text-center lg:mb-20">
+              <h2 className="mb-4 text-3xl text-primary font-bold sm:text-4xl md:text-[40px]">
+                Get in touch
+              </h2>
+            </div>
+          </div>
         </div>
         <Form
           className="max-w-screen-md grid sm:grid-cols-2 gap-4 mx-auto"
-          action="/contact"
-          fetcherKey="contact"
-          method="post"
-          ref={formRef}
-          preventScrollReset
-          onSubmit={handleSubmit(() => formRef.current?.submit())}
+          action="/?index"
+          onSubmit={handleSubmit((data) => submit(data, { method: "post" }))}
         >
           <Input
             label="First name*"
@@ -140,7 +142,6 @@ export default function Contact() {
             <span className="text-gray-500 text-sm">*Required</span>
           </div>
         </Form>
-        <Toaster position="top-center" />
       </div>
     </div>
   );
