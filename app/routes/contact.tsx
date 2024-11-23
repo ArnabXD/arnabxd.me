@@ -97,7 +97,6 @@ export default function Contact() {
           fetcherKey="contact"
           method="post"
           ref={formRef}
-          // reloadDocument
           preventScrollReset
           onSubmit={handleSubmit(() => formRef.current?.submit())}
         >
