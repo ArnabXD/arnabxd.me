@@ -22,7 +22,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       <input
         ref={ref}
         className={cx(
-          "w-full bg-surface border focus:ring rounded outline-none border-transparent transition duration-100 px-3 py-2",
+          "w-full surface border focus:ring rounded outline-none border-transparent transition duration-100 px-3 py-2",
           error ? "ring-red-500" : "ring-primary"
         )}
         {...rest}
@@ -46,7 +46,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
       <textarea
         ref={ref}
         className={cx(
-          "w-full h-64 bg-surface border focus:ring rounded outline-none border-transparent transition duration-100 px-3 py-2",
+          "w-full h-64 surface border focus:ring rounded outline-none border-transparent transition duration-100 px-3 py-2",
           error ? "ring-red-500" : "ring-primary"
         )}
         {...rest}

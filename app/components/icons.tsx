@@ -69,4 +69,30 @@ export const HashNode = (props: SVGProps<SVGSVGElement>) => (
       clipRule="evenodd"
     />
   </svg>
-)
+);
+
+export const Dots = (props: SVGProps<SVGSVGElement>) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" {...props}>
+    <defs>
+      <pattern
+        id="a"
+        width={52.5}
+        height={52.5}
+        patternTransform="rotate(45)"
+        patternUnits="userSpaceOnUse"
+      >
+        {/* <rect width="100%" height="100%" fill="#1a2e35ff" /> */}
+        <path
+          fill="#4c5b60ff"
+          d="M17.25 6a5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5"
+        />
+      </pattern>
+    </defs>
+    <rect
+      width="800%"
+      height="800%"
+      fill="url(#a)"
+      transform="translate(-25 -27)"
+    />
+  </svg>
+);

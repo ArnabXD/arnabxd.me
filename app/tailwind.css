@@ -30,3 +30,11 @@ body {
     padding-top: 80px;
   }
 }
+
+.surface {
+  @apply bg-surface-light dark:bg-surface-dark;
+}
+
+.surface-border {
+  @apply border-surface-light dark:border-surface-dark
+}

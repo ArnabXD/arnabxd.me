@@ -50,9 +50,10 @@ export interface ContactProps {
   data?: {
     success: boolean;
   };
+  headerRef?: React.RefObject<HTMLDivElement>;
 }
 
-export default function Contact({ data }: ContactProps) {
+export default function Contact({ data, headerRef }: ContactProps) {
   const {
     register,
     formState: { errors },
@@ -86,11 +87,11 @@ export default function Contact({ data }: ContactProps) {
   }, [data]);
 
   return (
-    <div className="py-6 sm:py-8 lg:py-12">
-      <div className="max-w-screen-2xl px-8 mx-auto">
+    <div className="py-6 sm:py-8 lg:py-12" ref={headerRef}>
+      <div className="max-w-screen-2xl mx-auto">
         <div className="-mx-4 flex flex-wrap">
           <div className="w-full px-4">
-            <div className="mx-auto mb-[60px] max-w-[510px] text-center lg:mb-20">
+            <div className="mx-auto mb-10 max-w-[510px] text-center lg:mb-20">
               <h2 className="mb-4 text-3xl text-primary font-bold sm:text-4xl md:text-[40px]">
                 Get in touch
               </h2>
@@ -134,11 +135,10 @@ export default function Contact({ data }: ContactProps) {
           <div className="sm:col-span-2 flex justify-between items-center">
             <button
               type="submit"
-              className="inline-block bg-primary hover:scale-110 focus-visible:ring text-bg-dark text-sm md:text-base font-semibold text-center rounded-lg outline-none border-transparent transition duration-100 px-8 py-3"
+              className="inline-block bg-primary hover:scale-105 text-bg-light dark:text-bg-dark focus-visible:ring text-sm md:text-base font-semibold text-center rounded-lg outline-none border-transparent transition duration-100 px-8 py-3"
             >
               Send
             </button>
-
             <span className="text-gray-500 text-sm">*Required</span>
           </div>
         </Form>

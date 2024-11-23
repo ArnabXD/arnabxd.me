@@ -16,8 +16,8 @@ const Blog = ({ data }: BlogProps) => {
         <div className="container">
           <div className="-mx-4 flex flex-wrap">
             <div className="w-full px-4">
-              <div className="mx-auto mb-[60px] max-w-[510px] text-center lg:mb-20">
-                <h2 className="mb-4 text-3xl text-primary font-bold sm:text-4xl md:text-[40px]">
+              <div className="mx-auto md:mb-[60px] max-w-[510px] text-center">
+                <h2 className=" text-3xl text-primary font-bold sm:text-4xl md:text-[40px]">
                   Recent Blogs
                 </h2>
               </div>
@@ -75,8 +75,8 @@ function BlogCard({
           </div>
           <div>
             <div className="flex flex-row justify-between">
-              <span className="mb-5 inline-block rounded-lg bg-surface px-4 py-1 text-center text-sm font-semibold leading-loose">
-                <span className="drop-shadow align-middle">{date}</span>
+              <span className="mb-5 inline-block rounded-lg surface px-4 py-1 text-center text-sm font-semibold leading-loose">
+                <span className="align-middle">{date}</span>
               </span>
               <span className="mb-5 inline-block rounded-lg px-4 py-1 text-center text-sm font-semibold leading-loose">
                 <Views

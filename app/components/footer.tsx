@@ -2,7 +2,7 @@ import { BlueSky, GitHub, HashNode, LinkedIn, StackOverflow } from "./icons";
 
 export default function Footer() {
   return (
-    <footer className="px-8 md:px-16 py-10 border-t border-surface">
+    <footer className="px-8 md:px-16 py-10 border-t surface-border">
       <div className="container mx-auto flex items-center sm:flex-row flex-col">
         <p className="text-sm">
           &copy; {new Date().getFullYear()} - Arnab Paryali

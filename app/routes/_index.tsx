@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import type {
   ActionFunctionArgs,
   LoaderFunction,
@@ -28,12 +29,18 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 export default function Index() {
   const blogData = useLoaderData<BlogData>();
   const actionData = useActionData<typeof action>();
+  const contactUsRef = useRef<HTMLDivElement>(null);
+  const onContactClick = () => {
+    contactUsRef.current?.scrollIntoView({
+      behavior: "smooth",
+    });
+  };
 
   return (
     <div className="main">
-      <Hero />
+      <Hero onContactClick={onContactClick} />
       <Blogs data={blogData} />
-      <Contact data={actionData} />
+      <Contact data={actionData} headerRef={contactUsRef} />
     </div>
   );
 }
