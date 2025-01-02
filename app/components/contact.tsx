@@ -59,6 +59,8 @@ export default function Contact({ data, headerRef }: ContactProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
+  const isSubmitting = data?.success === false ? false : isSubmitSuccessful;
+
   return (
     <div className="py-6 sm:py-8 lg:py-12" ref={headerRef}>
       <div className="max-w-screen-2xl mx-auto">
@@ -106,8 +108,12 @@ export default function Contact({ data, headerRef }: ContactProps) {
           />
 
           <div className="sm:col-span-2 flex justify-between items-center">
-            <button type="submit" className={"primary-btn"}>
-              {isSubmitSuccessful ? "..." : "Send"}
+            <button
+              type="submit"
+              className={"primary-btn"}
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "..." : "Send"}
             </button>
             <span className="text-gray-500 text-sm">*Required</span>
           </div>
