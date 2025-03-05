@@ -1,6 +1,6 @@
 import ky from "ky";
 
-interface HashnodeResponse {
+interface HashNodeResponse {
   data?: {
     user: {
       posts: {
@@ -11,9 +11,10 @@ interface HashnodeResponse {
           views: number;
           brief: string;
           publishedAt: string;
-          coverImage?: {
-            url: string;
-          };
+          readTimeInMinutes: number;
+          tags: {
+            name: string;
+          }[];
         }[];
       };
     };
@@ -33,8 +34,9 @@ export default async function fetchLatestPosts(username: string, limit = 3) {
             views
             brief
             publishedAt
-            coverImage {
-              url
+            readTimeInMinutes
+            tags {
+              name
             }
           }
         }
@@ -43,7 +45,7 @@ export default async function fetchLatestPosts(username: string, limit = 3) {
   `;
 
   const response = await ky
-    .post<HashnodeResponse>("https://gql.hashnode.com", {
+    .post<HashNodeResponse>("https://gql.hashnode.com", {
       json: {
         query,
         variables: { username, limit },
@@ -55,9 +57,7 @@ export default async function fetchLatestPosts(username: string, limit = 3) {
     return {
       posts: (response.data?.user?.posts?.nodes ?? []).map((post) => ({
         ...post,
-        // coverImage: {
-        //   url: "/blog-placeholder.webp",
-        // },
+        tags: post.tags.map((tag) => tag.name),
         publishedAt: formatDate(post.publishedAt),
       })),
     };

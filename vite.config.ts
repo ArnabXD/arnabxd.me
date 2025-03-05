@@ -1,6 +1,7 @@
 import { reactRouter } from "@react-router/dev/vite";
 import { cloudflareDevProxy } from "@react-router/dev/vite/cloudflare";
 import { defineConfig } from "vite";
+import tailwindcss from "@tailwindcss/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 declare module "@react-router/cloudflare" {
@@ -17,6 +18,7 @@ export default defineConfig({
       },
     }),
     reactRouter(),
+    tailwindcss(),
     tsconfigPaths(),
   ],
 });
