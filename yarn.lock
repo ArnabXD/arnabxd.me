@@ -885,6 +885,11 @@
   resolved "https://registry.yarnpkg.com/@pkgjs/parseargs/-/parseargs-0.11.0.tgz#a77ea742fab25775145434eb1d2328cf5013ac33"
   integrity sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==
 
+"@react-router/cloudflare@^7.2.0":
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/@react-router/cloudflare/-/cloudflare-7.2.0.tgz#eb27462e932b25b8ba5e2db34ad07821df304e53"
+  integrity sha512-deqjGBL5Kiq582KMAAGgUbVGqCju5CaHdd8g3NKOW7bkoMBPvM35V4l9fWtAR2iyWMabkW1uohOJyXoYCKwVLQ==
+
 "@react-router/dev@^7.2.0":
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/@react-router/dev/-/dev-7.2.0.tgz#f507dba3bd905653e2cff8b1521b9222e58360f5"
@@ -2020,6 +2025,11 @@ jsonfile@^6.0.1:
     universalify "^2.0.0"
   optionalDependencies:
     graceful-fs "^4.1.6"
+
+ky@^1.7.5:
+  version "1.7.5"
+  resolved "https://registry.yarnpkg.com/ky/-/ky-1.7.5.tgz#69c9b70ff818fd6108fc04a89c1454412c11dfce"
+  integrity sha512-HzhziW6sc5m0pwi5M196+7cEBtbt0lCYi67wNsiwMUmz833wloE0gbzJPWKs1gliFKQb34huItDQX97LyOdPdA==
 
 lightningcss-darwin-arm64@1.29.1:
   version "1.29.1"

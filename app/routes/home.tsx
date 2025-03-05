@@ -1,13 +1,7 @@
 import { useState, useEffect } from "react";
 
+import type { LoaderFunction } from "react-router";
 import type { Route } from "./+types/home";
-
-export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "Arnab | arnabxd.me" },
-    { name: "description", content: "Arnab's Portfolio" },
-  ];
-}
 
 import { Terminal, Code, Briefcase, User, Book } from "lucide-react";
 
@@ -23,8 +17,21 @@ import Skills from "~/components/skills";
 import Footer from "~/components/footer";
 
 import data from "~/data";
+import fetchLatestPosts from "~/services/blogs";
 
-const Home = () => {
+export const loader: LoaderFunction = async () => {
+  return await fetchLatestPosts("ArnabXD", 3);
+};
+
+export function meta({}: Route.MetaArgs) {
+  return [
+    { title: "Arnab | arnabxd.me" },
+    { name: "description", content: "Arnab's Portfolio" },
+  ];
+}
+
+const Home = (props: unknown) => {
+  console.log(props)
   const [text, setText] = useState<string>("");
   const fullText = "System initialized... Access granted.";
   const [showContent, setShowContent] = useState<boolean>(false);

@@ -12,9 +12,11 @@
   },
   "dependencies": {
     "@icons-pack/react-simple-icons": "^12.1.0",
+    "@react-router/cloudflare": "^7.2.0",
     "@react-router/node": "^7.2.0",
     "@react-router/serve": "^7.2.0",
     "isbot": "^5.1.17",
+    "ky": "^1.7.5",
     "lucide-react": "^0.477.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
