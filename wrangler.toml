@@ -3,6 +3,7 @@ name = "arnabxd-me"
 compatibility_date = "2024-11-18"
 main = "./build/server/index.js"
 assets = { directory = "./build/client/" }
+pages_build_output_dir = "./build/client"
 
 # [vars]
 # VALUE_FROM_CLOUDFLARE = "Hello from Cloudflare"
