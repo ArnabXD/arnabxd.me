@@ -9,16 +9,7 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-import {
-  Terminal,
-  Code,
-  Briefcase,
-  User,
-  Book,
-  Mail,
-  Phone,
-  MapPin,
-} from "lucide-react";
+import { Terminal, Code, Briefcase, User, Book } from "lucide-react";
 
 import Loader from "~/components/loader";
 import Header from "~/components/header";
