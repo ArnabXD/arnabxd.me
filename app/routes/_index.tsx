@@ -3,8 +3,8 @@ import type {
   ActionFunctionArgs,
   LoaderFunction,
   MetaFunction,
-} from "@remix-run/cloudflare";
-import { json, useActionData, useLoaderData } from "@remix-run/react";
+} from "react-router";
+import { useActionData, useLoaderData } from "react-router";
 import Blogs, { BlogData } from "~/components/blogs";
 import Contact from "~/components/contact";
 import Hero from "~/components/hero";
@@ -28,7 +28,7 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
   let success = false;
 
   if (!jsonData.success) {
-    return json({ success: false });
+    return { success: false };
   }
 
   if (jsonData.data) {
@@ -39,7 +39,7 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
     });
   }
 
-  return json({ success });
+  return { success };
 };
 
 export default function Index() {
