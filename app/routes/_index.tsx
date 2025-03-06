@@ -1,10 +1,8 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-
 import { useEffect } from "react";
 
 import type { Route } from "./+types/_index";
-
 import { Terminal, Code, Briefcase, User, Book } from "lucide-react";
 
 import Header from "~/components/header";
@@ -16,17 +14,39 @@ import Blogs from "~/components/blogs";
 import Skills from "~/components/skills";
 import ContactMe from "~/components/contact";
 import Footer from "~/components/footer";
-
-import data from "~/data";
-import fetchLatestPosts from "~/services/blogs";
 import {
   HiddenTerminal,
   MatrixEffect,
   useEasterEgg,
 } from "~/components/easter-egg";
 
+import data from "~/data";
+
+import fetchLatestPosts from "~/services/blogs";
+import { contactSchema, sendMessage } from "~/services/telegram";
+
 export const loader = async () => {
   return await fetchLatestPosts("ArnabXD", 3);
+};
+
+export const action = async ({ request, context }: Route.ActionArgs) => {
+  const body = await request.json();
+  const jsonData = contactSchema.safeParse(body);
+  let success = false;
+
+  if (!jsonData.success) {
+    return Response.json({ success: false });
+  }
+
+  if (jsonData.data) {
+    success = await sendMessage(context.cloudflare.env, {
+      name: jsonData.data.name,
+      email: jsonData.data.email,
+      message: jsonData.data.message,
+    });
+  }
+
+  return Response.json({ success });
 };
 
 export function meta() {

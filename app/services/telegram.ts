@@ -12,22 +12,14 @@ export interface SendMessageOptions {
 }
 
 export const contactSchema = z.object({
-  firstName: z
-    .string({ required_error: "First name is required" })
-    .min(2, "First name must be at least 2 characters long"),
-  lastName: z
-    .string({ required_error: "Last name is required" })
-    .min(2, "Last name must be at least 2 characters long"),
+  name: z.string().min(1, { message: "error: name required" }),
   email: z
-    .string({ required_error: "Email is required" })
-    .email("Please enter a valid email address"),
-  subject: z
-    .string({ required_error: "Subject is required" })
-    .min(10, "Subject must be at least 10 characters long"),
+    .string()
+    .min(1, { message: "error: email required" })
+    .email({ message: "error: invalid email format" }),
   message: z
-    .string({ required_error: "Message is required" })
-    .min(20, "Message must be at least 20 characters long")
-    .max(1000, "Message must be at most 1000 characters long"),
+    .string()
+    .min(10, { message: "error: message too short (min 10 chars)" }),
 });
 
 export const sendMessage = async (env: Env, args: SendMessageOptions) => {
