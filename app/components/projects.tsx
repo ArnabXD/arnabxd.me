@@ -17,7 +17,7 @@ const ProjectCard = ({
   link,
 }: ProjectCardProps) => (
   <div className="bg-gradient-to-br from-black to-gray-900 p-5 rounded-lg border border-green-900 hover:border-green-500 transition-all duration-300 group hover:shadow-lg hover:shadow-green-900/30">
-    <div className="flex justify-between items-start mb-3">
+    <div className="flex flex-col lg:flex-row gap-2 justify-between items-start lg:items-center mb-3">
       <div className="flex items-center">
         <div className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></div>
         <h3 className="font-bold text-lg text-white group-hover:text-green-400 transition-colors">

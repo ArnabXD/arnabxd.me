@@ -18,7 +18,7 @@ function WorkExperienceCard({
         <div className="w-px h-full bg-green-900 group-hover:bg-green-500 transition-colors duration-300 mt-1"></div>
       </div>
       <div className="flex-1 bg-black border border-green-900 p-5 rounded-lg hover:border-green-500 transition-all duration-300 mb-6 group-hover:shadow-lg group-hover:shadow-green-900/30">
-        <div className="flex justify-between items-start mb-3">
+        <div className="flex flex-col md:flex-row gap-2 justify-between items-start lg:items-center mb-3">
           <h3 className="font-bold text-lg text-white group-hover:text-green-400 transition-colors">
             {title}
           </h3>
