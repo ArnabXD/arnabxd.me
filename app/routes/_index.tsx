@@ -14,6 +14,7 @@ import Education from "~/components/education";
 import Projects from "~/components/projects";
 import Blogs from "~/components/blogs";
 import Skills from "~/components/skills";
+import ContactMe from "~/components/contact";
 import Footer from "~/components/footer";
 
 import data from "~/data";
@@ -85,6 +86,11 @@ const Home = ({ loaderData }: Route.ComponentProps) => {
           <section className="mb-12">
             <SectionHeader icon={<User />} title="SKILLS" />
             <Skills data={data.skills} />
+          </section>
+
+          <section className="mb-12">
+            <SectionHeader icon={<User />} title="CONTACT_ME" />
+            <ContactMe />
           </section>
 
           {activeEasterEgg === "matrix" && <MatrixEffect />}
