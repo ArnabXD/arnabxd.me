@@ -51,7 +51,7 @@ export const action = async ({ request, context }: Route.ActionArgs) => {
 
 export function meta() {
   return [
-    { title: "Arnab | arnabxd.me" },
+    { title: "Portfolio | Arnab Paryali | arnabxd.me" },
     { name: "description", content: "Arnab's Portfolio" },
   ];
 }

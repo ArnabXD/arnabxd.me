@@ -16,7 +16,7 @@ export default function SectionHeader({ icon, title }: SectionHeaderProps) {
           <span className="text-xs text-green-500 opacity-70">
             ./system/section/
           </span>
-          <h2 className="ml-1 text-md lg:text-xl font-bold text-white">
+          <h2 className="ml-1 text-xs sm:text-sm md:text-md lg:text-xl font-bold text-white">
             {"<"}
             {title}
             {"/>"}
