@@ -3,6 +3,7 @@ import { cloudflareDevProxy } from "@react-router/dev/vite/cloudflare";
 import { defineConfig } from "vite";
 import tailwindcss from "@tailwindcss/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
+import { AppLoadContext } from "react-router";
 
 declare module "@react-router/cloudflare" {
   interface Future {
@@ -13,8 +14,8 @@ declare module "@react-router/cloudflare" {
 export default defineConfig({
   plugins: [
     cloudflareDevProxy({
-      getLoadContext({ context }) {
-        return { cloudflare: context.cloudflare };
+      getLoadContext: ({ context }) => {
+        return { cloudflare: context.cloudflare } as AppLoadContext;
       },
     }),
     reactRouter(),
