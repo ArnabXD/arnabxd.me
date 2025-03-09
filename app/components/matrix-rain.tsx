@@ -1,54 +1,96 @@
-import { memo, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 
-const CHARACTERS =
-  "01アカサタナハマヤラワガザダバパイキシチニヒミリヰギジヂビピウクスツヌフムユルグズブヅプエケセテネヘメレヱゲゼデベペオコソトノホモヨロヲゴゾドボポ";
-
-// Lightweight Matrix Rain effect that focuses on performance
-const MatrixRain = memo(() => {
-  // Only render once mounted to avoid hydration issues
-  const [isMounted, setIsMounted] = useState(false);
+const MatrixRain = () => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    setIsMounted(true);
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    // Make canvas fill the screen
+    const resizeCanvas = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+
+    // Matrix characters
+    const chars =
+      "01アカサタナハマヤラワガザダバパイキシチニヒミリヰギジヂビピウクスツヌフムユルグズブヅプエケセテネヘメレヱゲゼデベペオコソトノホモヨロヲゴゾドボポヴッン";
+
+    // Setup
+    const fontSize = 14;
+    // Add column spacing by increasing the gap between columns
+    const columnSpacing = 2.5; // Spacing multiplier (higher = more space)
+    const columns = Math.floor(canvas.width / (fontSize * columnSpacing));
+    const drops: number[] = [];
+
+    // Initialize drops
+    for (let i = 0; i < columns; i++) {
+      // Start at different positions
+      drops[i] = Math.floor((Math.random() * canvas.height) / fontSize) * -1;
+    }
+
+    // Drawing function
+    const draw = () => {
+      // Semi-transparent black to create the fade effect
+      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Green text
+      ctx.fillStyle = "#0F0";
+      ctx.font = `${fontSize}px monospace`;
+
+      // Loop through drops
+      for (let i = 0; i < drops.length; i++) {
+        // Get random character
+        const char = chars.charAt(Math.floor(Math.random() * chars.length));
+
+        // Draw character - distribute columns evenly across the canvas width
+        const x = Math.floor(i * (canvas.width / columns));
+        const y = drops[i] * fontSize;
+        ctx.fillText(char, x, y);
+
+        // Reset when it reaches the bottom and randomize start position
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.99) {
+          drops[i] = 0;
+        }
+
+        // Move drop
+        drops[i]++;
+      }
+    };
+
+    // Animation loop
+    const animationId = setInterval(draw, 100); // ~30fps
+
+    // Cleanup
+    return () => {
+      clearInterval(animationId);
+      window.removeEventListener("resize", resizeCanvas);
+    };
   }, []);
 
-  if (!isMounted) return null;
-
-  // Generate columns - this is simpler than using state for better performance
-  const columns = Array.from({ length: 25 }, (_, i) => ({
-    id: `matrix-col-${i}`,
-    left: `${Math.random() * 100}%`,
-    duration: `${Math.random() * 10 + 5}s`,
-    delay: `${Math.random() * 5}s`,
-    opacity: Math.random() * 0.5 + 0.3,
-    characters: Array.from(
-      { length: 20 },
-      () => CHARACTERS[Math.floor(Math.random() * CHARACTERS.length)]
-    ).join(),
-  }));
-
   return (
-    <div className="matrix-rain">
-      {columns.map((column) => (
-        <div
-          key={column.id}
-          className="matrix-column"
-          style={{
-            left: column.left,
-            opacity: column.opacity,
-            animationDuration: column.duration,
-            animationDelay: column.delay,
-          }}
-        >
-          {column.characters.split("").map((char, i) => (
-            <div key={`${column.id}-${i}`}>{char}</div>
-          ))}
-        </div>
-      ))}
-    </div>
+    <canvas
+      ref={canvasRef}
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        zIndex: 0, // Set to 0 so it's behind content but visible
+        opacity: 0.8,
+        pointerEvents: "none", // Let clicks go through to content underneath
+      }}
+    />
   );
-});
-
-MatrixRain.displayName = "MatrixRain";
+};
 
 export default MatrixRain;
