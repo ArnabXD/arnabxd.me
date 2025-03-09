@@ -21,7 +21,7 @@ export default function Header({ contactInfo }: HeaderProps) {
               System:~$ whoami
             </p>
           </div>
-          <h1 className="text-4xl md:text-6xl font-bold mt-2 text-white glitch-text tracking-tight">
+          <h1 className="text-4xl md:text-6xl font-bold mt-2 text-white tracking-tight">
             ARNAB PARYALI
           </h1>
         </div>

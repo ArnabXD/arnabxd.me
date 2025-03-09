@@ -14,6 +14,7 @@ import Blogs from "~/components/blogs";
 import Skills from "~/components/skills";
 import ContactMe from "~/components/contact";
 import Footer from "~/components/footer";
+import MatrixRain from "~/components/matrix-rain";
 import {
   HiddenTerminal,
   MatrixEffect,
@@ -69,7 +70,7 @@ const Home = ({ loaderData }: Route.ComponentProps) => {
     <div className="min-h-screen bg-black text-green-500 font-mono p-4 md:p-8 overflow-x-hidden">
       {/* Matrix background */}
       <div className="fixed inset-0 opacity-30 pointer-events-none transition-opacity delay-500">
-        {/* <MatrixRain /> */}
+        <MatrixRain />
       </div>
 
       {/* Loader terminal */}
