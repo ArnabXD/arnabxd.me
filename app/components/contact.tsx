@@ -96,11 +96,11 @@ const ContactMe = () => {
   const isSubmitting = state === "submitting";
 
   return (
-    <div className="min-h-screen md:min-h-0 relative text-green-500 font-mono">
+    <div className="min-h-screen md:min-h-0 text-green-500 font-mono">
       <section className="w-full max-w-4xl mx-auto">
         <div className="flex flex-col md:flex-row gap-8">
           <div className="w-full md:w-1/2">
-            <div className="border border-green-900 p-5 rounded-lg bg-black bg-opacity-80 h-full">
+            <div className="border border-green-900 p-5 rounded-lg bg-black bg-opacity-80 h-full hover:shadow-lg hover:shadow-green-900/30">
               <div className="flex items-center mb-5">
                 <div className="w-3 h-3 bg-red-500 rounded-full mr-2"></div>
                 <div className="w-3 h-3 bg-yellow-500 rounded-full mr-2"></div>
@@ -178,7 +178,7 @@ const ContactMe = () => {
           </div>
 
           <div className="w-full md:w-1/2">
-            <div className="border border-green-900 p-5 rounded-lg hover:border-green-500 transition-all duration-500 bg-black bg-opacity-80 relative overflow-hidden h-full">
+            <div className="border border-green-900 p-5 rounded-lg hover:border-green-500 transition-all duration-500 bg-black bg-opacity-80 overflow-hidden h-full">
               {/* Animated background effect */}
               <div className="absolute -right-20 -top-20 w-40 h-40 bg-green-500/5 rounded-full blur-3xl animate-pulse"></div>
               <div
