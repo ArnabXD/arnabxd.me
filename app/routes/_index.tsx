@@ -56,7 +56,7 @@ export function meta() {
     { title: "Portfolio | Arnab Paryali | arnabxd.me" },
     { name: "description", content: "Arnab's Portfolio" },
     { name: "keywords", content: "Arnab Paryali, Portfolio, Developer" },
-    { name: "og:image", content: "https://arnabxd.me/og_image.jpg" },
+    { name: "og:image", content: "/og_image.jpg" },
     { name: "og:title", content: "Portfolio | Arnab Paryali | arnabxd.me" },
     { name: "og:description", content: "Arnab's Portfolio" },
     { name: "og:url", content: "https://arnabxd.me" },
@@ -66,7 +66,7 @@ export function meta() {
       content: "Portfolio | Arnab Paryali | arnabxd.me",
     },
     { name: "twitter:description", content: "Arnab's Portfolio" },
-    { name: "twitter:image", content: "https://arnabxd.me/og_image.jpg" },
+    { name: "twitter:image", content: "/og_image.jpg" },
   ];
 }
 
