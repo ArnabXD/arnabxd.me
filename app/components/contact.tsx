@@ -31,7 +31,7 @@ const ContactMe = () => {
   // Typing effect state
   const [typingEffect, setTypingEffect] = useState({
     text: "",
-    fullText: "> Establishing secure connection...Ready to communicate.",
+    fullText: "> Establishing secure connection... Ready to communicate.",
     isComplete: false,
     charIndex: 0,
   });
@@ -66,7 +66,7 @@ const ContactMe = () => {
   }, [typingEffect.charIndex, typingEffect.fullText, inView]);
 
   useEffect(() => {
-    if (!data) {
+    if (!data || typeof window === "undefined") {
       return;
     }
     if (data?.success) {
