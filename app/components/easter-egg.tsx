@@ -63,7 +63,7 @@ const playEasterEggSound = (type: "konami" | "terminal") => {
 export const useEasterEgg = () => {
   const [activeEasterEgg, setActiveEasterEgg] = useState<string | null>(null);
   const keysPressed = useRef<string[]>([]);
-  const keySequenceTimeout = useRef<NodeJS.Timeout | null>(null);
+  const keySequenceTimeout = useRef<number | null>(null);
   const isTyping = useRef<boolean>(false);
 
   // Konami code sequence
@@ -266,7 +266,7 @@ export const HiddenTerminal: React.FC<{ onClose: () => void }> = ({
       document.documentElement.scrollTop =
         document.documentElement.scrollHeight;
     }
-    let timeout: NodeJS.Timeout;
+    let timeout: number;
     if (inputRef.current) {
       timeout = setTimeout(() => {
         setCurrentCommand("");

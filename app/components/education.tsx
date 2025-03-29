@@ -2,8 +2,7 @@ import { Book } from "lucide-react";
 
 export default function Education() {
   return (
-    <div className="mt-4 bg-gradient-to-br from-black to-gray-900 p-5 rounded-lg border border-green-900 hover:border-green-500 transition-all duration-300 group hover:shadow-lg hover:shadow-green-900/30 relative">
-      <div className="absolute *:sm:left-auto sm:top-6 md:-right-4 md:-top-4 w-24 h-24 bg-green-500/10 rounded-full blur-xl group-hover:bg-green-500/20 transition-all duration-500"></div>
+    <div className="mt-4 bg-gradient-to-br from-black to-gray-900 p-5 rounded-lg border border-green-900 hover:border-green-500 transition-all duration-300 group hover:shadow-lg hover:shadow-green-900/30">
       <div className="flex flex-col md:flex-row gap-2 justify-between items-start lg:items-center mb-4">
         <div className="flex items-center">
           <div className="hidden md:flex items-center justify-center w-10 h-10 rounded-md bg-green-900/30 border border-green-900 mr-3">

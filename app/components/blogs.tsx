@@ -41,7 +41,7 @@ function BlogCard({
   readTimeInMinutes,
 }: BlogCardProps) {
   return (
-    <div className="border border-green-900 p-4 rounded-md hover:border-green-500 transition-all duration-300 bg-black bg-opacity-70 group">
+    <div className="flex flex-col gap-1 border border-green-900 p-4 rounded-md hover:border-green-500 transition-all duration-300 bg-black bg-opacity-70 group">
       <div className="border-l-2 pl-2 border-green-500 mb-2">
         <a href={url} target="_blank" rel="noreferrer">
           <h3 className="font-bold text-lg text-white group-hover:text-green-400 transition-colors line-clamp-3 min-h-20">
@@ -66,7 +66,7 @@ function BlogCard({
           </span>
         ))}
       </div>
-      <div className="flex flex-1 justify-end ">
+      <div className="flex flex-1 justify-end items-end">
         <a
           href={url}
           target="_blank"
