@@ -274,10 +274,10 @@ export const HiddenTerminal: React.FC<{ onClose: () => void }> = ({
       }, 100);
     }
     return () => {
-      if(timeout) {
-        clearTimeout(timeout)
+      if (timeout) {
+        clearTimeout(timeout);
       }
-    }
+    };
   }, []);
 
   // Handle command submission
@@ -340,19 +340,17 @@ export const HiddenTerminal: React.FC<{ onClose: () => void }> = ({
     <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 w-96 max-w-[90vw] bg-black border border-green-500 p-4 rounded shadow-xl z-50 backdrop-blur-lg animate-fadeIn">
       <div className="flex items-center justify-between mb-2">
         <div className="flex space-x-2">
-          <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+          <button
+            className="w-3 h-3 bg-red-500 rounded-full hover:scale-110"
+            onClick={onClose}
+          />
           <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
           <div className="w-3 h-3 bg-green-500 rounded-full"></div>
         </div>
         <span className="text-green-500 text-sm font-mono flex-1 text-center">
           Secret Terminal
         </span>
-        <button
-          onClick={onClose}
-          className="text-red-500 hover:text-red-300 text-sm px-2"
-        >
-          ×
-        </button>
+        <div className="w-12" />
       </div>
 
       <div

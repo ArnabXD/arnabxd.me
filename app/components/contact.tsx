@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useInView, animated } from "@react-spring/web";
 import { Mail, Send, Github, Linkedin, X, AlertTriangle } from "lucide-react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -25,10 +26,12 @@ const formSchema = z.object({
 });
 
 const ContactMe = () => {
+  const [ref, inView] = useInView();
+
   // Typing effect state
   const [typingEffect, setTypingEffect] = useState({
     text: "",
-    fullText: "> Establishing secure connection... Ready to communicate.",
+    fullText: "> Establishing secure connection...Ready to communicate.",
     isComplete: false,
     charIndex: 0,
   });
@@ -47,6 +50,7 @@ const ContactMe = () => {
 
   // Handle typing effect
   useEffect(() => {
+    if (!inView) return;
     if (typingEffect.charIndex < typingEffect.fullText.length) {
       const timer = setTimeout(() => {
         setTypingEffect((prev) => ({
@@ -54,12 +58,12 @@ const ContactMe = () => {
           text: prev.text + prev.fullText.charAt(prev.charIndex),
           charIndex: prev.charIndex + 1,
         }));
-      }, 50);
+      }, 100);
       return () => clearTimeout(timer);
     } else {
       setTypingEffect((prev) => ({ ...prev, isComplete: true }));
     }
-  }, [typingEffect.charIndex, typingEffect.fullText]);
+  }, [typingEffect.charIndex, typingEffect.fullText, inView]);
 
   useEffect(() => {
     if (!data) {
@@ -109,12 +113,16 @@ const ContactMe = () => {
               </div>
 
               <div className="mb-6">
-                <p className="text-sm min-h-11">
-                  {typingEffect.text}
-                  {!typingEffect.isComplete && (
-                    <span className="inline-block w-2 h-4 bg-green-500 ml-1 animate-pulse"></span>
-                  )}
-                </p>
+                <animated.p ref={ref} className="text-sm min-h-11">
+                  {inView ? (
+                    <>
+                      {typingEffect.text}
+                      {!typingEffect.isComplete && (
+                        <span className="inline-block w-2 h-4 bg-green-500 ml-1 animate-pulse"></span>
+                      )}
+                    </>
+                  ) : null}
+                </animated.p>
               </div>
 
               <div className="space-y-6">
@@ -177,10 +185,9 @@ const ContactMe = () => {
             </div>
           </div>
 
-          <div className="w-full md:w-1/2">
+          <div className="w-full md:w-1/2 overflow-hidden">
             <div className="border border-green-900 p-5 rounded-lg hover:border-green-500 transition-all duration-500 bg-black bg-opacity-80 overflow-hidden h-full">
               {/* Animated background effect */}
-              <div className="absolute -right-20 -top-20 w-40 h-40 bg-green-500/5 rounded-full blur-3xl animate-pulse"></div>
               <div
                 className="absolute -left-20 -bottom-20 w-40 h-40 bg-green-500/10 rounded-full blur-3xl animate-pulse"
                 style={{ animationDelay: "1s" }}

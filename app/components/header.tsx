@@ -26,7 +26,7 @@ export default function Header({ contactInfo }: HeaderProps) {
           </h1>
         </div>
 
-        <div className="mt-4 md:mt-0 bg-black border border-green-900 p-2 rounded-md">
+        <div className="mt-4 md:mt-0 bg-black border border-green-900 p-2 rounded-md animate-bounce">
           <pre className="text-xs text-green-500 font-mono">
             STATUS: <span className="text-white">AVAILABLE FOR HIRE</span>
           </pre>
