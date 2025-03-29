@@ -26,7 +26,8 @@ import data from "~/data";
 import fetchLatestPosts from "~/services/blogs";
 import { contactSchema, sendMessage } from "~/services/telegram";
 
-export const loader = async () => {
+// eslint-disable-next-line no-empty-pattern
+export const loader = async ({}: Route.LoaderArgs) => {
   return await fetchLatestPosts("ArnabXD", 3);
 };
 
@@ -54,6 +55,18 @@ export function meta() {
   return [
     { title: "Portfolio | Arnab Paryali | arnabxd.me" },
     { name: "description", content: "Arnab's Portfolio" },
+    { name: "keywords", content: "Arnab Paryali, Portfolio, Developer" },
+    { name: "og:image", content: "https://arnabxd.me/og_image.jpg" },
+    { name: "og:title", content: "Portfolio | Arnab Paryali | arnabxd.me" },
+    { name: "og:description", content: "Arnab's Portfolio" },
+    { name: "og:url", content: "https://arnabxd.me" },
+    { name: "twitter:card", content: "summary_large_image" },
+    {
+      name: "twitter:title",
+      content: "Portfolio | Arnab Paryali | arnabxd.me",
+    },
+    { name: "twitter:description", content: "Arnab's Portfolio" },
+    { name: "twitter:image", content: "https://arnabxd.me/og_image.jpg" },
   ];
 }
 

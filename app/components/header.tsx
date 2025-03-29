@@ -10,7 +10,7 @@ interface HeaderProps {
 
 export default function Header({ contactInfo }: HeaderProps) {
   return (
-    <header className="mb-16 relative">
+    <header className="mb-16 mt-2 relative">
       <div className="absolute -right-20 -top-20 w-64 h-64 bg-green-500/10 rounded-full blur-3xl"></div>
 
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-6">
