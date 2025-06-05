@@ -135,7 +135,7 @@ export const useEasterEgg = () => {
       // Reset the sequence after a delay if no keys are pressed
       keySequenceTimeout.current = setTimeout(() => {
         keysPressed.current = [];
-      }, 2000);
+      }, 2000) as unknown as number;
     },
     [konamiSequence]
   );
@@ -271,7 +271,7 @@ export const HiddenTerminal: React.FC<{ onClose: () => void }> = ({
       timeout = setTimeout(() => {
         setCurrentCommand("");
         inputRef.current?.focus();
-      }, 100);
+      }, 100) as unknown as number;
     }
     return () => {
       if (timeout) {
