@@ -1,11 +1,12 @@
 import ky from "ky";
 
-interface HashNodeResponse {
+interface PostListResponse {
   data?: {
     user: {
       posts: {
         nodes: {
           id: string;
+          slug: string;
           title: string;
           url: string;
           views: number;
@@ -22,26 +23,29 @@ interface HashNodeResponse {
   errors?: { message: string }[];
 }
 
-interface PostResponse {
+interface PublicationPostResponse {
   data?: {
-    post: {
-      id: string;
-      title: string;
-      url: string;
-      views: number;
-      brief: string;
-      publishedAt: string;
-      readTimeInMinutes: number;
-      content: {
-        // html: string;
-        markdown: string;
-      };
-      coverImage?: {
+    publication: {
+      post: {
+        id: string;
+        slug: string;
+        title: string;
         url: string;
+        views: number;
+        brief: string;
+        publishedAt: string;
+        readTimeInMinutes: number;
+        content: {
+          // html: string;
+          markdown: string;
+        };
+        coverImage?: {
+          url: string;
+        };
+        tags: {
+          name: string;
+        }[];
       };
-      tags: {
-        name: string;
-      }[];
     };
   };
   errors?: { message: string }[];
@@ -54,6 +58,7 @@ export default async function fetchLatestPosts(username: string, limit = 3) {
         posts(pageSize: $limit, page: 1) {
           nodes {
             id
+            slug
             title
             url
             views
@@ -70,7 +75,7 @@ export default async function fetchLatestPosts(username: string, limit = 3) {
   `;
 
   const response = await ky
-    .post<HashNodeResponse>("https://gql.hashnode.com", {
+    .post<PostListResponse>("https://gql.hashnode.com", {
       json: {
         query,
         variables: { username, limit },
@@ -91,41 +96,44 @@ export default async function fetchLatestPosts(username: string, limit = 3) {
   throw new Error("Failed to fetch posts");
 }
 
-export async function fetchPostById(postId: string) {
+export async function fetchPostBySlug(slug: string) {
   const query = `
-    query GetPost($id: ID!) {
-      post(id: $id) {
-        id
-        title
-        url
-        views
-        brief
-        publishedAt
-        readTimeInMinutes
-        content {
-          markdown
-        }
-        coverImage {
+    query GetPostBySlug($slug: String!) {
+      publication(host: "blog.arnabxd.me") {
+        post(slug: $slug) {
+          id
+          slug
+          title
           url
-        }
-        tags {
-          name
+          views
+          brief
+          publishedAt
+          readTimeInMinutes
+          content {
+            markdown
+          }
+          coverImage {
+            url
+          }
+          tags {
+            name
+          }
         }
       }
     }
   `;
 
   const response = await ky
-    .post<PostResponse>("https://gql.hashnode.com", {
+    .post<PublicationPostResponse>("https://gql.hashnode.com", {
       json: {
         query,
-        variables: { id: postId },
+        variables: { slug },
       },
     })
     .json();
 
-  if (!response.errors && response.data?.post) {
-    const post = response.data.post;
+  if (!response.errors && response.data?.publication?.post) {
+    const post = response.data.publication.post;
 
     return {
       ...post,
