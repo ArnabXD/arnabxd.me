@@ -1,0 +1,90 @@
+/* Markdown code block styles for better isolation */
+.markdown-content {
+  /* Ensure hover effects are isolated to individual blocks */
+  isolation: isolate;
+}
+
+/* Code block container styling */
+[data-code-block-container] {
+  /* Create a new stacking context for each code block */
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Prevent hover effects from affecting other code blocks */
+[data-code-block-container]:not(:hover) .group-hover\:border-green-500\/60 {
+  border-color: rgba(34, 197, 94, 0.3) !important;
+}
+
+[data-code-block-container]:not(:hover) .group-hover\:text-green-300 {
+  color: rgb(74 222 128) !important;
+}
+
+[data-code-block-container]:not(:hover) .group-hover\:animate-pulse {
+  animation: none !important;
+}
+
+[data-code-block-container]:not(:hover) .group-hover\:opacity-100 {
+  opacity: 0 !important;
+}
+
+/* Terminal block styling */
+[data-terminal-block] {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Shiki code styling overrides */
+.shiki-container pre {
+  margin: 0 !important;
+  background-color: #000000 !important;
+}
+
+.shiki-container .shiki {
+  background-color: #000000 !important;
+}
+
+/* Improved focus and accessibility */
+[data-code-block-container] button:focus {
+  outline: 2px solid rgb(34 197 94);
+  outline-offset: 2px;
+}
+
+/* Smooth hover transitions for better UX */
+[data-code-block-container] {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-terminal-block] {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Prevent layout shift during hover */
+[data-code-block-container]:hover,
+[data-terminal-block]:hover {
+  transform: scale(1.002) translateZ(0);
+}
+
+/* Better scrollbar styling for code blocks */
+.shiki-container pre::-webkit-scrollbar,
+pre::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+.shiki-container pre::-webkit-scrollbar-track,
+pre::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+.shiki-container pre::-webkit-scrollbar-thumb,
+pre::-webkit-scrollbar-thumb {
+  background: rgba(34, 197, 94, 0.3);
+  border-radius: 4px;
+}
+
+.shiki-container pre::-webkit-scrollbar-thumb:hover,
+pre::-webkit-scrollbar-thumb:hover {
+  background: rgba(34, 197, 94, 0.5);
+}

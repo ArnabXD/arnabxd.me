@@ -1,15 +1,14 @@
-import { createHighlighter } from "shiki";
+import { createHighlighter, type Highlighter } from "shiki";
 
-let highlighter: Awaited<ReturnType<typeof createHighlighter>> | null = null;
+let highlighter: Highlighter | null = null;
 
-export async function getHighlighter() {
+export async function getHighlighter(): Promise<Highlighter> {
   if (!highlighter) {
     highlighter = await createHighlighter({
       themes: [
+        "ayu-dark",
         "github-dark",
-        "one-dark-pro", 
-        "material-theme-darker",
-        "dracula"
+        "material-theme-darker"
       ],
       langs: [
         "javascript",
@@ -36,7 +35,9 @@ export async function getHighlighter() {
         "prisma",
         "graphql",
         "markdown",
-        "diff"
+        "diff",
+        "text",
+        "plaintext"
       ],
     });
   }
@@ -66,7 +67,7 @@ export async function highlightCodeBlocks(html: string): Promise<string> {
         
         const highlighted = shiki.codeToHtml(decodedCode, {
           lang: language,
-          theme: 'github-dark',
+          theme: 'ayu-dark',
           transformers: [
             {
               pre(node) {
@@ -82,7 +83,7 @@ export async function highlightCodeBlocks(html: string): Promise<string> {
                   'font-mono',
                   'text-sm'
                 ].join(' ');
-                node.properties.style = 'background-color: #000000 !important;';
+                node.properties.style = 'background-color: #000000 !important; border-color: rgba(34, 197, 94, 0.3) !important;';
               },
               code(node) {
                 node.properties.class = 'block font-mono';
