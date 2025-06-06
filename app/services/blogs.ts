@@ -127,8 +127,6 @@ export async function fetchPostById(postId: string) {
   if (!response.errors && response.data?.post) {
     const post = response.data.post;
 
-    console.log(post.content);
-
     return {
       ...post,
       tags: post.tags.map((tag) => tag.name),

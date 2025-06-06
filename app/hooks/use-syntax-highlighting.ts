@@ -27,24 +27,12 @@ export function useSyntaxHighlighting(contentRef?: React.RefObject<HTMLElement>)
           try {
             const highlighted = highlighter.codeToHtml(code, {
               lang: language,
-              theme: 'github-dark',
+              theme: 'ayu-dark',
               transformers: [
                 {
                   pre(node) {
-                    // Apply matrix-themed styling
-                    node.properties.class = [
-                      'shiki',
-                      'shiki-processed',
-                      'bg-black',
-                      'border',
-                      'border-green-500/30',
-                      'rounded',
-                      'p-4',
-                      'overflow-x-auto',
-                      'font-mono',
-                      'text-sm',
-                      'mb-4'
-                    ].join(' ');
+                    // Apply minimal Shiki styling - we'll preserve React classes in replacement
+                    node.properties.class = 'shiki';
                     node.properties.style = 'background-color: #000000 !important;';
                   },
                   code(node) {
@@ -54,14 +42,28 @@ export function useSyntaxHighlighting(contentRef?: React.RefObject<HTMLElement>)
               ]
             });
             
-            // Replace the parent pre element with the highlighted version
+            // Handle replacement - just replace the content, preserve the structure
             const preElement = codeElement.closest('pre');
+            
             if (preElement && !preElement.classList.contains('shiki-processed')) {
+              // Mark as processed first to avoid infinite loops
+              preElement.classList.add('shiki-processed');
+              
+              // Extract just the highlighted code content
               const tempDiv = document.createElement('div');
               tempDiv.innerHTML = highlighted;
-              const newPreElement = tempDiv.firstElementChild;
+              const newPreElement = tempDiv.firstElementChild as HTMLElement;
+              
               if (newPreElement) {
-                preElement.replaceWith(newPreElement);
+                // Get the highlighted code content
+                const highlightedCode = newPreElement.querySelector('code');
+                const originalCode = preElement.querySelector('code');
+                
+                if (highlightedCode && originalCode) {
+                  // Replace just the code content, keeping our pre element structure
+                  originalCode.innerHTML = highlightedCode.innerHTML;
+                  originalCode.className = highlightedCode.className;
+                }
               }
             }
           } catch (error) {
