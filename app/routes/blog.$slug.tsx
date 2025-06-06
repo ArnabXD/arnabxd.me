@@ -2,24 +2,24 @@ import { useRef } from "react";
 import { Link } from "react-router";
 import { ArrowLeft, Calendar, Clock, Eye } from "lucide-react";
 
-import type { Route } from "./+types/blog.$postId";
+import type { Route } from "./+types/blog.$slug";
 import MatrixRain from "~/components/matrix-rain";
-import { fetchPostById } from "~/services/blogs";
+import { fetchPostBySlug } from "~/services/blogs";
 import MarkdownRenderer from "~/components/markdown-renderer";
 import { useSyntaxHighlighting } from "~/hooks/use-syntax-highlighting";
 
 export const loader = async ({ params }: Route.LoaderArgs) => {
-  const { postId } = params;
+  const { slug } = params;
 
-  if (!postId) {
-    throw new Response("Post not found", { status: 404 });
+  if (!slug) {
+    return Response.redirect("/", 302);
   }
 
   try {
-    const post = await fetchPostById(postId);
+    const post = await fetchPostBySlug(slug);
     return { post };
   } catch (error) {
-    throw new Response("Post not found", { status: 404 });
+    throw new Response("Post not found", { status: 200 });
   }
 };
 

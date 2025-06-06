@@ -5,6 +5,7 @@ export interface BlogsProps {
   data: {
     publishedAt: string;
     id: string;
+    slug: string;
     title: string;
     url: string;
     views: number;
@@ -25,7 +26,7 @@ export default function Blogs({ data }: BlogsProps) {
 }
 
 interface BlogCardProps {
-  id: string;
+  slug: string;
   title: string;
   publishedAt: string;
   brief: string;
@@ -35,7 +36,7 @@ interface BlogCardProps {
 }
 
 function BlogCard({
-  id,
+  slug,
   title,
   publishedAt,
   brief,
@@ -46,7 +47,7 @@ function BlogCard({
   return (
     <div className="flex flex-col gap-1 border border-green-900 p-4 rounded-md hover:border-green-500 transition-all duration-300 bg-black bg-opacity-70 group">
       <div className="border-l-2 pl-2 border-green-500 mb-2">
-        <Link to={`/blog/${id}`}>
+        <Link to={`/blog/${slug}`}>
           <h3 className="font-bold text-lg text-white group-hover:text-green-400 transition-colors line-clamp-3 min-h-20">
             {title}
           </h3>
@@ -71,7 +72,7 @@ function BlogCard({
       </div>
       <div className="flex flex-1 justify-between items-end">
         <Link
-          to={`/blog/${id}`}
+          to={`/blog/${slug}`}
           className="text-green-500 text-xs hover:text-white transition-colors inline-flex items-center py-2"
         >
           READ_FULL_POST →
