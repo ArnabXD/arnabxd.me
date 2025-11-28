@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { useEffect } from "react";
+import { Link } from "react-router";
 
 import type { Route } from "./+types/_index";
 import { Terminal, Code, Briefcase, User, Book } from "lucide-react";
@@ -114,6 +115,17 @@ const Home = ({ loaderData }: Route.ComponentProps) => {
           <section className="mb-12">
             <SectionHeader icon={<Code />} title="BLOGS" />
             <Blogs data={loaderData.posts} />
+            <div className="mt-6 text-center">
+              <Link
+                to="/blog"
+                className="inline-flex items-center text-green-400 border border-green-900 px-4 py-2 rounded bg-black hover:bg-green-900/20 hover:border-green-500 transition-all duration-300 text-sm font-mono group"
+              >
+                <span className="mr-2">cd ./blog && ls</span>
+                <span className="group-hover:translate-x-1 transition-transform">
+                  →
+                </span>
+              </Link>
+            </div>
           </section>
 
           {/* Skills */}

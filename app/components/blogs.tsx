@@ -1,4 +1,3 @@
-import { ExternalLink } from "lucide-react";
 import { Link } from "react-router";
 
 export interface BlogsProps {
@@ -70,21 +69,13 @@ function BlogCard({
           </span>
         ))}
       </div>
-      <div className="flex flex-1 justify-between items-end">
+      <div className="flex flex-1 justify-end items-end">
         <Link
           to={`/blog/${slug}`}
           className="text-green-500 text-xs hover:text-white transition-colors inline-flex items-center py-2"
         >
           READ_FULL_POST →
         </Link>
-        <a
-          href={url}
-          target="_blank"
-          className="text-green-400 text-xs hover:text-white transition-colors inline-flex items-center py-2"
-          rel="noreferrer"
-        >
-          HASHNODE <ExternalLink className="w-3 h-3 ml-1" />
-        </a>
       </div>
     </div>
   );
