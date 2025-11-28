@@ -13,6 +13,9 @@ interface PostListResponse {
           brief: string;
           publishedAt: string;
           readTimeInMinutes: number;
+          coverImage?: {
+            url: string;
+          };
           tags: {
             name: string;
           }[];
@@ -39,11 +42,15 @@ interface PublicationPostResponse {
   errors?: { message: string }[];
 }
 
-export default async function fetchLatestPosts(username: string, limit = 3) {
+export default async function fetchLatestPosts(
+  username: string,
+  limit = 3,
+  page = 1
+) {
   const query = `
-    query GetLatestPosts($username: String!, $limit: Int!) {
+    query GetLatestPosts($username: String!, $limit: Int!, $page: Int!) {
       user(username: $username) {
-        posts(pageSize: $limit, page: 1) {
+        posts(pageSize: $limit, page: $page) {
           nodes {
             id
             slug
@@ -53,6 +60,9 @@ export default async function fetchLatestPosts(username: string, limit = 3) {
             brief
             publishedAt
             readTimeInMinutes
+            coverImage {
+              url
+            }
             tags {
               name
             }
@@ -66,7 +76,7 @@ export default async function fetchLatestPosts(username: string, limit = 3) {
     .post<PostListResponse>("https://gql.hashnode.com", {
       json: {
         query,
-        variables: { username, limit },
+        variables: { username, limit, page },
       },
     })
     .json();
