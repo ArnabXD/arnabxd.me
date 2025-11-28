@@ -27,24 +27,12 @@ interface PublicationPostResponse {
   data?: {
     publication: {
       post: {
-        id: string;
-        slug: string;
         title: string;
         url: string;
-        views: number;
         brief: string;
-        publishedAt: string;
-        readTimeInMinutes: number;
-        content: {
-          // html: string;
-          markdown: string;
-        };
         coverImage?: {
           url: string;
         };
-        tags: {
-          name: string;
-        }[];
       };
     };
   };
@@ -101,22 +89,11 @@ export async function fetchPostBySlug(slug: string) {
     query GetPostBySlug($slug: String!) {
       publication(host: "blog.arnabxd.me") {
         post(slug: $slug) {
-          id
-          slug
           title
           url
-          views
           brief
-          publishedAt
-          readTimeInMinutes
-          content {
-            markdown
-          }
           coverImage {
             url
-          }
-          tags {
-            name
           }
         }
       }
@@ -133,13 +110,7 @@ export async function fetchPostBySlug(slug: string) {
     .json();
 
   if (!response.errors && response.data?.publication?.post) {
-    const post = response.data.publication.post;
-
-    return {
-      ...post,
-      tags: post.tags.map((tag) => tag.name),
-      publishedAt: formatDate(post.publishedAt),
-    };
+    return response.data.publication.post;
   }
 
   throw new Error("Failed to fetch post");
