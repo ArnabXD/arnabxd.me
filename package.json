@@ -1,56 +1,35 @@
 {
-  "name": "my-remix-app",
-  "private": true,
-  "sideEffects": false,
+  "name": "arnabxd.me",
   "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
-    "build": "react-router build",
-    "deploy": "npm run build && wrangler pages deploy",
-    "dev": "react-router dev",
-    "start": "wrangler pages dev ./build/client",
-    "typecheck": "react-router typegen && tsc",
-    "typegen": "wrangler types",
-    "preview": "npm run build && wrangler pages dev",
-    "cf-typegen": "wrangler types"
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "generate-types": "wrangler types"
   },
   "dependencies": {
-    "@hookform/resolvers": "^4.1.3",
-    "@icons-pack/react-simple-icons": "^12.3.0",
-    "@react-router/cloudflare": "^7.6.2",
-    "@react-router/fs-routes": "^7.6.2",
-    "@react-spring/web": "^10.0.1",
-    "@tailwindcss/vite": "^4.0.17",
-    "isbot": "^5.1.25",
-    "ky": "^1.7.4",
-    "lucide-react": "^0.477.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-hook-form": "^7.54.2",
-    "react-hot-toast": "^2.5.2",
-    "react-router": "^7.6.2",
-    "zod": "^3.24.2"
+    "@astrojs/cloudflare": "^13.2.1",
+    "@astrojs/react": "^5.0.4",
+    "@tailwindcss/vite": "^4.2.4",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "astro": "^6.1.9",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "tailwindcss": "^4.2.4",
+    "wrangler": "^4.85.0"
+  },
+  "packageManager": "pnpm@10.32.1+sha512.a706938f0e89ac1456b6563eab4edf1d1faf3368d1191fc5c59790e96dc918e4456ab2e67d613de1043d2e8c81f87303e6b40d4ffeca9df15ef1ad567348f2be",
+  "overrides": {
+    "vite": "^7"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20250303.0",
-    "@react-router/dev": "^7.6.2",
-    "@types/react": "^18.2.20",
-    "@types/react-dom": "^18.2.7",
-    "@typescript-eslint/eslint-plugin": "^6.7.4",
-    "@typescript-eslint/parser": "^6.7.4",
-    "eslint": "^8.38.0",
-    "eslint-import-resolver-typescript": "^3.6.1",
-    "eslint-plugin-import": "^2.28.1",
-    "eslint-plugin-jsx-a11y": "^6.7.1",
-    "eslint-plugin-react": "^7.33.2",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "tailwindcss": "^4.0.17",
-    "typescript": "^5.7.2",
-    "vite": "^6.2.3",
-    "vite-tsconfig-paths": "^5.1.4",
-    "wrangler": "^4.6.0"
-  },
-  "engines": {
-    "node": ">=20.0.0"
-  },
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+    "@biomejs/biome": "2.4.13",
+    "@tailwindcss/typography": "^0.5.19"
+  }
 }
