@@ -1,7 +1,8 @@
 {
+	"$schema": "node_modules/wrangler/config-schema.json",
 	"compatibility_date": "2026-04-24",
 	"compatibility_flags": ["global_fetch_strictly_public"],
-	"name": "arnabxd.me",
+	"name": "arnabxd-me",
 	"main": "@astrojs/cloudflare/entrypoints/server",
 	"assets": {
 		"directory": "./dist",
@@ -9,5 +10,15 @@
 	},
 	"observability": {
 		"enabled": true
-	}
+	},
+	"kv_namespaces": [
+		{
+			"binding": "VIEWS",
+			"id": "TODO_RUN_wrangler_kv_namespace_create_VIEWS"
+		}
+	]
+	// TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID are stored as secrets:
+	//   wrangler secret put TELEGRAM_BOT_TOKEN
+	//   wrangler secret put TELEGRAM_CHAT_ID
+	// Their types are declared in src/env.d.ts.
 }

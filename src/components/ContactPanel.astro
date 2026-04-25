@@ -1,0 +1,95 @@
+---
+import { data } from "~/data";
+import ContactForm from "~/components/ContactForm.tsx";
+
+const { contact } = data;
+---
+
+<div id="contact" class="mt-12 md:mt-16 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 scroll-mt-24">
+  <!-- Info -->
+  <aside class="lg:col-span-5">
+    <p class="eyebrow mb-3">
+      <span class="text-mark">●</span><span class="ml-1.5">Channel open</span>
+    </p>
+
+    <h3 class="font-display text-[42px] md:text-[54px] leading-[0.95] tracking-[-0.04em] text-ink font-semibold">
+      Send a <span class="text-mark">letter</span>.
+    </h3>
+
+    <p class="mt-5 text-[15px] text-ink-2 leading-relaxed max-w-[42ch]">
+      Freelance builds, full-time offers, or just a good conversation about
+      React internals — all welcome.
+    </p>
+
+    <dl class="mt-10 space-y-6 text-[14px]">
+      <div>
+        <dt class="eyebrow mb-1">Direct</dt>
+        <dd>
+          <a
+            href={`mailto:${contact.email}`}
+            class="font-mono text-[15px] text-ink hover:text-mark transition-colors tracking-tight"
+          >
+            {contact.email}
+          </a>
+        </dd>
+      </div>
+      <span class="hairline-soft block"></span>
+      <div>
+        <dt class="eyebrow mb-1">Located</dt>
+        <dd class="text-ink">
+          <a
+            href={contact.location.url}
+            target="_blank"
+            rel="noreferrer"
+            class="hover:text-mark transition-colors"
+          >
+            {contact.location.text}, India
+          </a>
+          <span class="text-ink-3 font-mono tabular text-[12px] ml-2">UTC+05:30</span>
+        </dd>
+      </div>
+      <span class="hairline-soft block"></span>
+      <div>
+        <dt class="eyebrow mb-1">Elsewhere</dt>
+        <dd class="flex flex-wrap gap-x-4 gap-y-1 text-ink">
+          <a
+            href={contact.socials.github}
+            target="_blank"
+            rel="noreferrer"
+            class="hover:text-mark transition-colors"
+          >GitHub ↗</a>
+          <a
+            href={contact.socials.linkedin}
+            target="_blank"
+            rel="noreferrer"
+            class="hover:text-mark transition-colors"
+          >LinkedIn ↗</a>
+          <a
+            href={contact.socials.twitter}
+            target="_blank"
+            rel="noreferrer"
+            class="hover:text-mark transition-colors"
+          >Twitter ↗</a>
+        </dd>
+      </div>
+    </dl>
+
+    <p class="mt-10 text-[12px] font-mono tabular text-ink-3 max-w-[36ch] leading-relaxed">
+      {contact.notice}
+    </p>
+  </aside>
+
+  <!-- Form -->
+  <div class="lg:col-span-7 relative">
+    <div class="relative bg-paper-2/60 border border-rule p-7 md:p-10">
+      <span aria-hidden="true" class="absolute -top-px left-0 right-0 h-px bg-ink"></span>
+      <div class="flex items-center justify-between mb-5">
+        <p class="eyebrow">— form 01 / message</p>
+        <p class="font-mono text-[10px] tabular text-ink-4 tracking-[0.14em] uppercase">
+          Encrypted
+        </p>
+      </div>
+      <ContactForm client:only="react" />
+    </div>
+  </div>
+</div>

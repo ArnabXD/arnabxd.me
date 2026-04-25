@@ -1,0 +1,37 @@
+---
+type Tone = "note" | "tip" | "warn" | "info";
+
+type Props = {
+  tone?: Tone;
+  label?: string;
+};
+
+const { tone = "note", label } = Astro.props;
+
+const palette: Record<string, { border: string; text: string }> = {
+  note: { border: "border-l-mark", text: "text-mark" },
+  tip: { border: "border-l-mark", text: "text-mark" },
+  warn: { border: "border-l-clay", text: "text-clay" },
+  info: { border: "border-l-ink", text: "text-ink" },
+};
+
+const c = palette[tone] ?? palette.note;
+---
+
+<aside
+  class:list={[
+    "not-prose my-8 border-l-2 bg-paper-2/60 px-5 py-4 text-[15px] text-ink-2",
+    c.border,
+  ]}
+>
+  {
+    label && (
+      <div class:list={["mb-2 font-mono text-[10px] tracking-[0.16em] uppercase", c.text]}>
+        — {label}
+      </div>
+    )
+  }
+  <div class="leading-relaxed [&>p]:m-0 [&>p+p]:mt-2">
+    <slot />
+  </div>
+</aside>

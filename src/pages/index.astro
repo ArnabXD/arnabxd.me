@@ -1,17 +1,117 @@
 ---
+import { getCollection } from "astro:content";
 
+import Base from "~/layouts/Base.astro";
+import TopBar from "~/components/TopBar.astro";
+import Hero from "~/components/Hero.astro";
+import SectionLabel from "~/components/SectionLabel.astro";
+import ExperienceList from "~/components/ExperienceList.astro";
+import Education from "~/components/Education.astro";
+import ProjectGrid from "~/components/ProjectGrid.astro";
+import SkillMatrix from "~/components/SkillMatrix.astro";
+import BlogFeed from "~/components/BlogFeed.astro";
+import ContactPanel from "~/components/ContactPanel.astro";
+import Footer from "~/components/Footer.astro";
+import { data } from "~/data";
+
+const posts = (await getCollection("blog", ({ data }) => !data.draft))
+	.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+	.slice(0, 3);
+
+const counts = {
+	experience: data.experience.length,
+	projects: data.projects.length,
+	skills: data.skills.reduce((n, g) => n + g.skills.length, 0),
+};
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Base>
+	<TopBar slot="chrome-top" />
+	<Hero />
+
+	<section class="mt-20 md:mt-32">
+		<SectionLabel
+			index="01"
+			name="experience"
+			meta={`${counts.experience} engagements`}
+			id="experience"
+		/>
+		<ExperienceList />
+	</section>
+
+	<section class="mt-24 md:mt-36">
+		<SectionLabel
+			index="02"
+			name="education"
+			meta="formal training"
+			id="education"
+		/>
+		<Education />
+	</section>
+
+	<section class="mt-24 md:mt-36">
+		<SectionLabel
+			index="03"
+			name="projects"
+			meta={`${counts.projects} open-source builds`}
+			id="projects"
+		/>
+		<ProjectGrid limit={4} />
+		<div class="mt-10 flex justify-end">
+			<a
+				href="/works"
+				class="group inline-flex items-baseline gap-3 font-mono text-[12px] tabular tracking-[0.08em] uppercase text-ink hover:text-mark transition-colors"
+			>
+				<span class="hairline w-10 group-hover:bg-mark transition-colors" aria-hidden="true" />
+				View all works
+				<span aria-hidden="true" class="transition-transform group-hover:translate-x-1">→</span>
+			</a>
+		</div>
+	</section>
+
+	<section class="mt-24 md:mt-36">
+		<SectionLabel
+			index="04"
+			name="skills"
+			meta={`${counts.skills} entries`}
+			id="skills"
+		/>
+		<SkillMatrix />
+	</section>
+
+	{
+		posts.length > 0 && (
+			<section class="mt-24 md:mt-36">
+				<SectionLabel
+					index="05"
+					name="writing"
+					meta={`${posts.length} recent`}
+					id="writing"
+				/>
+				<BlogFeed entries={posts} compact />
+				<div class="mt-10 flex justify-end">
+					<a
+						href="/blog"
+						class="group inline-flex items-baseline gap-3 font-mono text-[12px] tabular tracking-[0.08em] uppercase text-ink hover:text-mark transition-colors"
+					>
+						<span class="hairline w-10 group-hover:bg-mark transition-colors" aria-hidden="true" />
+						View all entries
+						<span aria-hidden="true" class="transition-transform group-hover:translate-x-1">→</span>
+					</a>
+				</div>
+			</section>
+		)
+	}
+
+	<section class="mt-24 md:mt-36">
+		<SectionLabel
+			index="06"
+			name="contact"
+			meta="open channel"
+			id="contact-label"
+		/>
+		<ContactPanel />
+	</section>
+
+	<Footer />
+</Base>

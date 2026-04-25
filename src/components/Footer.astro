@@ -1,0 +1,94 @@
+---
+import { data } from "~/data";
+
+const { site, contact } = data;
+const year = new Date().getFullYear();
+---
+
+<footer class="mt-32 md:mt-40">
+  <span class="hairline block mb-10" aria-hidden="true"></span>
+
+  <div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-6 items-start">
+    <!-- big colophon -->
+    <div class="md:col-span-7">
+      <p class="font-display text-[52px] md:text-[88px] leading-[0.9] tracking-[-0.05em] text-ink font-semibold">
+        Let's build
+        <br />
+        something <span class="text-mark">good.</span>
+      </p>
+      <p class="mt-6 text-[14px] text-ink-3 max-w-[44ch]">
+        Reach out for freelance work, full-time roles, or simply to swap notes on
+        animation, RN performance, or the state of the web.
+      </p>
+      <a
+        href={`mailto:${contact.email}`}
+        class="mt-6 inline-flex items-center gap-2 font-mono text-[12px] tabular tracking-[0.05em] text-ink hover:text-mark transition-colors"
+      >
+        <span class="hairline w-8" aria-hidden="true"></span>
+        {contact.email}
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
+
+    <!-- quadrant -->
+    <div class="md:col-span-5 grid grid-cols-2 gap-x-6 gap-y-8">
+      <div>
+        <p class="eyebrow mb-3">Elsewhere</p>
+        <ul class="space-y-1.5 text-[14px] text-ink">
+          <li>
+            <a
+              href={contact.socials.github}
+              target="_blank"
+              rel="noreferrer"
+              class="hover:text-mark transition-colors"
+            >GitHub ↗</a>
+          </li>
+          <li>
+            <a
+              href={contact.socials.linkedin}
+              target="_blank"
+              rel="noreferrer"
+              class="hover:text-mark transition-colors"
+            >LinkedIn ↗</a>
+          </li>
+          <li>
+            <a
+              href={contact.socials.twitter}
+              target="_blank"
+              rel="noreferrer"
+              class="hover:text-mark transition-colors"
+            >Twitter ↗</a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <p class="eyebrow mb-3">Pages</p>
+        <ul class="space-y-1.5 text-[14px] text-ink">
+          <li><a href="/works" class="hover:text-mark transition-colors">Works</a></li>
+          <li><a href="/blog" class="hover:text-mark transition-colors">Writing</a></li>
+          <li><a href="/#contact" class="hover:text-mark transition-colors">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="eyebrow mb-3">Located</p>
+        <p class="text-[14px] text-ink">{contact.location.text}, India</p>
+        <p class="text-[12px] text-ink-3 font-mono tabular mt-1">22.5744° N · 88.3629° E</p>
+      </div>
+      <div>
+        <p class="eyebrow mb-3">Built</p>
+        <p class="text-[14px] text-ink">Astro · Tailwind</p>
+        <p class="text-[12px] text-ink-3 font-mono tabular mt-1">Cloudflare · {year}</p>
+      </div>
+    </div>
+  </div>
+
+  <span class="hairline-soft block mt-14 mb-5" aria-hidden="true"></span>
+
+  <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 text-[11px] font-mono tabular text-ink-3 pb-6">
+    <span>© {year} — {site.name}. All rights reserved.</span>
+    <span>
+      Set in <span class="font-display text-ink font-medium">Space Grotesk</span> &
+      <span class="text-ink">JetBrains Mono</span>.
+    </span>
+  </div>
+</footer>

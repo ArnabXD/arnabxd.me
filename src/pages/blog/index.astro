@@ -1,0 +1,162 @@
+---
+import { getCollection } from "astro:content";
+
+import Base from "~/layouts/Base.astro";
+import TopBar from "~/components/TopBar.astro";
+import SectionLabel from "~/components/SectionLabel.astro";
+import BlogFeed from "~/components/BlogFeed.astro";
+import Footer from "~/components/Footer.astro";
+
+const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
+	(a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
+);
+
+const count = posts.length;
+const years = new Set(posts.map((p) => p.data.pubDate.getFullYear()));
+
+const today = new Date().toLocaleDateString("en-US", {
+	year: "numeric",
+	month: "long",
+	day: "2-digit",
+});
+---
+
+<Base
+	title="Writing · Arnab Paryali"
+	description="Field notes, logs, and half-formed ideas about React Native, TypeScript, and the web."
+>
+	<TopBar slot="chrome-top" />
+
+	<section class="mt-8 md:mt-20 pb-4 md:pb-10">
+		<!-- top meta row -->
+		<div
+			class="grid grid-cols-[auto_1fr_auto] md:grid-cols-12 items-center gap-3 md:gap-6 rise"
+			style="--d: 60ms"
+		>
+			<div class="md:col-span-3 eyebrow inline-flex items-center whitespace-nowrap">
+				<span class="text-mark">§</span>
+				<span class="ml-1.5">the journal</span>
+			</div>
+			<div class="hairline-soft md:col-span-6" aria-hidden="true"></div>
+			<div class="md:col-span-3 eyebrow md:text-right tabular whitespace-nowrap">
+				{today}
+			</div>
+		</div>
+
+		<h1
+			class="mt-8 md:mt-14 leading-[0.86] tracking-[-0.045em]"
+		>
+			<span
+				class="block font-display font-light text-[clamp(48px,12vw,140px)] text-ink rise"
+				style="--d: 140ms"
+			>
+				Field notes
+			</span>
+			<span
+				class="block font-display font-semibold text-[clamp(52px,13vw,150px)] text-ink -mt-[0.05em] rise"
+				style="--d: 220ms"
+			>
+				& <span class="text-mark">transmissions</span>
+			</span>
+		</h1>
+
+		<!-- spec strip -->
+		<div
+			class="mt-6 md:mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[10.5px] tabular tracking-[0.14em] uppercase text-ink-3 rise"
+			style="--d: 280ms"
+		>
+			<span><span class="text-ink-5">[</span> log <span class="text-ink-5">]</span></span>
+			<span class="text-ink-5">·</span>
+			<span>{String(count).padStart(2, "0")} entries</span>
+			<span class="text-ink-5">·</span>
+			<span>{years.size || 0} {years.size === 1 ? "year" : "years"}</span>
+			<span class="text-ink-5">·</span>
+			<span>ordered newest → oldest</span>
+		</div>
+
+		<!-- intro grid -->
+		<div
+			class="mt-12 md:mt-20 grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-10 rise"
+			style="--d: 360ms"
+		>
+			<div class="md:col-span-7">
+				<p class="eyebrow mb-4 inline-flex items-center gap-2">
+					<span class="hairline w-6" aria-hidden="true"></span>
+					<span><span class="text-mark">§</span> 00 — preface</span>
+				</p>
+				<p class="font-display text-[22px] sm:text-[26px] md:text-[32px] leading-[1.22] text-ink-2 tracking-[-0.025em] font-normal max-w-[34ch] md:max-w-none">
+					Half-formed thoughts, post-mortems, and the occasional{" "}
+					<span class="underline decoration-mark decoration-2 underline-offset-[6px] text-ink">useful pattern</span>.
+					Notes from the keyboard, written when the dust{" "}
+					<span class="font-mono italic text-[0.82em]">finally</span> settles.
+				</p>
+			</div>
+
+			<div class="md:col-span-5 md:pl-10 md:border-l border-rule-soft">
+				<p class="eyebrow mb-5 md:hidden">
+					<span class="text-mark">§</span> archive index
+				</p>
+				<dl class="space-y-4 md:space-y-5 text-[13.5px] md:text-[14px]">
+					<div class="grid grid-cols-[72px_1fr] md:grid-cols-[88px_1fr] gap-4 items-baseline">
+						<dt class="eyebrow pt-0.5">Entries</dt>
+						<dd class="font-display text-ink text-[28px] md:text-[36px] leading-none tabular font-semibold tracking-[-0.04em]">
+							{String(count).padStart(2, "0")}
+						</dd>
+					</div>
+					<span class="hairline-soft block"></span>
+					<div class="grid grid-cols-[72px_1fr] md:grid-cols-[88px_1fr] gap-4 items-baseline">
+						<dt class="eyebrow pt-0.5">Years</dt>
+						<dd class="font-display text-ink text-[28px] md:text-[36px] leading-none tabular font-semibold tracking-[-0.04em]">
+							{years.size || 0}
+						</dd>
+					</div>
+					<span class="hairline-soft block"></span>
+					<div class="grid grid-cols-[72px_1fr] md:grid-cols-[88px_1fr] gap-4">
+						<dt class="eyebrow pt-0.5">Latest</dt>
+						<dd class="font-mono text-mark tabular text-[13px]">
+							{
+								posts[0]
+									? posts[0].data.pubDate.toLocaleDateString("en-US", {
+											month: "short",
+											day: "2-digit",
+											year: "numeric",
+										})
+									: "—"
+							}
+						</dd>
+					</div>
+					<span class="hairline-soft block"></span>
+					<div class="grid grid-cols-[72px_1fr] md:grid-cols-[88px_1fr] gap-4">
+						<dt class="eyebrow pt-0.5">Feed</dt>
+						<dd class="font-mono text-ink-3 tabular text-[13px]">rss · soon</dd>
+					</div>
+				</dl>
+			</div>
+		</div>
+	</section>
+
+	<section class="mt-16 md:mt-28">
+		<SectionLabel
+			index="01"
+			name="archive"
+			meta={`${count} ${count === 1 ? "entry" : "entries"}`}
+		/>
+		{
+			count > 0 ? (
+				<BlogFeed entries={posts} />
+			) : (
+				<div class="mt-12 border border-dashed border-rule-soft p-8 md:p-12 text-center">
+					<p class="font-display text-[18px] md:text-[20px] text-ink-3 tracking-[-0.02em]">
+						The buffer is empty — check back soon, or{" "}
+						<a href="/#contact" class="text-mark hover:underline">
+							ping me
+						</a>
+						{" "}with a topic.
+					</p>
+				</div>
+			)
+		}
+	</section>
+
+	<Footer />
+</Base>
