@@ -2,10 +2,8 @@
 import { getCollection } from "astro:content";
 
 import Base from "~/layouts/Base.astro";
-import TopBar from "~/components/TopBar.astro";
 import SectionLabel from "~/components/SectionLabel.astro";
 import BlogFeed from "~/components/BlogFeed.astro";
-import Footer from "~/components/Footer.astro";
 
 const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
 	(a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
@@ -25,8 +23,6 @@ const today = new Date().toLocaleDateString("en-US", {
 	title="Writing · Arnab Paryali"
 	description="Field notes, logs, and half-formed ideas about React Native, TypeScript, and the web."
 >
-	<TopBar slot="chrome-top" />
-
 	<section class="mt-8 md:mt-20 pb-4 md:pb-10">
 		<!-- top meta row -->
 		<div
@@ -157,6 +153,4 @@ const today = new Date().toLocaleDateString("en-US", {
 			)
 		}
 	</section>
-
-	<Footer />
 </Base>

@@ -1,7 +1,7 @@
 ---
 import { data } from "~/data";
 
-const { site, contact } = data;
+const { site, contact, nav } = data;
 const year = new Date().getFullYear();
 ---
 
@@ -64,15 +64,15 @@ const year = new Date().getFullYear();
       <div>
         <p class="eyebrow mb-3">Pages</p>
         <ul class="space-y-1.5 text-[14px] text-ink">
-          <li><a href="/works" class="hover:text-mark transition-colors">Works</a></li>
-          <li><a href="/blog" class="hover:text-mark transition-colors">Writing</a></li>
+          {nav.map((item) => (
+            <li><a href={item.href} class="hover:text-mark transition-colors">{item.label}</a></li>
+          ))}
           <li><a href="/#contact" class="hover:text-mark transition-colors">Contact</a></li>
         </ul>
       </div>
       <div>
         <p class="eyebrow mb-3">Located</p>
-        <p class="text-[14px] text-ink">{contact.location.text}, India</p>
-        <p class="text-[12px] text-ink-3 font-mono tabular mt-1">22.5744° N · 88.3629° E</p>
+        <p class="text-[14px] text-ink">{contact.location.text}, {contact.location.country}</p>
       </div>
       <div>
         <p class="eyebrow mb-3">Built</p>

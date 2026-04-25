@@ -1,16 +1,16 @@
 ---
 import Base from "~/layouts/Base.astro";
-import TopBar from "~/components/TopBar.astro";
 import SectionLabel from "~/components/SectionLabel.astro";
 import ProjectGrid from "~/components/ProjectGrid.astro";
-import Footer from "~/components/Footer.astro";
 import { data } from "~/data";
 
 const projects = data.projects;
 const count = projects.length;
 
 const techSet = new Set<string>();
-projects.forEach((p) => p.tech.forEach((t) => techSet.add(t)));
+for (const p of projects) {
+	for (const t of p.tech) techSet.add(t);
+}
 
 const today = new Date().toLocaleDateString("en-US", {
 	year: "numeric",
@@ -23,8 +23,6 @@ const today = new Date().toLocaleDateString("en-US", {
 	title="Works · Arnab Paryali"
 	description="Open-source builds, side projects, and tools — across React Native, Next.js, Go, Rust, and TypeScript."
 >
-	<TopBar slot="chrome-top" />
-
 	<section class="mt-8 md:mt-20 pb-4 md:pb-10">
 		<!-- top meta row -->
 		<div
@@ -138,6 +136,4 @@ const today = new Date().toLocaleDateString("en-US", {
 		/>
 		<ProjectGrid />
 	</section>
-
-	<Footer />
 </Base>

@@ -37,9 +37,10 @@ export type SiteData = {
     status: string;
     tagline: string;
   };
+  nav: { label: string; href: string; short: string }[];
   contact: {
     email: string;
-    location: { text: string; url: string };
+    location: { text: string; country: string; url: string };
     socials: {
       github: string;
       linkedin: string;

@@ -10,10 +10,15 @@
     "status": "AVAILABLE FOR HIRE",
     "tagline": "Software engineer with 5+ years shipping production React Native and Next.js apps. TypeScript everywhere, animation-obsessed, cross-platform by trade — formerly frontend lead, now building at Metafic."
   },
+  "nav": [
+    { "label": "Works", "href": "/works", "short": "01" },
+    { "label": "Writing", "href": "/blog", "short": "02" }
+  ],
   "contact": {
     "email": "arnabxd@proton.me",
     "location": {
       "text": "Kolkata",
+      "country": "India",
       "url": "https://www.google.com/maps/place/Kolkata"
     },
     "socials": {

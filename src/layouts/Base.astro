@@ -2,6 +2,8 @@
 import "~/global.css";
 
 import { data } from "~/data";
+import TopBar from "~/components/TopBar.astro";
+import Footer from "~/components/Footer.astro";
 
 type Props = {
   title?: string;
@@ -18,8 +20,9 @@ const {
   noIndex = false,
 } = Astro.props;
 
-const canonical = new URL(Astro.url.pathname, Astro.site ?? site.url);
-const ogImageURL = new URL(image, Astro.site ?? site.url);
+const baseUrl = Astro.site ?? new URL(site.url);
+const canonical = new URL(Astro.url.pathname, baseUrl);
+const ogImageURL = new URL(image, baseUrl);
 ---
 
 <!doctype html>
@@ -73,14 +76,13 @@ const ogImageURL = new URL(image, Astro.site ?? site.url);
       Skip to content
     </a>
 
-    <slot name="chrome-top" />
+    <TopBar />
 
     <div class="relative mx-auto max-w-[1200px] px-6 md:px-12 lg:px-16 pb-6 md:pb-10">
       <main id="main" class="relative z-10">
         <slot />
+        <Footer />
       </main>
     </div>
-
-    <slot name="after" />
   </body>
 </html>
