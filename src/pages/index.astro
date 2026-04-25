@@ -2,7 +2,6 @@
 import { getCollection } from "astro:content";
 
 import Base from "~/layouts/Base.astro";
-import TopBar from "~/components/TopBar.astro";
 import Hero from "~/components/Hero.astro";
 import SectionLabel from "~/components/SectionLabel.astro";
 import ExperienceList from "~/components/ExperienceList.astro";
@@ -11,7 +10,6 @@ import ProjectGrid from "~/components/ProjectGrid.astro";
 import SkillMatrix from "~/components/SkillMatrix.astro";
 import BlogFeed from "~/components/BlogFeed.astro";
 import ContactPanel from "~/components/ContactPanel.astro";
-import Footer from "~/components/Footer.astro";
 import { data } from "~/data";
 
 const posts = (await getCollection("blog", ({ data }) => !data.draft))
@@ -26,7 +24,6 @@ const counts = {
 ---
 
 <Base>
-	<TopBar slot="chrome-top" />
 	<Hero />
 
 	<section class="mt-20 md:mt-32">
@@ -112,6 +109,4 @@ const counts = {
 		/>
 		<ContactPanel />
 	</section>
-
-	<Footer />
 </Base>
