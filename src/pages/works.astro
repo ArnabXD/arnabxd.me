@@ -1,0 +1,143 @@
+---
+import Base from "~/layouts/Base.astro";
+import TopBar from "~/components/TopBar.astro";
+import SectionLabel from "~/components/SectionLabel.astro";
+import ProjectGrid from "~/components/ProjectGrid.astro";
+import Footer from "~/components/Footer.astro";
+import { data } from "~/data";
+
+const projects = data.projects;
+const count = projects.length;
+
+const techSet = new Set<string>();
+projects.forEach((p) => p.tech.forEach((t) => techSet.add(t)));
+
+const today = new Date().toLocaleDateString("en-US", {
+	year: "numeric",
+	month: "long",
+	day: "2-digit",
+});
+---
+
+<Base
+	title="Works · Arnab Paryali"
+	description="Open-source builds, side projects, and tools — across React Native, Next.js, Go, Rust, and TypeScript."
+>
+	<TopBar slot="chrome-top" />
+
+	<section class="mt-8 md:mt-20 pb-4 md:pb-10">
+		<!-- top meta row -->
+		<div
+			class="grid grid-cols-[auto_1fr_auto] md:grid-cols-12 items-center gap-3 md:gap-6 rise"
+			style="--d: 60ms"
+		>
+			<div class="md:col-span-3 eyebrow inline-flex items-center whitespace-nowrap">
+				<span class="text-mark">§</span>
+				<span class="ml-1.5">the workshop</span>
+			</div>
+			<div class="hairline-soft md:col-span-6" aria-hidden="true"></div>
+			<div class="md:col-span-3 eyebrow md:text-right tabular whitespace-nowrap">
+				{today}
+			</div>
+		</div>
+
+		<h1
+			class="mt-8 md:mt-14 leading-[0.86] tracking-[-0.045em]"
+		>
+			<span
+				class="block font-display font-light text-[clamp(48px,12vw,140px)] text-ink rise"
+				style="--d: 140ms"
+			>
+				Things I've
+			</span>
+			<span
+				class="block font-display font-semibold text-[clamp(52px,13vw,150px)] text-ink -mt-[0.05em] rise"
+				style="--d: 220ms"
+			>
+				<span class="text-mark">built</span> on weekends.
+			</span>
+		</h1>
+
+		<!-- spec strip -->
+		<div
+			class="mt-6 md:mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[10.5px] tabular tracking-[0.14em] uppercase text-ink-3 rise"
+			style="--d: 280ms"
+		>
+			<span><span class="text-ink-5">[</span> repo <span class="text-ink-5">]</span></span>
+			<span class="text-ink-5">·</span>
+			<span>{String(count).padStart(2, "0")} builds</span>
+			<span class="text-ink-5">·</span>
+			<span>{techSet.size} tech</span>
+			<span class="text-ink-5">·</span>
+			<span>open source</span>
+		</div>
+
+		<!-- intro grid -->
+		<div
+			class="mt-12 md:mt-20 grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-10 rise"
+			style="--d: 360ms"
+		>
+			<div class="md:col-span-7">
+				<p class="eyebrow mb-4 inline-flex items-center gap-2">
+					<span class="hairline w-6" aria-hidden="true"></span>
+					<span><span class="text-mark">§</span> 00 — preface</span>
+				</p>
+				<p class="font-display text-[22px] sm:text-[26px] md:text-[32px] leading-[1.22] text-ink-2 tracking-[-0.025em] font-normal max-w-[34ch] md:max-w-none">
+					Bots, libraries, CLIs, and the{" "}
+					<span class="underline decoration-mark decoration-2 underline-offset-[6px] text-ink">occasional rabbit hole</span>.
+					Most of these started as a problem worth fixing{" "}
+					<span class="font-mono italic text-[0.82em]">just once</span> — then refused to stay small.
+				</p>
+			</div>
+
+			<div class="md:col-span-5 md:pl-10 md:border-l border-rule-soft">
+				<p class="eyebrow mb-5 md:hidden">
+					<span class="text-mark">§</span> shop index
+				</p>
+				<dl class="space-y-4 md:space-y-5 text-[13.5px] md:text-[14px]">
+					<div class="grid grid-cols-[72px_1fr] md:grid-cols-[88px_1fr] gap-4 items-baseline">
+						<dt class="eyebrow pt-0.5">Builds</dt>
+						<dd class="font-display text-ink text-[28px] md:text-[36px] leading-none tabular font-semibold tracking-[-0.04em]">
+							{String(count).padStart(2, "0")}
+						</dd>
+					</div>
+					<span class="hairline-soft block"></span>
+					<div class="grid grid-cols-[72px_1fr] md:grid-cols-[88px_1fr] gap-4 items-baseline">
+						<dt class="eyebrow pt-0.5">Tech</dt>
+						<dd class="font-display text-ink text-[28px] md:text-[36px] leading-none tabular font-semibold tracking-[-0.04em]">
+							{techSet.size}
+						</dd>
+					</div>
+					<span class="hairline-soft block"></span>
+					<div class="grid grid-cols-[72px_1fr] md:grid-cols-[88px_1fr] gap-4">
+						<dt class="eyebrow pt-0.5">License</dt>
+						<dd class="font-mono text-mark tabular text-[13px]">open source</dd>
+					</div>
+					<span class="hairline-soft block"></span>
+					<div class="grid grid-cols-[72px_1fr] md:grid-cols-[88px_1fr] gap-4">
+						<dt class="eyebrow pt-0.5">Source</dt>
+						<dd class="font-mono text-ink-3 tabular text-[13px]">
+							<a
+								href="https://github.com/ArnabXD"
+								target="_blank"
+								rel="noreferrer"
+								class="hover:text-mark transition-colors"
+							>github ↗</a>
+						</dd>
+					</div>
+				</dl>
+			</div>
+		</div>
+	</section>
+
+	<section class="mt-16 md:mt-28">
+		<SectionLabel
+			index="01"
+			name="catalog"
+			meta={`${count} ${count === 1 ? "build" : "builds"}`}
+		/>
+		<ProjectGrid />
+	</section>
+
+	<Footer />
+</Base>

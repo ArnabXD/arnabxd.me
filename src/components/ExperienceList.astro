@@ -1,0 +1,40 @@
+---
+import { data } from "~/data";
+
+const items = data.experience;
+---
+
+<ol class="mt-12 md:mt-16">
+  {
+    items.map((exp, i) => (
+      <li class="group relative grid grid-cols-12 gap-4 md:gap-6 py-8 md:py-10 border-b border-rule-soft last:border-b-0 hover:bg-paper-2/40 transition-colors -mx-3 md:-mx-6 px-3 md:px-6">
+        <div class="col-span-12 md:col-span-1">
+          <span class="font-mono text-[11px] tabular text-ink-4 tracking-[0.1em]">
+            {String(i + 1).padStart(2, "0")}
+          </span>
+        </div>
+
+        <div class="col-span-12 md:col-span-4">
+          <p class="eyebrow mb-1.5">{exp.title}</p>
+          <h3 class="font-display text-[30px] md:text-[38px] leading-[1] tracking-[-0.035em] text-ink font-semibold">
+            {exp.company}
+          </h3>
+          <p class="mt-2 font-mono text-[12px] tabular text-ink-3 tracking-[0.04em]">
+            {exp.period}
+          </p>
+        </div>
+
+        <div class="col-span-12 md:col-span-7">
+          <ul class="space-y-3 text-[15px] text-ink-2 leading-relaxed">
+            {exp.responsibilities.map((r) => (
+              <li class="flex items-start gap-3">
+                <span aria-hidden="true" class="mt-2.5 inline-block h-px w-4 bg-mark shrink-0" />
+                <span>{r}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </li>
+    ))
+  }
+</ol>
