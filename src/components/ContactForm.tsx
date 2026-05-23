@@ -130,7 +130,7 @@ function Field({
       >
         <span className="font-display text-[15px] text-ink font-medium tracking-[-0.01em]">{label}</span>
         <span className="font-mono text-[10px] tabular text-ink-4 tracking-[0.14em] uppercase">
-          — {index}
+          - {index}
         </span>
       </label>
       {textarea ? (

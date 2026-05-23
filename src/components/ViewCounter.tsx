@@ -43,7 +43,7 @@ export default function ViewCounter({ slug, increment = false }: Props) {
         Views
       </span>
       <span className="text-mark">
-        {failed ? "—" : views === null ? "…" : fmt(views)}
+        {failed ? "-" : views === null ? "…" : fmt(views)}
       </span>
     </span>
   );

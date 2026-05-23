@@ -2,7 +2,7 @@
 @plugin "@tailwindcss/typography";
 
 /* ============================================================================
-   editorial / architectural — light paper, deep ink, single vermilion accent
+   editorial / architectural - light paper, deep ink, single vermilion accent
    ============================================================================ */
 
 @theme {
@@ -256,7 +256,7 @@
 }
 
 /* ============================================================================
-   prose (blog body) — editorial paper variant
+   prose (blog body) - editorial paper variant
    ============================================================================ */
 
 .prose-paper {
