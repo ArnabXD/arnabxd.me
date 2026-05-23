@@ -147,69 +147,6 @@
 	display: block;
 }
 
-/* gradual blur: 5 stacked backdrop-filter layers, each masked to occupy a
-   horizontal band — together they form a graduated 1→2→4→8→14px blur that
-   intensifies upward. None of the layers themselves animate on scroll;
-   instead the wrapper's clip-path animates to reveal them. That keeps the
-   GPU-expensive backdrop-filters static and lets the browser composite the
-   reveal cheaply. */
-.nav-blur-stack {
-	position: absolute;
-	inset: 0;
-	pointer-events: none;
-	z-index: -1;
-	transform: translateZ(0);
-}
-
-/* hide blur layers until stuck — visibility (not opacity) so backdrop-filter
-   isn't disabled by intermediate alpha. Switch is instant; the tint layer
-   provides the soft fade so the transition still feels smooth. */
-.nav-blur-stack > span {
-	position: absolute;
-	inset: 0;
-	display: block;
-	visibility: hidden;
-}
-
-.nav-blur-stack[data-stuck="true"] > span {
-	visibility: visible;
-}
-
-/* each blur layer occupies a band, with a small overlap (the soft mask edges
-   blend the bands so the gradient looks continuous, not stepped) */
-/* mask gradients use multi-stop fades so the blur thins out gradually
-   rather than ending on a hard edge. each layer's strongest band sits a
-   little higher than the next, with a long tail that dies out smoothly. */
-.nav-blur-stack > span:nth-child(1) {
-	backdrop-filter: blur(1px);
-	-webkit-backdrop-filter: blur(1px);
-	-webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 25%, black 70%, rgba(0,0,0,0.5) 90%, transparent 100%);
-	mask-image: linear-gradient(to bottom, transparent 0%, black 25%, black 70%, rgba(0,0,0,0.5) 90%, transparent 100%);
-}
-.nav-blur-stack > span:nth-child(2) {
-	backdrop-filter: blur(2px);
-	-webkit-backdrop-filter: blur(2px);
-	-webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 22%, black 60%, rgba(0,0,0,0.4) 85%, transparent 100%);
-	mask-image: linear-gradient(to bottom, transparent 0%, black 22%, black 60%, rgba(0,0,0,0.4) 85%, transparent 100%);
-}
-.nav-blur-stack > span:nth-child(3) {
-	backdrop-filter: blur(4px);
-	-webkit-backdrop-filter: blur(4px);
-	-webkit-mask-image: linear-gradient(to bottom, black 0%, black 45%, rgba(0,0,0,0.55) 70%, transparent 92%);
-	mask-image: linear-gradient(to bottom, black 0%, black 45%, rgba(0,0,0,0.55) 70%, transparent 92%);
-}
-.nav-blur-stack > span:nth-child(4) {
-	backdrop-filter: blur(8px);
-	-webkit-backdrop-filter: blur(8px);
-	-webkit-mask-image: linear-gradient(to bottom, black 0%, black 28%, rgba(0,0,0,0.45) 55%, transparent 80%);
-	mask-image: linear-gradient(to bottom, black 0%, black 28%, rgba(0,0,0,0.45) 55%, transparent 80%);
-}
-.nav-blur-stack > span:nth-child(5) {
-	backdrop-filter: blur(14px);
-	-webkit-backdrop-filter: blur(14px);
-	-webkit-mask-image: linear-gradient(to bottom, black 0%, black 14%, rgba(0,0,0,0.35) 35%, transparent 60%);
-	mask-image: linear-gradient(to bottom, black 0%, black 14%, rgba(0,0,0,0.35) 35%, transparent 60%);
-}
 
 @utility underline-mark {
 	background-image: linear-gradient(var(--color-mark), var(--color-mark));
@@ -341,8 +278,13 @@
 	--tw-prose-td-borders: var(--color-rule-soft);
 
 	font-family: var(--font-sans);
-	font-size: 14.5px;
+	font-size: 15px;
 	line-height: 1.75;
+}
+
+.prose-paper :where(p):not(:where([class~="not-prose"] *)) {
+	margin-top: 1.4em;
+	margin-bottom: 1.4em;
 }
 
 .prose-paper :where(h1, h2, h3, h4):not(:where([class~="not-prose"] *)) {
@@ -353,13 +295,16 @@
 
 .prose-paper :where(h2):not(:where([class~="not-prose"] *)) {
 	margin-top: 2.5em;
-	font-size: 2em;
-	line-height: 1;
+	margin-bottom: 0.75em;
+	font-size: 1.75em;
+	line-height: 1.15;
 }
 
 .prose-paper :where(h3):not(:where([class~="not-prose"] *)) {
 	margin-top: 2em;
-	font-size: 1.4em;
+	margin-bottom: 0.5em;
+	font-size: 1.25em;
+	line-height: 1.3;
 }
 
 .prose-paper :where(a):not(:where([class~="not-prose"] *)) {
@@ -395,14 +340,23 @@
 	border-radius: 4px;
 	padding: 1.4em 1.4em 1.2em;
 	font-size: 13.5px;
-	line-height: 1.7;
+	line-height: 1.75;
+}
+
+.prose-paper :where(ul, ol):not(:where([class~="not-prose"] *)) {
+	padding-left: 1.5em;
+}
+
+.prose-paper :where(li):not(:where([class~="not-prose"] *)) {
+	margin-top: 0.4em;
+	margin-bottom: 0.4em;
 }
 
 .prose-paper :where(blockquote):not(:where([class~="not-prose"] *)) {
 	font-family: var(--font-display);
 	font-style: normal;
-	font-size: 1.5em;
-	line-height: 1.25;
+	font-size: 1.4em;
+	line-height: 1.35;
 	letter-spacing: -0.02em;
 	border-left-width: 2px;
 	padding-left: 1.2em;

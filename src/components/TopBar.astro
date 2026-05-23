@@ -6,17 +6,6 @@ const path = Astro.url.pathname;
 ---
 
 <div data-nav-shell class="sticky top-0 z-40">
-	<!-- gradual blur: 5 stacked blur layers (1/2/4/8/14px) + tint. The wrapper
-       extends well past the header (pb-16) so each layer's mask has room to
-       taper out smoothly rather than ending on a hard edge. -->
-	<div data-nav-blur class="nav-blur-stack pb-16" aria-hidden="true">
-		<span></span>
-		<span></span>
-		<span></span>
-		<span></span>
-		<span></span>
-	</div>
-
 	<header
 		class="relative mx-auto max-w-300 px-6 md:px-12 lg:px-16 flex items-center justify-between gap-3 py-6 md:py-7 fade"
 	>
@@ -66,10 +55,16 @@ const path = Astro.url.pathname;
 
 <script is:inline>
 	(function () {
-		var blur = document.querySelector("[data-nav-blur]");
-		if (!blur) return;
+		var shell = document.querySelector("[data-nav-shell]");
+		if (!shell) return;
 		var update = function () {
-			blur.setAttribute("data-stuck", String(window.scrollY > 0));
+			if (window.scrollY > 0) {
+				shell.style.background = "rgba(243, 237, 226, 0.92)";
+				shell.style.borderBottom = "1px solid #cdc5b3";
+			} else {
+				shell.style.background = "";
+				shell.style.borderBottom = "";
+			}
 		};
 		update();
 		window.addEventListener("scroll", update, { passive: true });
