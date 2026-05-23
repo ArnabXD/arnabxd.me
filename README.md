@@ -6,16 +6,16 @@ Aesthetic: **"Signal Observatory"** — deep midnight-teal dark theme with phosp
 
 ## Stack
 
-| Layer          | Choice                                                      |
-| -------------- | ----------------------------------------------------------- |
-| Framework      | [Astro 6](https://astro.build) (static, Cloudflare adapter) |
-| Styling        | Tailwind v4 (`@theme` tokens) + `@tailwindcss/typography`   |
-| Content        | MDX via `astro:content` collections                         |
-| Syntax hl.     | Shiki — `poimandres` theme                                  |
-| Interactivity  | React 19 islands (contact form, view counter)               |
-| Deploy target  | Cloudflare Pages (Workers adapter, KV, secrets)             |
-| Fonts          | Geist Mono + Fraunces (Google Fonts)                        |
-| Lint / format  | Biome                                                       |
+| Layer         | Choice                                                      |
+| ------------- | ----------------------------------------------------------- |
+| Framework     | [Astro 6](https://astro.build) (static, Cloudflare adapter) |
+| Styling       | Tailwind v4 (`@theme` tokens) + `@tailwindcss/typography`   |
+| Content       | MDX via `astro:content` collections                         |
+| Syntax hl.    | Shiki — `poimandres` theme                                  |
+| Interactivity | React 19 islands (contact form, view counter)               |
+| Deploy target | Cloudflare Pages (Workers adapter, KV, secrets)             |
+| Fonts         | Geist Mono + Fraunces (Google Fonts)                        |
+| Lint / format | Biome                                                       |
 
 ## Project structure
 
@@ -66,11 +66,11 @@ Frontmatter schema (enforced by `src/content.config.ts`):
 title: "Your post title"
 description: "One-liner for listings, meta description, and OG card."
 pubDate: 2026-04-25
-updatedDate: 2026-04-26         # optional
-tags: ["astro", "mdx"]          # optional
-draft: false                    # optional — drafts excluded from builds
-cover: ./cover.jpg              # optional — optimized by Astro
-coverAlt: "Alt text"            # optional
+updatedDate: 2026-04-26 # optional
+tags: ["astro", "mdx"] # optional
+draft: false # optional — drafts excluded from builds
+cover: ./cover.jpg # optional — optimized by Astro
+coverAlt: "Alt text" # optional
 ---
 
 Body content — plain markdown **and** MDX components.
@@ -78,7 +78,7 @@ Body content — plain markdown **and** MDX components.
 import Callout from "~/components/mdx/Callout.astro";
 
 <Callout tone="cyan" label="NOTE">
-  MDX components are first-class here.
+	MDX components are first-class here.
 </Callout>
 ```
 

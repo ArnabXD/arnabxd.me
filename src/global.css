@@ -7,7 +7,8 @@
 
 @theme {
 	--font-display:
-		"Space Grotesk", ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", sans-serif;
+		"Space Grotesk", ui-sans-serif, system-ui, -apple-system, "Helvetica Neue",
+		sans-serif;
 	--font-sans:
 		"JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 	--font-mono:
@@ -34,7 +35,8 @@
 	/* secondary tints used sparingly */
 	--color-clay: #c25a3b;
 
-	--shadow-card: 0 1px 0 rgba(21, 20, 15, 0.04), 0 24px 60px -32px rgba(21, 20, 15, 0.18);
+	--shadow-card:
+		0 1px 0 rgba(21, 20, 15, 0.04), 0 24px 60px -32px rgba(21, 20, 15, 0.18);
 }
 
 /* ============================================================================
@@ -73,7 +75,7 @@
 		z-index: -2;
 	}
 
-::selection {
+	::selection {
 		background: var(--color-ink);
 		color: var(--color-paper);
 	}
@@ -147,7 +149,6 @@
 	display: block;
 }
 
-
 @utility underline-mark {
 	background-image: linear-gradient(var(--color-mark), var(--color-mark));
 	background-repeat: no-repeat;
@@ -206,10 +207,12 @@
 }
 
 @keyframes blink {
-	0%, 49% {
+	0%,
+	49% {
 		opacity: 1;
 	}
-	50%, 100% {
+	50%,
+	100% {
 		opacity: 0;
 	}
 }
@@ -247,7 +250,11 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-	.rise, .fade, .marquee, .blink, .orbit {
+	.rise,
+	.fade,
+	.marquee,
+	.blink,
+	.orbit {
 		animation: none !important;
 	}
 	html {
@@ -311,7 +318,9 @@
 	text-decoration-thickness: 1px;
 	text-underline-offset: 4px;
 	text-decoration-color: var(--color-mark);
-	transition: color 0.2s, text-decoration-thickness 0.2s;
+	transition:
+		color 0.2s,
+		text-decoration-thickness 0.2s;
 }
 
 .prose-paper :where(a):hover:not(:where([class~="not-prose"] *)) {
@@ -366,7 +375,9 @@
 }
 
 .prose-paper
-	:where(blockquote p:first-of-type):not(:where([class~="not-prose"] *))::before,
+	:where(blockquote p:first-of-type):not(
+		:where([class~="not-prose"] *)
+	)::before,
 .prose-paper
 	:where(blockquote p:last-of-type):not(:where([class~="not-prose"] *))::after {
 	content: "";

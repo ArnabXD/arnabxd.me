@@ -6,7 +6,9 @@ export function fmtDate(date: Date): string {
 	});
 }
 
-export function getReadTime(remarkPluginFrontmatter: Record<string, unknown>): string | null {
+export function getReadTime(
+	remarkPluginFrontmatter: Record<string, unknown>,
+): string | null {
 	const val = remarkPluginFrontmatter.minutesRead;
 	return typeof val === "string" ? val : null;
 }

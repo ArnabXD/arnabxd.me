@@ -1,281 +1,247 @@
 {
-  "site": {
-    "name": "Arnab Paryali",
-    "handle": "arnabxd",
-    "title": "Arnab Paryali — Software Engineer | React Native & Next.js",
-    "description": "Portfolio of Arnab Paryali — software engineer with 5+ years building production React Native and Next.js applications. Currently engineering at Metafic; previously led frontend at Indus Net Technologies.",
-    "keywords": "Arnab Paryali, Software Engineer, React Native Developer, Next.js Developer, TypeScript Engineer, Frontend Engineer, Mobile App Developer, UI Animations, Cloudflare Workers, Astro, Kolkata, India, Hire React Native Developer, Portfolio",
-    "url": "https://arnabxd.me",
-    "ogImage": "/og/home.png",
-    "status": "AVAILABLE FOR HIRE",
-    "tagline": "Software engineer with 5+ years shipping production React Native and Next.js apps. TypeScript everywhere, animation-obsessed, cross-platform by trade — formerly frontend lead, now building at Metafic."
-  },
-  "nav": [
-    { "label": "Works", "href": "/works", "short": "01" },
-    { "label": "Writing", "href": "/blog", "short": "02" }
-  ],
-  "contact": {
-    "email": "arnabxd@proton.me",
-    "location": {
-      "text": "Kolkata",
-      "country": "India",
-      "url": "https://www.google.com/maps/place/Kolkata"
-    },
-    "socials": {
-      "github": "https://github.com/ArnabXD",
-      "linkedin": "https://linkedin.com/in/arnabparyali",
-      "twitter": "https://twitter.com/Arnab431",
-      "upwork": "https://upwork.com/freelancers/~011ef2a53c7586d1c2"
-    },
-    "notice": "All communications are end-to-end encrypted. Your information remains private and secure. Response times typically within 24 hours.",
-    "terminalIntro": "> Establishing secure connection... Ready to communicate."
-  },
-  "experience": [
-    {
-      "title": "Software Engineer",
-      "company": "Metafic",
-      "period": "Mar 2026 - Present",
-      "responsibilities": [
-        "Building production React Native applications across the company's mobile product suite",
-        "Engineering cross-platform mobile experiences with a focus on performance and UI polish"
-      ]
-    },
-    {
-      "title": "Software Engineer",
-      "company": "Indus Net Technologies",
-      "period": "September 2024 - Mar 2026",
-      "responsibilities": [
-        "Led the frontend team delivering React Native and Next.js engagements for enterprise clients",
-        "Owned project scoping, feasibility studies, and SOW preparation across mobile and web work",
-        "Established frontend conventions and mentored engineers across the team"
-      ]
-    },
-    {
-      "title": "Software Engineer",
-      "company": "Qubited",
-      "period": "July 2022 - August 2024",
-      "responsibilities": [
-        "Promoted to Assistant Tech Lead in February 2023, within 7 months of joining",
-        "Built React Native apps featuring realtime data sync, Twilio chat, and complex UI animations",
-        "Developed Node.js REST APIs and integrated Firebase JS SDK for auth and realtime data",
-        "Owned end-to-end mobile feature delivery from spec to release"
-      ]
-    },
-    {
-      "title": "Developer",
-      "company": "Freelancer",
-      "period": "April 2021 - June 2022",
-      "responsibilities": [
-        "Delivered Next.js, React, and React Native projects for clients across multiple industries",
-        "Handled requirements gathering, design, implementation, and deployment independently"
-      ]
-    }
-  ],
-  "education": [
-    {
-      "institution": "Prabhat Kumar College, Contai",
-      "degree": "B.Sc Computer Science",
-      "period": "2018-21",
-      "cgpa": "7.32"
-    }
-  ],
-  "projects": [
-    {
-      "title": "TGVCBot",
-      "period": "Aug 2021 - Jan 2023",
-      "description": "Telegram Voice Chat music bot using JioSaavn & YT Music as sources. Supports media transcoding, multiple bot instances, and queue management.",
-      "tech": [
-        "NodeJS",
-        "Telegram Bot API",
-        "TypeScript"
-      ],
-      "link": "https://github.com/ArnabXD/TGVCBot"
-    },
-    {
-      "title": "XorGram",
-      "period": "Jan 2022 - Present",
-      "description": "Telegram userbot framework built on grammy.js. Enables programmatic control of Telegram user accounts via a command interface.",
-      "tech": [
-        "Deno",
-        "TypeScript",
-        "Telegram API"
-      ],
-      "link": "https://github.com/xorgram"
-    },
-    {
-      "title": "AnimeDB",
-      "period": "Jun 2020 - Present",
-      "description": "Anime & manga search bot for Telegram. Fetches data from the AniList API with inline query support and genre filtering.",
-      "tech": [
-        "TypeScript",
-        "grammy.js",
-        "AniList API"
-      ],
-      "link": "https://github.com/ArnabXD/AnimeDB-tgbot"
-    },
-    {
-      "title": "Bin-Lookup",
-      "period": "Sep 2021 - Present",
-      "description": "npm package to search BIN details across multiple sources. Supports credit card validation and bank identification.",
-      "tech": [
-        "TypeScript",
-        "npm"
-      ],
-      "link": "https://github.com/ArnabXD/Bin-Lookup"
-    },
-    {
-      "title": "aproxy",
-      "period": "Jun 2025",
-      "description": "Anonymous proxy server with proxy rotation, scraping, and health checking. Built for privacy-conscious routing.",
-      "tech": [
-        "Go",
-        "Proxy"
-      ],
-      "link": "https://github.com/ArnabXD/aproxy"
-    },
-    {
-      "title": "emulaunch",
-      "period": "Feb 2026",
-      "description": "CLI tool to list and launch Android/iOS emulators and simulators. Supports hot reload triggers and device filtering.",
-      "tech": [
-        "Rust",
-        "CLI"
-      ],
-      "link": "https://github.com/ArnabXD/emulaunch"
-    },
-    {
-      "title": "Dropbox-Index",
-      "period": "Dec 2021 - Aug 2022",
-      "description": "Website to publicly index and share Dropbox folders. Provides clean file listings with download links.",
-      "tech": [
-        "NextJS",
-        "TypeScript",
-        "Tailwind"
-      ],
-      "link": "https://github.com/ArnabXD/Dropbox-Index"
-    },
-    {
-      "title": "whatspurr",
-      "period": "Apr 2026",
-      "description": "WhatsApp bot library wrapping baileys / whatsmeow. grammy-style API for building WhatsApp bots with minimal boilerplate.",
-      "tech": [
-        "TypeScript",
-        "WhatsApp API"
-      ],
-      "link": "https://github.com/ArnabXD/whatspurr"
-    }
-  ],
-  "skills": [
-    {
-      "title": "LANGUAGES",
-      "skills": [
-        "TypeScript",
-        "JavaScript (ES6+)",
-        "Rust",
-        "Go",
-        "Python"
-      ]
-    },
-    {
-      "title": "MOBILE",
-      "skills": [
-        "React Native",
-        "Expo",
-        "Reanimated",
-        "Gesture Handler",
-        "UI Animations",
-        "Twilio Chat"
-      ]
-    },
-    {
-      "title": "FRONTEND",
-      "skills": [
-        "React",
-        "Next.js",
-        "Astro",
-        "MDX",
-        "Tailwind",
-        "Redux",
-        "Jotai",
-        "Context API"
-      ]
-    },
-    {
-      "title": "BACKEND",
-      "skills": [
-        "Node.js",
-        "Express",
-        "Deno",
-        "REST APIs",
-        "Realtime Sync",
-        "Firebase",
-        "Database Design"
-      ]
-    },
-    {
-      "title": "INFRASTRUCTURE",
-      "skills": [
-        "Cloudflare Workers",
-        "AWS Lambda",
-        "DigitalOcean",
-        "Linode",
-        "Hetzner",
-        "Dokploy",
-        "Coolify",
-        "Docker",
-        "Linux",
-        "CI/CD",
-        "Git"
-      ]
-    },
-    {
-      "title": "BOT_FRAMEWORKS",
-      "skills": [
-        "Telegram Bot API",
-        "grammy.js",
-        "baileys",
-        "whatsmeow",
-        "AniList API"
-      ]
-    }
-  ],
-  "easterEgg": {
-    "hint": "[ Try Konami code or type 'hack' anywhere ]",
-    "konamiSequence": [
-      "ArrowUp",
-      "ArrowUp",
-      "ArrowDown",
-      "ArrowDown",
-      "ArrowLeft",
-      "ArrowRight",
-      "ArrowLeft",
-      "ArrowRight",
-      "b",
-      "a"
-    ],
-    "hackTrigger": "hack",
-    "terminal": {
-      "title": "Secret Terminal",
-      "initialHistory": [
-        "whoami",
-        "Arnab Paryali - Software Engineer",
-        "cat secret.txt",
-        "You found the easter egg! Here's a joke: Why do programmers prefer dark mode? Because light attracts bugs!"
-      ],
-      "commands": {
-        "help": "Available commands: help, clear, exit, joke, about, skills, social, status",
-        "about": "Arnab Paryali - Software Engineer with 5+ years in React Native, Next.js, and TypeScript. Currently building at Metafic, based in Kolkata.",
-        "skills": "Skills: TypeScript, React Native, Next.js, Astro, Node.js, Cloudflare Workers, Rust, Go, Telegram Bot API, Firebase, UI Animations",
-        "social": "GitHub: @ArnabXD | Email: arnabxd@proton.me",
-        "status": "STATUS: AVAILABLE FOR HIRE",
-        "default": "Command not recognized."
-      },
-      "jokes": [
-        "Why did the developer quit his job? He didn't get arrays.",
-        "How many programmers does it take to change a light bulb? None, that's a hardware problem.",
-        "A SQL query walks into a bar, sees two tables and asks, \"May I join you?\"",
-        "Why do programmers always mix up Halloween and Christmas? Because Oct 31 == Dec 25."
-      ]
-    }
-  }
+	"site": {
+		"name": "Arnab Paryali",
+		"handle": "arnabxd",
+		"title": "Arnab Paryali — Software Engineer | React Native & Next.js",
+		"description": "Portfolio of Arnab Paryali — software engineer with 5+ years building production React Native and Next.js applications. Currently engineering at Metafic; previously led frontend at Indus Net Technologies.",
+		"keywords": "Arnab Paryali, Software Engineer, React Native Developer, Next.js Developer, TypeScript Engineer, Frontend Engineer, Mobile App Developer, UI Animations, Cloudflare Workers, Astro, Kolkata, India, Hire React Native Developer, Portfolio",
+		"url": "https://arnabxd.me",
+		"ogImage": "/og/home.png",
+		"status": "AVAILABLE FOR HIRE",
+		"tagline": "Software engineer with 5+ years shipping production React Native and Next.js apps. TypeScript everywhere, animation-obsessed, cross-platform by trade — formerly frontend lead, now building at Metafic."
+	},
+	"nav": [
+		{ "label": "Works", "href": "/works", "short": "01" },
+		{ "label": "Writing", "href": "/blog", "short": "02" }
+	],
+	"contact": {
+		"email": "arnabxd@proton.me",
+		"location": {
+			"text": "Kolkata",
+			"country": "India",
+			"url": "https://www.google.com/maps/place/Kolkata"
+		},
+		"socials": {
+			"github": "https://github.com/ArnabXD",
+			"linkedin": "https://linkedin.com/in/arnabparyali",
+			"twitter": "https://twitter.com/Arnab431",
+			"upwork": "https://upwork.com/freelancers/~011ef2a53c7586d1c2"
+		},
+		"notice": "All communications are end-to-end encrypted. Your information remains private and secure. Response times typically within 24 hours.",
+		"terminalIntro": "> Establishing secure connection... Ready to communicate."
+	},
+	"experience": [
+		{
+			"title": "Software Engineer",
+			"company": "Metafic",
+			"period": "Mar 2026 - Present",
+			"responsibilities": [
+				"Building production React Native applications across the company's mobile product suite",
+				"Engineering cross-platform mobile experiences with a focus on performance and UI polish"
+			]
+		},
+		{
+			"title": "Software Engineer",
+			"company": "Indus Net Technologies",
+			"period": "September 2024 - Mar 2026",
+			"responsibilities": [
+				"Led the frontend team delivering React Native and Next.js engagements for enterprise clients",
+				"Owned project scoping, feasibility studies, and SOW preparation across mobile and web work",
+				"Established frontend conventions and mentored engineers across the team"
+			]
+		},
+		{
+			"title": "Software Engineer",
+			"company": "Qubited",
+			"period": "July 2022 - August 2024",
+			"responsibilities": [
+				"Promoted to Assistant Tech Lead in February 2023, within 7 months of joining",
+				"Built React Native apps featuring realtime data sync, Twilio chat, and complex UI animations",
+				"Developed Node.js REST APIs and integrated Firebase JS SDK for auth and realtime data",
+				"Owned end-to-end mobile feature delivery from spec to release"
+			]
+		},
+		{
+			"title": "Developer",
+			"company": "Freelancer",
+			"period": "April 2021 - June 2022",
+			"responsibilities": [
+				"Delivered Next.js, React, and React Native projects for clients across multiple industries",
+				"Handled requirements gathering, design, implementation, and deployment independently"
+			]
+		}
+	],
+	"education": [
+		{
+			"institution": "Prabhat Kumar College, Contai",
+			"degree": "B.Sc Computer Science",
+			"period": "2018-21",
+			"cgpa": "7.32"
+		}
+	],
+	"projects": [
+		{
+			"title": "TGVCBot",
+			"period": "Aug 2021 - Jan 2023",
+			"description": "Telegram Voice Chat music bot using JioSaavn & YT Music as sources. Supports media transcoding, multiple bot instances, and queue management.",
+			"tech": ["NodeJS", "Telegram Bot API", "TypeScript"],
+			"link": "https://github.com/ArnabXD/TGVCBot"
+		},
+		{
+			"title": "XorGram",
+			"period": "Jan 2022 - Present",
+			"description": "Telegram userbot framework built on grammy.js. Enables programmatic control of Telegram user accounts via a command interface.",
+			"tech": ["Deno", "TypeScript", "Telegram API"],
+			"link": "https://github.com/xorgram"
+		},
+		{
+			"title": "AnimeDB",
+			"period": "Jun 2020 - Present",
+			"description": "Anime & manga search bot for Telegram. Fetches data from the AniList API with inline query support and genre filtering.",
+			"tech": ["TypeScript", "grammy.js", "AniList API"],
+			"link": "https://github.com/ArnabXD/AnimeDB-tgbot"
+		},
+		{
+			"title": "Bin-Lookup",
+			"period": "Sep 2021 - Present",
+			"description": "npm package to search BIN details across multiple sources. Supports credit card validation and bank identification.",
+			"tech": ["TypeScript", "npm"],
+			"link": "https://github.com/ArnabXD/Bin-Lookup"
+		},
+		{
+			"title": "aproxy",
+			"period": "Jun 2025",
+			"description": "Anonymous proxy server with proxy rotation, scraping, and health checking. Built for privacy-conscious routing.",
+			"tech": ["Go", "Proxy"],
+			"link": "https://github.com/ArnabXD/aproxy"
+		},
+		{
+			"title": "emulaunch",
+			"period": "Feb 2026",
+			"description": "CLI tool to list and launch Android/iOS emulators and simulators. Supports hot reload triggers and device filtering.",
+			"tech": ["Rust", "CLI"],
+			"link": "https://github.com/ArnabXD/emulaunch"
+		},
+		{
+			"title": "Dropbox-Index",
+			"period": "Dec 2021 - Aug 2022",
+			"description": "Website to publicly index and share Dropbox folders. Provides clean file listings with download links.",
+			"tech": ["NextJS", "TypeScript", "Tailwind"],
+			"link": "https://github.com/ArnabXD/Dropbox-Index"
+		},
+		{
+			"title": "whatspurr",
+			"period": "Apr 2026",
+			"description": "WhatsApp bot library wrapping baileys / whatsmeow. grammy-style API for building WhatsApp bots with minimal boilerplate.",
+			"tech": ["TypeScript", "WhatsApp API"],
+			"link": "https://github.com/ArnabXD/whatspurr"
+		}
+	],
+	"skills": [
+		{
+			"title": "LANGUAGES",
+			"skills": ["TypeScript", "JavaScript (ES6+)", "Rust", "Go", "Python"]
+		},
+		{
+			"title": "MOBILE",
+			"skills": [
+				"React Native",
+				"Expo",
+				"Reanimated",
+				"Gesture Handler",
+				"UI Animations",
+				"Twilio Chat"
+			]
+		},
+		{
+			"title": "FRONTEND",
+			"skills": [
+				"React",
+				"Next.js",
+				"Astro",
+				"MDX",
+				"Tailwind",
+				"Redux",
+				"Jotai",
+				"Context API"
+			]
+		},
+		{
+			"title": "BACKEND",
+			"skills": [
+				"Node.js",
+				"Express",
+				"Deno",
+				"REST APIs",
+				"Realtime Sync",
+				"Firebase",
+				"Database Design"
+			]
+		},
+		{
+			"title": "INFRASTRUCTURE",
+			"skills": [
+				"Cloudflare Workers",
+				"AWS Lambda",
+				"DigitalOcean",
+				"Linode",
+				"Hetzner",
+				"Dokploy",
+				"Coolify",
+				"Docker",
+				"Linux",
+				"CI/CD",
+				"Git"
+			]
+		},
+		{
+			"title": "BOT_FRAMEWORKS",
+			"skills": [
+				"Telegram Bot API",
+				"grammy.js",
+				"baileys",
+				"whatsmeow",
+				"AniList API"
+			]
+		}
+	],
+	"easterEgg": {
+		"hint": "[ Try Konami code or type 'hack' anywhere ]",
+		"konamiSequence": [
+			"ArrowUp",
+			"ArrowUp",
+			"ArrowDown",
+			"ArrowDown",
+			"ArrowLeft",
+			"ArrowRight",
+			"ArrowLeft",
+			"ArrowRight",
+			"b",
+			"a"
+		],
+		"hackTrigger": "hack",
+		"terminal": {
+			"title": "Secret Terminal",
+			"initialHistory": [
+				"whoami",
+				"Arnab Paryali - Software Engineer",
+				"cat secret.txt",
+				"You found the easter egg! Here's a joke: Why do programmers prefer dark mode? Because light attracts bugs!"
+			],
+			"commands": {
+				"help": "Available commands: help, clear, exit, joke, about, skills, social, status",
+				"about": "Arnab Paryali - Software Engineer with 5+ years in React Native, Next.js, and TypeScript. Currently building at Metafic, based in Kolkata.",
+				"skills": "Skills: TypeScript, React Native, Next.js, Astro, Node.js, Cloudflare Workers, Rust, Go, Telegram Bot API, Firebase, UI Animations",
+				"social": "GitHub: @ArnabXD | Email: arnabxd@proton.me",
+				"status": "STATUS: AVAILABLE FOR HIRE",
+				"default": "Command not recognized."
+			},
+			"jokes": [
+				"Why did the developer quit his job? He didn't get arrays.",
+				"How many programmers does it take to change a light bulb? None, that's a hardware problem.",
+				"A SQL query walks into a bar, sees two tables and asks, \"May I join you?\"",
+				"Why do programmers always mix up Halloween and Christmas? Because Oct 31 == Dec 25."
+			]
+		}
+	}
 }

@@ -1,47 +1,48 @@
 {
-  "name": "arnabxd.me",
-  "type": "module",
-  "version": "0.0.1",
-  "engines": {
-    "node": ">=22.12.0"
-  },
-  "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro",
-    "generate-types": "wrangler types"
-  },
-  "dependencies": {
-    "@astrojs/cloudflare": "^13.5.4",
-    "@astrojs/mdx": "^5.0.6",
-    "@astrojs/react": "^5.0.5",
-    "@astrojs/sitemap": "^3.7.2",
-    "@resvg/resvg-js": "^2.6.2",
-    "@tailwindcss/vite": "^4.2.4",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
-    "astro": "^6.3.7",
-    "react": "^19.2.5",
-    "react-dom": "^19.2.5",
-    "satori": "^0.26.0",
-    "tailwindcss": "^4.2.4",
-    "wrangler": "^4.85.0"
-  },
-  "packageManager": "pnpm@10.32.1+sha512.a706938f0e89ac1456b6563eab4edf1d1faf3368d1191fc5c59790e96dc918e4456ab2e67d613de1043d2e8c81f87303e6b40d4ffeca9df15ef1ad567348f2be",
-  "overrides": {
-    "vite": "^7"
-  },
-  "devDependencies": {
-    "@astrojs/ts-plugin": "^1.10.9",
-    "@eslint/js": "^10.0.1",
-    "@tailwindcss/typography": "^0.5.19",
-    "@typescript-eslint/parser": "^8.59.4",
-    "eslint": "^10.2.1",
-    "eslint-plugin-astro": "^1.7.0",
-    "prettier": "^3.8.3",
-    "prettier-plugin-astro": "^0.14.1",
-    "typescript": "^6.0.3",
-    "typescript-eslint": "^8.59.0"
-  }
+	"name": "arnabxd.me",
+	"type": "module",
+	"version": "0.0.1",
+	"engines": {
+		"node": ">=22.12.0"
+	},
+	"scripts": {
+		"dev": "astro dev",
+		"build": "astro build",
+		"preview": "astro preview",
+		"astro": "astro",
+		"generate-types": "wrangler types"
+	},
+	"dependencies": {
+		"@astrojs/cloudflare": "^13.5.4",
+		"@astrojs/mdx": "^5.0.6",
+		"@astrojs/react": "^5.0.5",
+		"@astrojs/sitemap": "^3.7.2",
+		"@resvg/resvg-js": "^2.6.2",
+		"@tailwindcss/vite": "^4.2.4",
+		"@types/react": "^19.2.14",
+		"@types/react-dom": "^19.2.3",
+		"astro": "^6.3.7",
+		"react": "^19.2.5",
+		"react-dom": "^19.2.5",
+		"satori": "^0.26.0",
+		"tailwindcss": "^4.2.4",
+		"wrangler": "^4.85.0"
+	},
+	"packageManager": "pnpm@10.32.1+sha512.a706938f0e89ac1456b6563eab4edf1d1faf3368d1191fc5c59790e96dc918e4456ab2e67d613de1043d2e8c81f87303e6b40d4ffeca9df15ef1ad567348f2be",
+	"overrides": {
+		"vite": "^7"
+	},
+	"devDependencies": {
+		"@astrojs/ts-plugin": "^1.10.9",
+		"@eslint/js": "^10.0.1",
+		"@tailwindcss/typography": "^0.5.19",
+		"@typescript-eslint/parser": "^8.59.4",
+		"eslint": "^10.2.1",
+		"eslint-plugin-astro": "^1.7.0",
+		"lefthook": "^2.1.8",
+		"prettier": "^3.8.3",
+		"prettier-plugin-astro": "^0.14.1",
+		"typescript": "^6.0.3",
+		"typescript-eslint": "^8.59.0"
+	}
 }
