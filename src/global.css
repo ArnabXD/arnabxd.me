@@ -173,6 +173,23 @@
 	display: block;
 }
 
+@utility fade-edges {
+	mask-image: linear-gradient(
+		to right,
+		transparent,
+		black 8%,
+		black 92%,
+		transparent
+	);
+	-webkit-mask-image: linear-gradient(
+		to right,
+		transparent,
+		black 8%,
+		black 92%,
+		transparent
+	);
+}
+
 @utility underline-mark {
 	background-image: linear-gradient(var(--color-mark), var(--color-mark));
 	background-repeat: no-repeat;
