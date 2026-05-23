@@ -117,7 +117,7 @@ export function buildOgElement(data: OgData) {
 							textTransform: "uppercase",
 						},
 					},
-					type === "post" ? "Journal - arnabxd.me" : "arnabxd.me",
+					type === "post" ? "writing · arnabxd.me" : "arnabxd.me",
 				),
 			),
 			// Center: tags + title + description

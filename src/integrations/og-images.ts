@@ -64,25 +64,25 @@ export function ogImages(): AstroIntegration {
 						data: {
 							title: "Arnab Paryali",
 							description:
-								"Software engineer with 5+ years shipping production React Native and Next.js apps. TypeScript everywhere, animation-obsessed, cross-platform by trade.",
+								"I've been writing React Native and Next.js for 5+ years and I still get a little too excited about smooth animations.",
 							type: "page",
 						},
 					},
 					{
 						name: "blog",
 						data: {
-							title: "Journal",
+							title: "Writing",
 							description:
-								"Writing about React Native, Next.js, TypeScript, animations, and everything I learn shipping production software.",
+								"Things I figured out, patterns that stuck, and the occasional deep dive into React Native or TypeScript.",
 							type: "page",
 						},
 					},
 					{
 						name: "works",
 						data: {
-							title: "Works",
+							title: "Things I've built",
 							description:
-								"A collection of projects, experiments, and things I've built over the years.",
+								"Bots, libraries, CLIs, and the occasional rabbit hole. Most started as a small problem worth fixing.",
 							type: "page",
 						},
 					},
