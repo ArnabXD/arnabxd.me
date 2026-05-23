@@ -14,6 +14,7 @@ import { ogImages } from "./src/integrations/og-images";
 export default defineConfig({
 	site: "https://arnabxd.me",
 	output: "static",
+	trailingSlash: "never",
 	integrations: [react(), mdx(), sitemap(), ogImages()],
 	adapter: cloudflare({
 		imageService: "compile",
