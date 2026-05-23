@@ -4,183 +4,215 @@ import { data } from "~/data";
 const { site, contact } = data;
 
 const tickerItems = [
-  "Available for hire",
-  "React Native · Next.js",
-  "Based in Kolkata, IN",
-  "Open to freelance & full-time",
-  "Currently @ Metafic",
-  "Animation-obsessed",
+	"Available for hire",
+	"React Native · Next.js",
+	"Based in Kolkata, IN",
+	"Open to freelance & full-time",
+	"Currently @ Metafic",
+	"Animation-obsessed",
 ];
 const ticker = [...tickerItems, ...tickerItems];
 
 const today = new Date().toLocaleDateString("en-US", {
-  year: "numeric",
-  month: "long",
-  day: "2-digit",
+	year: "numeric",
+	month: "long",
+	day: "2-digit",
 });
 ---
 
 <section
-  aria-label="Introduction"
-  class="relative pt-8 md:pt-16 pb-16 md:pb-28"
+	aria-label="Introduction"
+	class="relative pt-8 md:pt-16 pb-16 md:pb-28"
 >
-  <!-- top meta row -->
-  <div
-    class="grid grid-cols-[auto_1fr_auto] md:grid-cols-12 items-center gap-3 md:gap-6 rise"
-    style="--d: 60ms"
-  >
-    <div class="md:col-span-3 eyebrow inline-flex items-center whitespace-nowrap">
-      <span class="text-mark text-[10px]">●</span>
-      <span class="ml-1.5">{site.status.toLowerCase()}</span>
-    </div>
-    <div class="hairline-soft md:col-span-6" aria-hidden="true"></div>
-    <div class="md:col-span-3 eyebrow md:text-right tabular whitespace-nowrap">
-      {today}
-    </div>
-  </div>
+	<!-- top meta row -->
+	<div
+		class="grid grid-cols-[auto_1fr_auto] md:grid-cols-12 items-center gap-3 md:gap-6 rise"
+		style="--d: 60ms"
+	>
+		<div
+			class="md:col-span-3 eyebrow inline-flex items-center whitespace-nowrap"
+		>
+			<span class="text-mark text-[10px]">●</span>
+			<span class="ml-1.5">{site.status.toLowerCase()}</span>
+		</div>
+		<div class="hairline-soft md:col-span-6" aria-hidden="true"></div>
+		<div class="md:col-span-3 eyebrow md:text-right tabular whitespace-nowrap">
+			{today}
+		</div>
+	</div>
 
-  <!-- name -->
-  <h1
-    class="mt-8 md:mt-14 leading-[0.86] tracking-[-0.045em] text-ink"
-  >
-    <span
-      class="block font-display font-light text-[clamp(56px,15vw,200px)] rise"
-      style="--d: 140ms"
-    >
-      Arnab
-    </span>
-    <span
-      class="block font-display font-semibold text-[clamp(64px,17vw,220px)] -mt-[0.05em] rise"
-      style="--d: 220ms"
-    >
-      Paryali<span class="text-mark">.</span>
-    </span>
-  </h1>
+	<!-- name -->
+	<h1 class="mt-8 md:mt-14 leading-[0.86] tracking-[-0.045em] text-ink">
+		<span
+			class="block font-display font-light text-[clamp(56px,15vw,200px)] rise"
+			style="--d: 140ms"
+		>
+			Arnab
+		</span>
+		<span
+			class="block font-display font-semibold text-[clamp(64px,17vw,220px)] mt-[-0.05em] rise"
+			style="--d: 220ms"
+		>
+			Paryali<span class="text-mark">.</span>
+		</span>
+	</h1>
 
-  <!-- spec strip below the name -->
-  <div
-    class="mt-6 md:mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[10.5px] tabular tracking-[0.14em] uppercase text-ink-3 rise"
-    style="--d: 280ms"
-  >
-    <span><span class="text-ink-5">[</span> sw-eng <span class="text-ink-5">]</span></span>
-    <span class="text-ink-5">·</span>
-    <span>v.{new Date().getFullYear() - 2020}.0</span>
-    <span class="text-ink-5">·</span>
-    <span>kol — utc+05:30</span>
-    <span class="text-ink-5">·</span>
-    <span class="text-mark">● open to work</span>
-  </div>
+	<!-- spec strip below the name -->
+	<div
+		class="mt-6 md:mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[10.5px] tabular tracking-[0.14em] uppercase text-ink-3 rise"
+		style="--d: 280ms"
+	>
+		<span
+			><span class="text-ink-5">[</span> sw-eng <span class="text-ink-5">]</span
+			></span
+		>
+		<span class="text-ink-5">·</span>
+		<span>v.{new Date().getFullYear() - 2020}.0</span>
+		<span class="text-ink-5">·</span>
+		<span>kol — utc+05:30</span>
+		<span class="text-ink-5">·</span>
+		<span class="text-mark">● open to work</span>
+	</div>
 
-  <!-- intro grid -->
-  <div
-    class="mt-12 md:mt-20 grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-10 rise"
-    style="--d: 360ms"
-  >
-    <!-- left column: tagline -->
-    <div class="md:col-span-7">
-      <p class="eyebrow mb-4 inline-flex items-center gap-2">
-        <span class="hairline w-6" aria-hidden="true"></span>
-        <span><span class="text-mark">§</span> 00 — about</span>
-      </p>
-      <p class="font-display text-[22px] sm:text-[26px] md:text-[32px] leading-[1.22] text-ink tracking-[-0.025em] font-normal max-w-[34ch] md:max-w-none">
-        Software engineer with{" "}
-        <span class="font-mono italic text-[0.82em] text-ink-2">five-plus years</span> shipping production
-        React Native and Next.js applications. TypeScript everywhere,{" "}
-        <span class="underline decoration-mark decoration-2 underline-offset-[6px]">animation-obsessed</span>,
-        cross-platform by trade — formerly frontend lead, now building at Metafic.
-      </p>
-    </div>
+	<!-- intro grid -->
+	<div
+		class="mt-12 md:mt-20 grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-10 rise"
+		style="--d: 360ms"
+	>
+		<!-- left column: tagline -->
+		<div class="md:col-span-7">
+			<p class="eyebrow mb-4 inline-flex items-center gap-2">
+				<span class="hairline w-6" aria-hidden="true"></span>
+				<span><span class="text-mark">§</span> 00 — about</span>
+			</p>
+			<p
+				class="font-display text-[22px] sm:text-[26px] md:text-[32px] leading-[1.22] text-ink tracking-tight font-normal max-w-[34ch] md:max-w-none"
+			>
+				Software engineer with{" "}
+				<span class="font-mono italic text-[0.82em] text-ink-2"
+					>five-plus years</span
+				> shipping production React Native and Next.js applications. TypeScript everywhere,{
+					" "
+				}
+				<span
+					class="underline decoration-mark decoration-2 underline-offset-[6px]"
+					>animation-obsessed</span
+				>, cross-platform by trade — formerly frontend lead, now building at
+				Metafic.
+			</p>
+		</div>
 
-    <!-- right column: facts table -->
-    <div class="md:col-span-5 md:pl-10 md:border-l border-rule-soft">
-      <p class="eyebrow mb-5 md:hidden">
-        <span class="text-mark">§</span> spec sheet
-      </p>
-      <dl class="space-y-4 md:space-y-5 text-[13.5px] md:text-[14px]">
-        <div class="grid grid-cols-[72px_1fr] md:grid-cols-[88px_1fr] gap-4">
-          <dt class="eyebrow pt-0.5">Role</dt>
-          <dd class="text-ink">Software Engineer</dd>
-        </div>
-        <span class="hairline-soft block"></span>
-        <div class="grid grid-cols-[72px_1fr] md:grid-cols-[88px_1fr] gap-4">
-          <dt class="eyebrow pt-0.5">Stack</dt>
-          <dd class="text-ink">RN · Next · TypeScript</dd>
-        </div>
-        <span class="hairline-soft block"></span>
-        <div class="grid grid-cols-[72px_1fr] md:grid-cols-[88px_1fr] gap-4">
-          <dt class="eyebrow pt-0.5">Based</dt>
-          <dd class="text-ink">
-            <a
-              href={contact.location.url}
-              target="_blank"
-              rel="noreferrer"
-              class="hover:text-mark transition-colors"
-            >
-              {contact.location.text}, IN <span class="font-mono text-ink-4 tabular text-[12px] ml-1 whitespace-nowrap">+05:30</span>
-            </a>
-          </dd>
-        </div>
-        <span class="hairline-soft block"></span>
-        <div class="grid grid-cols-[72px_1fr] md:grid-cols-[88px_1fr] gap-4">
-          <dt class="eyebrow pt-0.5">Status</dt>
-          <dd class="text-mark">Open to work</dd>
-        </div>
-      </dl>
-    </div>
-  </div>
+		<!-- right column: facts table -->
+		<div class="md:col-span-5 md:pl-10 md:border-l border-rule-soft">
+			<p class="eyebrow mb-5 md:hidden">
+				<span class="text-mark">§</span> spec sheet
+			</p>
+			<dl class="space-y-4 md:space-y-5 text-[13.5px] md:text-[14px]">
+				<div class="grid grid-cols-[72px_1fr] md:grid-cols-[88px_1fr] gap-4">
+					<dt class="eyebrow pt-0.5">Role</dt>
+					<dd class="text-ink">Software Engineer</dd>
+				</div>
+				<span class="hairline-soft block"></span>
+				<div class="grid grid-cols-[72px_1fr] md:grid-cols-[88px_1fr] gap-4">
+					<dt class="eyebrow pt-0.5">Stack</dt>
+					<dd class="text-ink">RN · Next · TypeScript</dd>
+				</div>
+				<span class="hairline-soft block"></span>
+				<div class="grid grid-cols-[72px_1fr] md:grid-cols-[88px_1fr] gap-4">
+					<dt class="eyebrow pt-0.5">Based</dt>
+					<dd class="text-ink">
+						<a
+							href={contact.location.url}
+							target="_blank"
+							rel="noreferrer"
+							class="hover:text-mark transition-colors"
+						>
+							{contact.location.text}, IN <span
+								class="font-mono text-ink-4 tabular text-[12px] ml-1 whitespace-nowrap"
+								>+05:30</span
+							>
+						</a>
+					</dd>
+				</div>
+				<span class="hairline-soft block"></span>
+				<div class="grid grid-cols-[72px_1fr] md:grid-cols-[88px_1fr] gap-4">
+					<dt class="eyebrow pt-0.5">Status</dt>
+					<dd class="text-mark">Open to work</dd>
+				</div>
+			</dl>
+		</div>
+	</div>
 
-  <!-- CTA -->
-  <div
-    class="mt-12 md:mt-16 flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-x-8 gap-y-5 rise"
-    style="--d: 480ms"
-  >
-    <a
-      href={`mailto:${contact.email}`}
-      class="group inline-flex items-center gap-3 bg-ink text-paper px-5 sm:px-6 py-3.5 hover:bg-mark transition-colors w-full sm:w-auto justify-between sm:justify-start"
-    >
-      <span class="font-display text-[15px] font-medium tracking-[-0.01em]">Say hello</span>
-      <span class="font-mono text-[10.5px] sm:text-[11px] tabular tracking-[0.08em] sm:tracking-[0.1em] truncate max-w-[180px] sm:max-w-none">{contact.email}</span>
-      <span aria-hidden="true" class="text-[16px] transition-transform group-hover:translate-x-1 shrink-0">→</span>
-    </a>
-    <div class="flex items-center gap-4 sm:gap-5 text-[13px] text-ink-3">
-      <a
-        href={contact.socials.github}
-        target="_blank"
-        rel="noreferrer"
-        class="hover:text-ink transition-colors"
-      >GitHub</a>
-      <span class="text-ink-5">·</span>
-      <a
-        href={contact.socials.linkedin}
-        target="_blank"
-        rel="noreferrer"
-        class="hover:text-ink transition-colors"
-      >LinkedIn</a>
-      <span class="text-ink-5">·</span>
-      <a
-        href={contact.socials.twitter}
-        target="_blank"
-        rel="noreferrer"
-        class="hover:text-ink transition-colors"
-      >Twitter</a>
-    </div>
-  </div>
+	<!-- CTA -->
+	<div
+		class="mt-12 md:mt-16 flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-x-8 gap-y-5 rise"
+		style="--d: 480ms"
+	>
+		<a
+			href={`mailto:${contact.email}`}
+			class="group inline-flex items-center gap-3 bg-ink text-paper px-5 sm:px-6 py-3.5 hover:bg-mark transition-colors w-full sm:w-auto justify-between sm:justify-start"
+		>
+			<span class="font-display text-[15px] font-medium tracking-[-0.01em]"
+				>Say hello</span
+			>
+			<span
+				class="font-mono text-[10.5px] sm:text-[11px] tabular tracking-[0.08em] sm:tracking-widest truncate max-w-45 sm:max-w-none"
+				>{contact.email}</span
+			>
+			<span
+				aria-hidden="true"
+				class="text-[16px] transition-transform group-hover:translate-x-1 shrink-0"
+				>→</span
+			>
+		</a>
+		<div class="flex items-center gap-4 sm:gap-5 text-[13px] text-ink-3">
+			<a
+				href={contact.socials.github}
+				target="_blank"
+				rel="noreferrer"
+				class="hover:text-ink transition-colors">GitHub</a
+			>
+			<span class="text-ink-5">·</span>
+			<a
+				href={contact.socials.linkedin}
+				target="_blank"
+				rel="noreferrer"
+				class="hover:text-ink transition-colors">LinkedIn</a
+			>
+			<span class="text-ink-5">·</span>
+			<a
+				href={contact.socials.twitter}
+				target="_blank"
+				rel="noreferrer"
+				class="hover:text-ink transition-colors">Twitter</a
+			>
+			<span class="text-ink-5">·</span>
+			<a
+				href={contact.socials.upwork}
+				target="_blank"
+				rel="noreferrer"
+				class="hover:text-ink transition-colors">Upwork</a
+			>
+		</div>
+	</div>
 
-  <!-- ticker -->
-  <div
-    class="relative mt-16 md:mt-28 -mx-6 md:-mx-12 lg:-mx-16 border-y border-rule overflow-hidden bg-paper-2/40 fade"
-    style="--d: 600ms"
-    aria-hidden="true"
-  >
-    <div class="flex marquee whitespace-nowrap py-3 md:py-4">
-      {
-        ticker.map((t, i) => (
-          <span class="inline-flex items-center gap-5 md:gap-6 px-5 md:px-6 font-display text-[15px] md:text-[22px] font-medium tracking-[-0.02em] text-ink">
-            {t}
-            <span class="text-mark not-italic font-sans text-[12px] md:text-[14px]">✦</span>
-          </span>
-        ))
-      }
-    </div>
-  </div>
+	<!-- ticker -->
+	<div
+		class="relative mt-16 md:mt-28 -mx-6 md:-mx-12 lg:-mx-16 border-y border-rule overflow-hidden bg-paper-2/40 fade"
+		style="--d: 600ms"
+		aria-hidden="true"
+	>
+		<div class="flex marquee whitespace-nowrap py-3 md:py-4">
+			{
+				ticker.map((t, _i) => (
+					<span class="inline-flex items-center gap-5 md:gap-6 px-5 md:px-6 font-display text-[15px] md:text-[22px] font-medium tracking-[-0.02em] text-ink">
+						{t}
+						<span class="text-mark not-italic font-sans text-[12px] md:text-[14px]">
+							✦
+						</span>
+					</span>
+				))
+			}
+		</div>
+	</div>
 </section>

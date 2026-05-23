@@ -45,6 +45,7 @@ export type SiteData = {
       github: string;
       linkedin: string;
       twitter: string;
+      upwork: string;
     };
     notice: string;
     terminalIntro: string;

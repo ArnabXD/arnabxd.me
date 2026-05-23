@@ -29,19 +29,21 @@ const today = new Date().toLocaleDateString("en-US", {
 			class="grid grid-cols-[auto_1fr_auto] md:grid-cols-12 items-center gap-3 md:gap-6 rise"
 			style="--d: 60ms"
 		>
-			<div class="md:col-span-3 eyebrow inline-flex items-center whitespace-nowrap">
+			<div
+				class="md:col-span-3 eyebrow inline-flex items-center whitespace-nowrap"
+			>
 				<span class="text-mark">§</span>
 				<span class="ml-1.5">the journal</span>
 			</div>
 			<div class="hairline-soft md:col-span-6" aria-hidden="true"></div>
-			<div class="md:col-span-3 eyebrow md:text-right tabular whitespace-nowrap">
+			<div
+				class="md:col-span-3 eyebrow md:text-right tabular whitespace-nowrap"
+			>
 				{today}
 			</div>
 		</div>
 
-		<h1
-			class="mt-8 md:mt-14 leading-[0.86] tracking-[-0.045em]"
-		>
+		<h1 class="mt-8 md:mt-14 leading-[0.86] tracking-tighter">
 			<span
 				class="block font-display font-light text-[clamp(48px,12vw,140px)] text-ink rise"
 				style="--d: 140ms"
@@ -49,7 +51,7 @@ const today = new Date().toLocaleDateString("en-US", {
 				Field notes
 			</span>
 			<span
-				class="block font-display font-semibold text-[clamp(52px,13vw,150px)] text-ink -mt-[0.05em] rise"
+				class="block font-display font-semibold text-[clamp(52px,13vw,150px)] text-ink -mt-1 rise"
 				style="--d: 220ms"
 			>
 				& <span class="text-mark">transmissions</span>
@@ -58,10 +60,13 @@ const today = new Date().toLocaleDateString("en-US", {
 
 		<!-- spec strip -->
 		<div
-			class="mt-6 md:mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[10.5px] tabular tracking-[0.14em] uppercase text-ink-3 rise"
+			class="mt-6 md:mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[10.5px] tabular tracking-widest uppercase text-ink-3 rise"
 			style="--d: 280ms"
 		>
-			<span><span class="text-ink-5">[</span> log <span class="text-ink-5">]</span></span>
+			<span
+				><span class="text-ink-5">[</span> log <span class="text-ink-5">]</span
+				></span
+			>
 			<span class="text-ink-5">·</span>
 			<span>{String(count).padStart(2, "0")} entries</span>
 			<span class="text-ink-5">·</span>
@@ -80,10 +85,14 @@ const today = new Date().toLocaleDateString("en-US", {
 					<span class="hairline w-6" aria-hidden="true"></span>
 					<span><span class="text-mark">§</span> 00 — preface</span>
 				</p>
-				<p class="font-display text-[22px] sm:text-[26px] md:text-[32px] leading-[1.22] text-ink-2 tracking-[-0.025em] font-normal max-w-[34ch] md:max-w-none">
+				<p
+					class="font-display text-[22px] sm:text-[26px] md:text-[32px] leading-[1.22] text-ink-2 tracking-tight font-normal max-w-[34ch] md:max-w-none"
+				>
 					Half-formed thoughts, post-mortems, and the occasional{" "}
-					<span class="underline decoration-mark decoration-2 underline-offset-[6px] text-ink">useful pattern</span>.
-					Notes from the keyboard, written when the dust{" "}
+					<span
+						class="underline decoration-mark decoration-2 underline-offset-[6px] text-ink"
+						>useful pattern</span
+					>. Notes from the keyboard, written when the dust{" "}
 					<span class="font-mono italic text-[0.82em]">finally</span> settles.
 				</p>
 			</div>
@@ -93,16 +102,24 @@ const today = new Date().toLocaleDateString("en-US", {
 					<span class="text-mark">§</span> archive index
 				</p>
 				<dl class="space-y-4 md:space-y-5 text-[13.5px] md:text-[14px]">
-					<div class="grid grid-cols-[72px_1fr] md:grid-cols-[88px_1fr] gap-4 items-baseline">
+					<div
+						class="grid grid-cols-[72px_1fr] md:grid-cols-[88px_1fr] gap-4 items-baseline"
+					>
 						<dt class="eyebrow pt-0.5">Entries</dt>
-						<dd class="font-display text-ink text-[28px] md:text-[36px] leading-none tabular font-semibold tracking-[-0.04em]">
+						<dd
+							class="font-display text-ink text-[28px] md:text-[36px] leading-none tabular font-semibold tracking-tighter"
+						>
 							{String(count).padStart(2, "0")}
 						</dd>
 					</div>
 					<span class="hairline-soft block"></span>
-					<div class="grid grid-cols-[72px_1fr] md:grid-cols-[88px_1fr] gap-4 items-baseline">
+					<div
+						class="grid grid-cols-[72px_1fr] md:grid-cols-[88px_1fr] gap-4 items-baseline"
+					>
 						<dt class="eyebrow pt-0.5">Years</dt>
-						<dd class="font-display text-ink text-[28px] md:text-[36px] leading-none tabular font-semibold tracking-[-0.04em]">
+						<dd
+							class="font-display text-ink text-[28px] md:text-[36px] leading-none tabular font-semibold tracking-tighter"
+						>
 							{years.size || 0}
 						</dd>
 					</div>
@@ -146,8 +163,8 @@ const today = new Date().toLocaleDateString("en-US", {
 						The buffer is empty — check back soon, or{" "}
 						<a href="/#contact" class="text-mark hover:underline">
 							ping me
-						</a>
-						{" "}with a topic.
+						</a>{" "}
+						with a topic.
 					</p>
 				</div>
 			)
