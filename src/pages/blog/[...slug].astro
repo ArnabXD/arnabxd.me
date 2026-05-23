@@ -18,6 +18,23 @@ const { post } = Astro.props;
 const { Content, remarkPluginFrontmatter } = await render(post);
 
 const readTime = getReadTime(remarkPluginFrontmatter);
+
+const jsonLd = {
+	"@context": "https://schema.org",
+	"@type": "BlogPosting",
+	"headline": post.data.title,
+	"description": post.data.description,
+	"datePublished": post.data.pubDate.toISOString(),
+	"dateModified": (post.data.updatedDate ?? post.data.pubDate).toISOString(),
+	"author": {
+		"@type": "Person",
+		"name": "Arnab Paryali",
+		"url": "https://arnabxd.me",
+	},
+	"url": `https://arnabxd.me/blog/${post.id}`,
+	"keywords": post.data.tags.join(", "),
+	"image": `https://arnabxd.me/og/${post.id}.png`,
+};
 ---
 
 <Base
@@ -29,6 +46,11 @@ const readTime = getReadTime(remarkPluginFrontmatter);
 		tags: post.data.tags,
 	}}
 >
+	<script
+		is:inline
+		type="application/ld+json"
+		set:html={JSON.stringify(jsonLd)}
+	/>
 	<article class="mt-10 md:mt-20">
 		<nav aria-label="breadcrumb" class="fade" style="--d: 40ms">
 			<a

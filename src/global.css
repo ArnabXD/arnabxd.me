@@ -1,6 +1,30 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+@font-face {
+	font-family: "Space Grotesk";
+	src: url("/fonts/SpaceGrotesk.woff2") format("woff2");
+	font-weight: 300 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "JetBrains Mono";
+	src: url("/fonts/JetBrainsMono.woff2") format("woff2");
+	font-weight: 400 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "JetBrains Mono";
+	src: url("/fonts/JetBrainsMono-Italic.woff2") format("woff2");
+	font-weight: 400 700;
+	font-style: italic;
+	font-display: swap;
+}
+
 /* ============================================================================
    editorial / architectural - light paper, deep ink, single vermilion accent
    ============================================================================ */
