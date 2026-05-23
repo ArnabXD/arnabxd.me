@@ -2,13 +2,13 @@
 	"site": {
 		"name": "Arnab Paryali",
 		"handle": "arnabxd",
-		"title": "Arnab Paryali — Software Engineer | React Native & Next.js",
-		"description": "Portfolio of Arnab Paryali — software engineer with 5+ years building production React Native and Next.js applications. Currently engineering at Metafic; previously led frontend at Indus Net Technologies.",
+		"title": "Arnab Paryali - Software Engineer | React Native & Next.js",
+		"description": "I'm Arnab, a software engineer who's spent 5+ years building React Native and Next.js apps that actually ship. Currently at Metafic, previously led the frontend team at Indus Net Technologies.",
 		"keywords": "Arnab Paryali, Software Engineer, React Native Developer, Next.js Developer, TypeScript Engineer, Frontend Engineer, Mobile App Developer, UI Animations, Cloudflare Workers, Astro, Kolkata, India, Hire React Native Developer, Portfolio",
 		"url": "https://arnabxd.me",
 		"ogImage": "/og/home.png",
 		"status": "AVAILABLE FOR HIRE",
-		"tagline": "Software engineer with 5+ years shipping production React Native and Next.js apps. TypeScript everywhere, animation-obsessed, cross-platform by trade — formerly frontend lead, now building at Metafic."
+		"tagline": "I've been writing React Native and Next.js for five-plus years and I still get a little too excited about smooth animations. TypeScript everywhere, cross-platform by default - used to lead frontend at INT, now building at Metafic."
 	},
 	"nav": [
 		{ "label": "Works", "href": "/works", "short": "01" },
@@ -27,8 +27,8 @@
 			"twitter": "https://twitter.com/Arnab431",
 			"upwork": "https://upwork.com/freelancers/~011ef2a53c7586d1c2"
 		},
-		"notice": "All communications are end-to-end encrypted. Your information remains private and secure. Response times typically within 24 hours.",
-		"terminalIntro": "> Establishing secure connection... Ready to communicate."
+		"notice": "Using Proton Mail, so yes - your message is encrypted end to end. I usually reply within a day.",
+		"terminalIntro": "> hey, you found the terminal. type 'help' to see what's here."
 	},
 	"experience": [
 		{
