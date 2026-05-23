@@ -14,7 +14,7 @@
 	"kv_namespaces": [
 		{
 			"binding": "VIEWS",
-			"id": "TODO_RUN_wrangler_kv_namespace_create_VIEWS"
+			"id": "ef8900cb052a41cc8758b9dd865c1ac4"
 		}
 	]
 	// TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID are stored as secrets:
