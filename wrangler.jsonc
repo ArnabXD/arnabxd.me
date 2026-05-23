@@ -1,7 +1,9 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"compatibility_date": "2026-04-24",
-	"compatibility_flags": ["global_fetch_strictly_public"],
+	"compatibility_flags": [
+		"global_fetch_strictly_public"
+	],
 	"name": "arnabxd-me",
 	"main": "@astrojs/cloudflare/entrypoints/server",
 	"assets": {
@@ -15,6 +17,10 @@
 		{
 			"binding": "VIEWS",
 			"id": "ef8900cb052a41cc8758b9dd865c1ac4"
+		},
+		{
+			"binding": "SESSION",
+			"id": "257ea769801447e4a66b63668b5d99a2"
 		}
 	]
 	// TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID are stored as secrets:
