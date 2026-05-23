@@ -1,0 +1,164 @@
+---
+title: Build-time OG images in Astro
+description: How I generate per-page Open Graph images at build time using satori and resvg-js - no edge runtime, no external service, just a custom Astro integration.
+pubDate: 2026-05-23
+tags:
+  - astro
+  - typescript
+  - satori
+  - og-image
+---
+
+Every page on this site now has a unique Open Graph image - the preview card you see when you share a link on Twitter, Slack, Discord, etc. Here's how I built it.
+
+## The options
+
+The common approaches:
+
+1. **Static image** - one image for the whole site. Simple, but every share looks identical.
+2. **Edge/serverless function** - generate on request. Works great, but adds cold start latency and complexity.
+3. **Build time** - generate all images when you run `astro build`. Zero runtime cost, fully static.
+
+I went with option 3. This site is deployed on Cloudflare Pages and is mostly static - no reason to spin up an edge function just for an image that rarely changes.
+
+## The stack
+
+- **[satori](https://github.com/vercel/satori)** - converts a React element tree to SVG. Built by Vercel, works in Node.
+- **[@resvg/resvg-js](https://github.com/yisibl/resvg-js)** - renders SVG to PNG using the Rust `resvg` library.
+
+Both are Node-only (native binaries), which is why I didn't use them inside an API route - Vite/Rollup chokes on `.node` files during bundling. But in a build hook they run fine.
+
+## The Astro integration
+
+Astro exposes a `astro:build:done` hook that fires after all static pages are written. That's the perfect place to generate the images.
+
+```ts
+// src/integrations/og-images.ts
+import type { AstroIntegration } from "astro";
+import satori from "satori";
+import { Resvg } from "@resvg/resvg-js";
+
+export function ogImages(): AstroIntegration {
+  return {
+    name: "og-images",
+    hooks: {
+      "astro:build:done": async ({ dir, logger }) => {
+        // dir is the output directory (dist/)
+        // generate your PNGs here and write them in
+      },
+    },
+  };
+}
+```
+
+Then register it in `astro.config.mjs`:
+
+```ts
+import { ogImages } from "./src/integrations/og-images";
+
+export default defineConfig({
+  integrations: [react(), mdx(), sitemap(), ogImages()],
+});
+```
+
+## Building the image template
+
+Satori takes a React element (not JSX - you need `createElement` since this is a plain `.ts` file) and produces an SVG string.
+
+```ts
+import { createElement as h } from "react";
+
+function buildOgElement(data: OgData) {
+  return h(
+    "div",
+    {
+      style: {
+        width: "1200px",
+        height: "630px",
+        background: "#15140f",
+        display: "flex",
+        // ...
+      },
+    },
+    h("div", { style: { /* title styles */ } }, data.title),
+    // description, tags, footer...
+  );
+}
+```
+
+One catch: satori only supports a subset of CSS. No `grid`, no `gap` shorthand for some properties, no `inset`. Stick to flexbox and explicit properties and you'll be fine.
+
+Then render it:
+
+```ts
+async function renderPng(data: OgData): Promise<Buffer> {
+  const fontMedium = readFileSync("SpaceGrotesk-Medium.ttf");
+  const fontBold = readFileSync("SpaceGrotesk-Bold.ttf");
+
+  const svg = await satori(buildOgElement(data), {
+    width: 1200,
+    height: 630,
+    fonts: [
+      { name: "Space Grotesk", data: fontMedium, weight: 500, style: "normal" },
+      { name: "Space Grotesk", data: fontBold, weight: 700, style: "normal" },
+    ],
+  });
+
+  return Buffer.from(new Resvg(svg).render().asPng());
+}
+```
+
+You need to bundle the fonts as local files - satori can't fetch from Google Fonts at build time (no browser, no caching).
+
+## Generating per-post images
+
+In the hook, I read the blog content directory, parse frontmatter with regex (no need to pull in a full parser for this), and generate a PNG per post:
+
+```ts
+"astro:build:done": async ({ dir, logger }) => {
+  const outDir = join(fileURLToPath(dir), "og");
+  mkdirSync(outDir, { recursive: true });
+
+  const blogDir = join(__dirname, "../content/blog");
+  const posts = readdirSync(blogDir).filter(f => f.endsWith(".mdx"));
+
+  for (const file of posts) {
+    const raw = readFileSync(join(blogDir, file), "utf8");
+    const { title, description, date, tags } = parseFrontmatter(raw);
+    const png = await renderPng({ title, description, date, tags, type: "post" });
+    writeFileSync(join(outDir, file.replace(".mdx", ".png")), png);
+  }
+
+  logger.info(`Generated ${posts.length} OG images`);
+}
+```
+
+The filenames match the blog post slugs (`post.id` in Astro equals the filename without extension), so the link is straightforward:
+
+```astro
+<Base image={`/og/${post.id}.png`}>
+```
+
+## Wiring up the meta tags
+
+In my base layout:
+
+```astro
+---
+const { image = site.ogImage } = Astro.props;
+const ogImageURL = new URL(image, Astro.site);
+---
+
+<meta property="og:image" content={ogImageURL} />
+<meta name="twitter:image" content={ogImageURL} />
+```
+
+The `new URL(image, base)` call turns `/og/home.png` into `https://arnabxd.me/og/home.png` - social crawlers need the full absolute URL.
+
+## Result
+
+`pnpm build` now generates a PNG in `dist/og/` for every page - one per blog post plus the static pages. The whole generation adds about 1-2 seconds to build time, which is fine.
+
+The design is dark-themed to match the site: subtle grid texture, radial glows in the accent color, title + description + tags, author footer. All rendered from the same font and palette as the site itself.
+
+If you're on Astro and want the same setup, the full integration is in [`src/integrations/og-images.ts`](https://github.com/ArnabXD/arnabxd.me) on GitHub.
