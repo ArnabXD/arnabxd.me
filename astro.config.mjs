@@ -1,5 +1,5 @@
 // @ts-check
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, URL } from "node:url";
 
 import { defineConfig } from "astro/config";
 
