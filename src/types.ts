@@ -17,7 +17,14 @@ export type Project = {
 	period: string;
 	description: string;
 	tech: string[];
-	link: string;
+	link?: string;
+	confidential?: boolean;
+	client?: {
+		industry: string;
+		region: string;
+	};
+	role?: string;
+	outcome?: string;
 };
 
 export type SkillGroup = {

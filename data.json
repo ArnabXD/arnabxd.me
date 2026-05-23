@@ -81,6 +81,96 @@
 	],
 	"projects": [
 		{
+			"title": "Real Estate Platform",
+			"period": "2026",
+			"description": "Property buying and renting platform for the Gulf market. AI-assisted listings, full RTL and Arabic support, bilingual UI built for regional users from the ground up.",
+			"tech": ["React Native", "Expo", "TypeScript", "AI Integration", "RTL"],
+			"confidential": true,
+			"client": {
+				"industry": "Real Estate",
+				"region": "Gulf Region"
+			},
+			"role": "Mobile Lead",
+			"outcome": "Full RTL support with AI-assisted listings shipped to production"
+		},
+		{
+			"title": "Spare Parts Marketplace",
+			"period": "2024 - 2026",
+			"description": "Mobile app and website for a vehicle spare parts manufacturer. Inherited an underperforming codebase and led a full optimization pass across animations, bundle size, and rendering.",
+			"tech": ["React Native", "Next.js", "TypeScript", "Performance"],
+			"confidential": true,
+			"client": {
+				"industry": "Automotive / Manufacturing",
+				"region": "India"
+			},
+			"role": "Mobile & Web Engineer",
+			"outcome": "Lighthouse score 40 → 80 after optimization pass"
+		},
+		{
+			"title": "B2B Health Platform",
+			"period": "2025 - 2026",
+			"description": "B2B health improvement app built around habit enforcement, AI-powered evaluation, and a semantic practice recommendation engine. Sole mobile engineer, from architecture to in-app purchases.",
+			"tech": [
+				"React Native",
+				"Expo",
+				"TypeScript",
+				"AI / Semantic Search",
+				"RevenueCat"
+			],
+			"confidential": true,
+			"client": {
+				"industry": "Health & Wellness",
+				"region": "US"
+			},
+			"role": "Solo Mobile Engineer",
+			"outcome": "End-to-end delivery — architecture, AI integration, IAP, and App Store release"
+		},
+		{
+			"title": "School Discovery App",
+			"period": "2025 - 2026",
+			"description": "Platform helping parents in Colorado find and compare schools for their kids. Smart semantic search, comparison tools, and a smooth animated UI designed to make a genuinely hard decision feel a bit easier.",
+			"tech": [
+				"React Native",
+				"Expo",
+				"TypeScript",
+				"Semantic Search",
+				"Animations"
+			],
+			"confidential": true,
+			"client": {
+				"industry": "EdTech",
+				"region": "US"
+			},
+			"role": "Mobile Engineer",
+			"outcome": "Smooth animated UI with smart school-matching search"
+		},
+		{
+			"title": "Celebrity Fan Platform",
+			"period": "2022 - 2023",
+			"description": "Social platform for celebrities and their fans — think exclusive content, direct chat, and the ability to book a custom session or meeting with the person you follow. Four distinct user roles in a single app.",
+			"tech": ["React Native", "TypeScript", "Realtime", "In-App Purchase"],
+			"confidential": true,
+			"client": {
+				"industry": "Social / Creator Economy",
+				"region": "US"
+			},
+			"role": "Mobile Engineer",
+			"outcome": "Multi-role app with exclusive content, chat, and booking flows"
+		},
+		{
+			"title": "Fashion on Demand",
+			"period": "2023 - 2024",
+			"description": "Apparel marketplace with 2-hour delivery, built as a single app with four modes — buyer, seller, logistics agent, and creator/model. Each role gets its own tailored experience inside the same codebase.",
+			"tech": ["React Native", "TypeScript", "Maps", "Realtime"],
+			"confidential": true,
+			"client": {
+				"industry": "Fashion / Quick Commerce",
+				"region": "India"
+			},
+			"role": "Mobile Team Lead",
+			"outcome": "One app, four roles — buyer, seller, logistics, and creator"
+		},
+		{
 			"title": "TGVCBot",
 			"period": "Aug 2021 - Jan 2023",
 			"description": "Telegram Voice Chat music bot using JioSaavn & YT Music as sources. Supports media transcoding, multiple bot instances, and queue management.",
