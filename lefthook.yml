@@ -12,4 +12,4 @@ pre-commit:
     emdash:
       glob: "*.{md,mdx,json}"
       stage_fixed: true
-      run: sed -i 's/ - / — /g' {staged_files}
+      run: sed -i 's/ — / - /g' {staged_files}

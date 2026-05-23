@@ -2,13 +2,13 @@
 	"site": {
 		"name": "Arnab Paryali",
 		"handle": "arnabxd",
-		"title": "Arnab Paryali — Software Engineer | React Native & Next.js",
+		"title": "Arnab Paryali - Software Engineer | React Native & Next.js",
 		"description": "I'm Arnab, a software engineer who's spent 5+ years building React Native and Next.js apps that actually ship. Currently at Metafic, previously led the frontend team at Indus Net Technologies.",
 		"keywords": "Arnab Paryali, Software Engineer, React Native Developer, Next.js Developer, TypeScript Engineer, Frontend Engineer, Mobile App Developer, UI Animations, Cloudflare Workers, Astro, Kolkata, India, Hire React Native Developer, Arabic RTL Developer, Bilingual App Developer, Gulf Region, React Native Arabic, Portfolio",
 		"url": "https://arnabxd.me",
 		"ogImage": "/og/home.png",
 		"status": "AVAILABLE FOR HIRE",
-		"tagline": "I've been writing React Native and Next.js for five-plus years and I still get a little too excited about smooth animations. TypeScript everywhere, cross-platform by default — including a stint building bilingual Arabic/English apps for the Gulf with full RTL. Used to lead frontend at INT, now building at Metafic."
+		"tagline": "I've been writing React Native and Next.js for five-plus years and I still get a little too excited about smooth animations. TypeScript everywhere, cross-platform by default - including a stint building bilingual Arabic/English apps for the Gulf with full RTL. Used to lead frontend at INT, now building at Metafic."
 	},
 	"nav": [
 		{ "label": "Works", "href": "/works", "short": "01" },
@@ -27,14 +27,14 @@
 			"twitter": "https://twitter.com/Arnab431",
 			"upwork": "https://upwork.com/freelancers/~011ef2a53c7586d1c2"
 		},
-		"notice": "Using Proton Mail, so yes — your message is encrypted end to end. I usually reply within a day.",
+		"notice": "Using Proton Mail, so yes - your message is encrypted end to end. I usually reply within a day.",
 		"terminalIntro": "> hey, you found the terminal. type 'help' to see what's here."
 	},
 	"experience": [
 		{
 			"title": "Software Engineer",
 			"company": "Metafic",
-			"period": "Mar 2026 — Present",
+			"period": "Mar 2026 - Present",
 			"responsibilities": [
 				"Building production React Native applications across the company's mobile product suite",
 				"Engineering cross-platform mobile experiences with a focus on performance and UI polish"
@@ -43,7 +43,7 @@
 		{
 			"title": "Software Engineer",
 			"company": "Indus Net Technologies",
-			"period": "September 2024 — Mar 2026",
+			"period": "September 2024 - Mar 2026",
 			"responsibilities": [
 				"Led the frontend team delivering React Native and Next.js engagements for enterprise clients",
 				"Owned project scoping, feasibility studies, and SOW preparation across mobile and web work",
@@ -53,7 +53,7 @@
 		{
 			"title": "Software Engineer",
 			"company": "Qubited",
-			"period": "July 2022 — August 2024",
+			"period": "July 2022 - August 2024",
 			"responsibilities": [
 				"Promoted to Assistant Tech Lead in February 2023, within 7 months of joining",
 				"Built React Native apps featuring realtime data sync, Twilio chat, and complex UI animations",
@@ -64,7 +64,7 @@
 		{
 			"title": "Developer",
 			"company": "Freelancer",
-			"period": "April 2021 — June 2022",
+			"period": "April 2021 - June 2022",
 			"responsibilities": [
 				"Delivered Next.js, React, and React Native projects for clients across multiple industries",
 				"Handled requirements gathering, design, implementation, and deployment independently"
@@ -83,7 +83,7 @@
 		{
 			"title": "Real Estate Platform",
 			"period": "2026",
-			"description": "Property platform for the Gulf market. Bilingual Arabic/English UI with full RTL layout and AI-assisted listings — designed for regional users from day one, not bolted on after.",
+			"description": "Property platform for the Gulf market. Bilingual Arabic/English UI with full RTL layout and AI-assisted listings - designed for regional users from day one, not bolted on after.",
 			"tech": ["React Native", "Expo", "TypeScript", "AI Integration", "RTL"],
 			"confidential": true,
 			"client": {
@@ -95,7 +95,7 @@
 		},
 		{
 			"title": "Spare Parts Marketplace",
-			"period": "2024 — 2026",
+			"period": "2024 - 2026",
 			"description": "Mobile app and website for a vehicle spare parts manufacturer. Inherited an underperforming codebase and led a full optimization pass across animations, bundle size, and rendering.",
 			"tech": ["React Native", "Next.js", "TypeScript", "Performance"],
 			"confidential": true,
@@ -108,7 +108,7 @@
 		},
 		{
 			"title": "B2B Health Platform",
-			"period": "2025 — 2026",
+			"period": "2025 - 2026",
 			"description": "B2B health improvement app built around habit enforcement, AI-powered evaluation, and a semantic practice recommendation engine. Sole mobile engineer, from architecture to in-app purchases.",
 			"tech": [
 				"React Native",
@@ -123,11 +123,11 @@
 				"region": "US"
 			},
 			"role": "Solo Mobile Engineer",
-			"outcome": "End-to-end delivery — architecture, AI integration, IAP, and App Store release"
+			"outcome": "End-to-end delivery - architecture, AI integration, IAP, and App Store release"
 		},
 		{
 			"title": "School Discovery App",
-			"period": "2025 — 2026",
+			"period": "2025 - 2026",
 			"description": "Platform helping parents in Colorado find and compare schools for their kids. Smart semantic search, comparison tools, and a smooth animated UI designed to make a genuinely hard decision feel a bit easier.",
 			"tech": [
 				"React Native",
@@ -146,8 +146,8 @@
 		},
 		{
 			"title": "Celebrity Fan Platform",
-			"period": "2022 — 2023",
-			"description": "Social platform for celebrities and their fans — think exclusive content, direct chat, and the ability to book a custom session or meeting with the person you follow. Four distinct user roles in a single app.",
+			"period": "2022 - 2023",
+			"description": "Social platform for celebrities and their fans - think exclusive content, direct chat, and the ability to book a custom session or meeting with the person you follow. Four distinct user roles in a single app.",
 			"tech": ["React Native", "TypeScript", "Realtime", "In-App Purchase"],
 			"confidential": true,
 			"client": {
@@ -159,8 +159,8 @@
 		},
 		{
 			"title": "Fashion on Demand",
-			"period": "2023 — 2024",
-			"description": "Apparel marketplace with 2-hour delivery, built as a single app with four modes — buyer, seller, logistics agent, and creator/model. Each role gets its own tailored experience inside the same codebase.",
+			"period": "2023 - 2024",
+			"description": "Apparel marketplace with 2-hour delivery, built as a single app with four modes - buyer, seller, logistics agent, and creator/model. Each role gets its own tailored experience inside the same codebase.",
 			"tech": ["React Native", "TypeScript", "Maps", "Realtime"],
 			"confidential": true,
 			"client": {
@@ -168,32 +168,32 @@
 				"region": "India"
 			},
 			"role": "Mobile Team Lead",
-			"outcome": "One app, four roles — buyer, seller, logistics, and creator"
+			"outcome": "One app, four roles - buyer, seller, logistics, and creator"
 		},
 		{
 			"title": "TGVCBot",
-			"period": "Aug 2021 — Jan 2023",
+			"period": "Aug 2021 - Jan 2023",
 			"description": "Telegram Voice Chat music bot using JioSaavn & YT Music as sources. Supports media transcoding, multiple bot instances, and queue management.",
 			"tech": ["NodeJS", "Telegram Bot API", "TypeScript"],
 			"link": "https://github.com/ArnabXD/TGVCBot"
 		},
 		{
 			"title": "XorGram",
-			"period": "Jan 2022 — Present",
+			"period": "Jan 2022 - Present",
 			"description": "Telegram userbot framework built on grammy.js. Enables programmatic control of Telegram user accounts via a command interface.",
 			"tech": ["Deno", "TypeScript", "Telegram API"],
 			"link": "https://github.com/xorgram"
 		},
 		{
 			"title": "AnimeDB",
-			"period": "Jun 2020 — Present",
+			"period": "Jun 2020 - Present",
 			"description": "Anime & manga search bot for Telegram. Fetches data from the AniList API with inline query support and genre filtering.",
 			"tech": ["TypeScript", "grammy.js", "AniList API"],
 			"link": "https://github.com/ArnabXD/AnimeDB-tgbot"
 		},
 		{
 			"title": "Bin-Lookup",
-			"period": "Sep 2021 — Present",
+			"period": "Sep 2021 - Present",
 			"description": "npm package to search BIN details across multiple sources. Supports credit card validation and bank identification.",
 			"tech": ["TypeScript", "npm"],
 			"link": "https://github.com/ArnabXD/Bin-Lookup"
@@ -214,7 +214,7 @@
 		},
 		{
 			"title": "Dropbox-Index",
-			"period": "Dec 2021 — Aug 2022",
+			"period": "Dec 2021 - Aug 2022",
 			"description": "Website to publicly index and share Dropbox folders. Provides clean file listings with download links.",
 			"tech": ["NextJS", "TypeScript", "Tailwind"],
 			"link": "https://github.com/ArnabXD/Dropbox-Index"
@@ -316,13 +316,13 @@
 			"title": "Secret Terminal",
 			"initialHistory": [
 				"whoami",
-				"Arnab Paryali — Software Engineer",
+				"Arnab Paryali - Software Engineer",
 				"cat secret.txt",
 				"You found the easter egg! Here's a joke: Why do programmers prefer dark mode? Because light attracts bugs!"
 			],
 			"commands": {
 				"help": "Available commands: help, clear, exit, joke, about, skills, social, status",
-				"about": "Arnab Paryali — Software Engineer with 5+ years in React Native, Next.js, and TypeScript. Currently building at Metafic, based in Kolkata.",
+				"about": "Arnab Paryali - Software Engineer with 5+ years in React Native, Next.js, and TypeScript. Currently building at Metafic, based in Kolkata.",
 				"skills": "Skills: TypeScript, React Native, Next.js, Astro, Node.js, Cloudflare Workers, Rust, Go, Telegram Bot API, Firebase, UI Animations",
 				"social": "GitHub: @ArnabXD | Email: arnabxd@proton.me",
 				"status": "STATUS: AVAILABLE FOR HIRE",
