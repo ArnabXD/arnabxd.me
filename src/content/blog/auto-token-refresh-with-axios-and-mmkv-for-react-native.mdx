@@ -1,0 +1,230 @@
+---
+title: Auto Token Refresh with Axios and MMKV in React Native
+description: Setting up automatic JWT token refresh in React Native using Axios interceptors and MMKV, with a queue to prevent duplicate refresh calls when multiple requests hit 401 at the same time.
+pubDate: 2026-05-24
+tags:
+  - react-native
+  - axios
+  - jwt
+  - refresh-token
+  - mmkv
+  - typescript
+---
+
+Setting up automatic JWT token refresh in React Native using Axios interceptors and MMKV for token storage. If you're looking for a web or Ky-based version, check out [this post](/blog/auto-token-refresh-with-ky-for-react-and-react-native).
+
+## Why MMKV for token storage?
+
+MMKV reads are synchronous. Inside an Axios request interceptor, you can read the token without `await` — no async chain, no extra complexity. AsyncStorage works too but you'll need to handle the async differently.
+
+## Install dependencies
+
+```bash
+npm install axios react-native-mmkv zustand
+```
+
+For Expo:
+
+```bash
+npx expo install react-native-mmkv
+```
+
+MMKV needs a native build — won't work in Expo Go.
+
+## 1. Storage
+
+```typescript
+// src/lib/storage.ts
+import { MMKV } from 'react-native-mmkv';
+
+export const storage = new MMKV({
+  id: 'auth',
+  encryptionKey: 'your-encryption-key', // AES-128, fetch this from Keychain/Keystore in production
+});
+
+export const tokenStorage = {
+  getAccessToken: () => storage.getString('auth.accessToken') ?? null,
+  setAccessToken: (token: string) => storage.set('auth.accessToken', token),
+
+  getRefreshToken: () => storage.getString('auth.refreshToken') ?? null,
+  setRefreshToken: (token: string) => storage.set('auth.refreshToken', token),
+
+  clear: () => {
+    storage.delete('auth.accessToken');
+    storage.delete('auth.refreshToken');
+  },
+};
+```
+
+## 2. Auth store
+
+```typescript
+// src/store/authStore.ts
+import { create } from 'zustand';
+import { tokenStorage } from '@/lib/storage';
+
+interface AuthState {
+  accessToken: string | null;
+  isAuthenticated: boolean;
+  setTokens: (access: string, refresh: string) => void;
+  logout: () => void;
+}
+
+export const useAuthStore = create<AuthState>((set) => ({
+  accessToken: tokenStorage.getAccessToken(),
+  isAuthenticated: !!tokenStorage.getAccessToken(),
+
+  setTokens: (access, refresh) => {
+    tokenStorage.setAccessToken(access);
+    tokenStorage.setRefreshToken(refresh);
+    set({ accessToken: access, isAuthenticated: true });
+  },
+
+  logout: () => {
+    tokenStorage.clear();
+    set({ accessToken: null, isAuthenticated: false });
+  },
+}));
+```
+
+## 3. Refresh queue
+
+When multiple requests get a 401 at the same time, you only want one refresh call — not one per request. This queue holds the waiting requests and releases them once the refresh is done.
+
+```typescript
+// src/lib/refreshQueue.ts
+type Resolver = (token: string | null) => void;
+
+class RefreshQueue {
+  private isRefreshing = false;
+  private queue: Resolver[] = [];
+
+  waitForRefresh(): Promise<string | null> | null {
+    if (this.isRefreshing) {
+      return new Promise<string | null>((resolve) => {
+        this.queue.push(resolve);
+      });
+    }
+    this.isRefreshing = true;
+    return null;
+  }
+
+  resolve(token: string) {
+    this.isRefreshing = false;
+    this.queue.forEach((r) => r(token));
+    this.queue = [];
+  }
+
+  reject() {
+    this.isRefreshing = false;
+    this.queue.forEach((r) => r(null));
+    this.queue = [];
+  }
+}
+
+export const refreshQueue = new RefreshQueue();
+```
+
+## 4. Axios instance
+
+```typescript
+// src/lib/api.ts
+import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
+import { tokenStorage } from './storage';
+import { refreshQueue } from './refreshQueue';
+import { useAuthStore } from '@/store/authStore';
+
+const BASE_URL = 'https://api.example.com';
+
+export const api = axios.create({
+  baseURL: BASE_URL,
+  timeout: 15_000,
+});
+
+// Attach token to every request
+api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
+  const token = tokenStorage.getAccessToken();
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+// Handle 401s
+api.interceptors.response.use(
+  (response) => response,
+  async (error: AxiosError) => {
+    const original = error.config as InternalAxiosRequestConfig & {
+      _retry?: boolean;
+    };
+
+    if (error.response?.status !== 401 || original._retry) {
+      return Promise.reject(error);
+    }
+
+    // If a refresh is already running, wait for it
+    const queued = refreshQueue.waitForRefresh();
+    if (queued !== null) {
+      const token = await queued;
+      if (!token) return Promise.reject(error);
+      original.headers.Authorization = `Bearer ${token}`;
+      original._retry = true;
+      return api(original);
+    }
+
+    // First 401 — do the refresh
+    original._retry = true;
+
+    try {
+      const refreshToken = tokenStorage.getRefreshToken();
+      if (!refreshToken) throw new Error('No refresh token');
+
+      // Use bare axios here, not the api instance — avoids going through interceptors again
+      const { data } = await axios.post<{
+        accessToken: string;
+        refreshToken: string;
+      }>(`${BASE_URL}/auth/refresh`, { refreshToken });
+
+      useAuthStore.getState().setTokens(data.accessToken, data.refreshToken);
+      refreshQueue.resolve(data.accessToken);
+
+      original.headers.Authorization = `Bearer ${data.accessToken}`;
+      return api(original);
+    } catch (err) {
+      refreshQueue.reject();
+      useAuthStore.getState().logout();
+      return Promise.reject(err);
+    }
+  }
+);
+```
+
+Two things to notice — the refresh call uses bare `axios`, not `api`, so it doesn't trigger the interceptor again. And `_retry` makes sure a failed refresh doesn't loop.
+
+## 5. Usage
+
+```typescript
+// src/services/userService.ts
+import { api } from '@/lib/api';
+
+interface UserProfile {
+  id: string;
+  name: string;
+  email: string;
+}
+
+export const getProfile = () =>
+  api.get<UserProfile>('/users/me').then((r) => r.data);
+```
+
+With TanStack Query:
+
+```typescript
+import { useQuery } from '@tanstack/react-query';
+import { getProfile } from '@/services/userService';
+
+export const useProfile = () =>
+  useQuery({ queryKey: ['profile'], queryFn: getProfile });
+```
+
+That's it. Token attaches on every request, refreshes automatically on 401, and concurrent 401s only trigger one refresh.
