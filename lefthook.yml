@@ -9,3 +9,7 @@ pre-commit:
       glob: "*.{js,ts,tsx,astro}"
       stage_fixed: true
       run: pnpm eslint --fix {staged_files}
+    emdash:
+      glob: "*.{md,mdx,json}"
+      stage_fixed: true
+      run: sed -i 's/ - / — /g' {staged_files}
