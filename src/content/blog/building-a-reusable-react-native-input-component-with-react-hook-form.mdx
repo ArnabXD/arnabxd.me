@@ -1,0 +1,305 @@
+---
+title: Building a Reusable React Native Input Component with React Hook Form
+description: Learn how to build a type-safe, reusable React Native TextInput component that integrates seamlessly with React Hook Form and supports custom accessories.
+pubDate: 2025-03-22
+tags:
+  - react-native
+  - react-hook-form
+  - typescript
+  - form-validation
+  - yup
+---
+
+Forms in React Native apps often suffer from repetitive code, validation complexity, and inconsistent styling. This guide demonstrates how to build a reusable, type-safe input component that integrates with React Hook Form.
+
+## Requirements
+
+The component must:
+- Integrate with React Hook Form for validation and state management
+- Support standard React Native `TextInput` props
+- Allow custom elements on either side of the input
+- Handle error display consistently
+- Maintain TypeScript type safety
+
+## Component Interface
+
+```typescript
+export interface RHFInputProps<T extends FieldValues> extends TextInputProps {
+  control: Control<T, any>; // React Hook Form control object
+  name: Path<T>;            // Type-safe field name
+  left?: ReactNode;         // Optional left accessory
+  right?: ReactNode;        // Optional right accessory
+}
+```
+
+The generic type parameter ensures that field names must exist in the form schema.
+
+## React Hook Form Integration
+
+The core integration uses React Hook Form's `Controller` component:
+
+```typescript
+<Controller
+  control={control}
+  name={name}
+  render={({
+    field: { onChange, ...fieldProps },
+    fieldState: { error },
+  }) => (
+    // Render the input with validation state
+  )}
+/>
+```
+
+This provides access to the field's current value, change handlers, and validation state.
+
+## The Final Component
+
+```typescript
+import React, { ReactNode } from "react";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  TextInputProps,
+  View,
+} from "react-native";
+import { Control, Controller, FieldValues, Path } from "react-hook-form";
+import { design } from "@/theme";
+import { fonts } from "@/fonts";
+
+export interface RHFInputProps<T extends FieldValues> extends TextInputProps {
+  control: Control<T, any>;
+  name: Path<T>;
+  left?: ReactNode;
+  right?: ReactNode;
+}
+
+const RhfInput = <T extends FieldValues>({
+  control,
+  name,
+  left,
+  right,
+  ...rest
+}: RHFInputProps<T>) => {
+  return (
+    <Controller
+      control={control}
+      name={name}
+      render={({
+        field: { onChange, ...fieldProps },
+        fieldState: { error },
+      }) => (
+        <View>
+          <View style={styles.input}>
+            {left}
+            <TextInput
+              style={styles.textInput}
+              onChangeText={onChange}
+              {...fieldProps}
+              placeholderTextColor={"grey"}
+              {...rest}
+            />
+            {right}
+          </View>
+          {error && <Text>{error.message}</Text>}
+        </View>
+      )}
+    />
+  );
+};
+
+RhfInput.displayName = "RhfInput";
+
+const HEIGHT = 50;
+const styles = StyleSheet.create({
+  input: {
+    height: HEIGHT,
+    borderRadius: design.radius,
+    borderWidth: 1,
+    borderColor: "gray",
+    paddingHorizontal: 12,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+  },
+  textInput: { flex: 1, height: HEIGHT, fontSize: fonts.size.md },
+});
+
+export default RhfInput;
+```
+
+Styles are defined outside the component to prevent recreation on each render.
+
+## Usage Example
+
+A complete signup form demonstrating the component:
+
+```typescript
+import React, { useState } from 'react';
+import { View, StyleSheet, TouchableOpacity, Text, ScrollView } from 'react-native';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { Ionicons } from '@expo/vector-icons';
+import RhfInput from './components/RhfInput';
+
+type SignupFormData = {
+  fullName: string;
+  email: string;
+  phone: string;
+  password: string;
+  confirmPassword: string;
+};
+
+const validationSchema = yup.object({
+  fullName: yup
+    .string()
+    .required('Full name is required')
+    .min(2, 'Name must be at least 2 characters'),
+
+  email: yup
+    .string()
+    .email('Please enter a valid email')
+    .required('Email is required'),
+
+  phone: yup
+    .string()
+    .matches(/^[0-9]{10}$/, 'Please enter a valid 10-digit phone number')
+    .required('Phone number is required'),
+
+  password: yup
+    .string()
+    .required('Password is required')
+    .min(8, 'Password must be at least 8 characters')
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+      'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character'
+    ),
+
+  confirmPassword: yup
+    .string()
+    .required('Please confirm your password')
+    .oneOf([yup.ref('password')], 'Passwords must match')
+});
+
+export default function SignupScreen() {
+  const { control, handleSubmit } = useForm<SignupFormData>({
+    defaultValues: {
+      fullName: '',
+      email: '',
+      phone: '',
+      password: '',
+      confirmPassword: ''
+    },
+    resolver: yupResolver(validationSchema)
+  });
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const onSubmit = (data: SignupFormData) => {
+    console.log('Form submitted:', data);
+  };
+
+  return (
+    <ScrollView contentContainerStyle={styles.container}>
+      <Text style={styles.title}>Create Account</Text>
+
+      <RhfInput
+        control={control}
+        name="fullName"
+        placeholder="Full Name"
+        autoCapitalize="words"
+        left={<Ionicons name="person-outline" size={20} color="gray" />}
+      />
+
+      <RhfInput
+        control={control}
+        name="email"
+        placeholder="Email Address"
+        keyboardType="email-address"
+        autoCapitalize="none"
+        left={<Ionicons name="mail-outline" size={20} color="gray" />}
+      />
+
+      <RhfInput
+        control={control}
+        name="phone"
+        placeholder="Phone Number"
+        keyboardType="phone-pad"
+        left={<Ionicons name="call-outline" size={20} color="gray" />}
+      />
+
+      <RhfInput
+        control={control}
+        name="password"
+        placeholder="Password"
+        secureTextEntry={!showPassword}
+        left={<Ionicons name="lock-closed-outline" size={20} color="gray" />}
+        right={
+          <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+            <Ionicons
+              name={showPassword ? "eye-off-outline" : "eye-outline"}
+              size={20}
+              color="gray"
+            />
+          </TouchableOpacity>
+        }
+      />
+
+      <RhfInput
+        control={control}
+        name="confirmPassword"
+        placeholder="Confirm Password"
+        secureTextEntry={!showConfirmPassword}
+        left={<Ionicons name="lock-closed-outline" size={20} color="gray" />}
+        right={
+          <TouchableOpacity onPress={() => setShowConfirmPassword(!showConfirmPassword)}>
+            <Ionicons
+              name={showConfirmPassword ? "eye-off-outline" : "eye-outline"}
+              size={20}
+              color="gray"
+            />
+          </TouchableOpacity>
+        }
+      />
+
+      <TouchableOpacity
+        style={styles.button}
+        onPress={handleSubmit(onSubmit)}
+      >
+        <Text style={styles.buttonText}>Sign Up</Text>
+      </TouchableOpacity>
+    </ScrollView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 24,
+    gap: 16,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 24,
+    textAlign: 'center',
+  },
+  button: {
+    backgroundColor: '#007AFF',
+    borderRadius: 8,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 16,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+});
+```
+
+The example demonstrates proper TypeScript integration, comprehensive Yup validation, multiple field types with appropriate keyboard configurations, icon accessories, interactive password visibility toggles, and complete form submission handling.

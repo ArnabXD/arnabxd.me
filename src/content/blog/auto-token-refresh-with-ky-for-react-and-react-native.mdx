@@ -1,0 +1,518 @@
+---
+title: Implementing Auto Token Refresh with "Ky" for React & React Native
+description: A comprehensive guide on building an automatic JWT token refresh system using Ky.js that works across both React and React Native, handling concurrent requests efficiently.
+pubDate: 2025-04-10
+updatedDate: 2025-04-11
+tags:
+  - react-native
+  - api
+  - reactjs
+  - jwt
+  - refresh-token
+  - ky
+---
+
+Modern web and mobile applications typically use JWT (JSON Web Tokens) for authentication. These tokens expire after a certain period for security reasons, requiring a refresh mechanism to maintain user sessions. In this guide, I'll show you how to implement an automatic token refresh system using Ky.js that works for both React and React Native applications.
+
+## Why Ky?
+
+Ky is a tiny and elegant HTTP client that builds on top of the Fetch API. Compared to alternatives like Axios:
+
+- It's significantly smaller in size.
+- It has a more elegant API that leverages modern JavaScript features
+- It includes a powerful hooks system for request/response interception
+
+## Prerequisites
+
+- Basic knowledge of TypeScript and React/React Native
+- Understanding of JWT authentication
+- React or React Native project setup
+
+## 1. Setting Up the Dependencies
+
+First, let's install the required dependencies:
+
+```bash
+# For both React and React Native
+npm install ky
+
+# For state management (you can use your preferred solution)
+npm install zustand
+```
+
+## 2. Creating a Storage Service Abstraction
+
+Since React and React Native use different storage mechanisms, we'll create a simple abstraction interface:
+
+```typescript
+// storageService.ts
+
+// Interface for our storage service
+export interface IStorageService {
+  getItem(key: string): Promise<string | null>;
+  setItem(key: string, value: string): Promise<void>;
+  removeItem(key: string): Promise<void>;
+}
+
+// Implement this interface for your platform
+// For React Web: use localStorage or sessionStorage
+// For React Native: use SecureStore or keychain
+
+// Example usage comment (replace with your implementation):
+// For React Web:
+// export const storageService: IStorageService = {
+//   getItem: (key) => Promise.resolve(localStorage.getItem(key)),
+//   setItem: (key, value) => { localStorage.setItem(key, value); return Promise.resolve(); },
+//   removeItem: (key) => { localStorage.removeItem(key); return Promise.resolve(); }
+// };
+
+// For React Native, you'd implement this using your preferred storage mechanism
+```
+
+## 3. Implementing the Auth Store
+
+Now let's create a simple auth store using Zustand (you can adapt this to your preferred state management solution):
+
+```typescript
+// authStore.ts
+import { create } from 'zustand';
+
+// Customize these types to match your application's user model
+interface User {
+  id: string;
+  name: string;
+  // Add other user properties as needed
+}
+
+interface AuthState {
+  token: string | null;
+  refreshToken: string | null;
+  user: User | null;
+  setToken: (token: string | null) => void;
+  setRefreshToken: (refreshToken: string | null) => void;
+  setUser: (user: User | null) => void;
+  logout: () => void;
+}
+
+export const useAuthStore = create<AuthState>((set) => ({
+  token: null,
+  refreshToken: null,
+  user: null,
+  setToken: (token) => set({ token }),
+  setRefreshToken: (refreshToken) => set({ refreshToken }),
+  setUser: (user) => set({ user }),
+  logout: () => set({ token: null, refreshToken: null, user: null }),
+}));
+```
+
+## 4. Implementing the Refresh Token Service
+
+Now, let's create a refresh token service to handle token storage and renewal:
+
+```typescript
+// refreshTokenService.ts
+import ky from 'ky';
+// Import your implemented storage service
+// import { storageService } from './storageService';
+// Import your notification service if you have one
+// import { notificationService } from './notificationService';
+import { useAuthStore } from './authStore';
+
+// Define your API response type
+interface AuthResponse {
+  success: boolean;
+  data?: {
+    token: string;
+    refreshToken: string;
+    user: {
+      id: string;
+      name: string;
+      // other user properties...
+    };
+  };
+  error?: string;
+}
+
+/**
+ * Class responsible for handling the refresh token
+ */
+class RefreshTokenService {
+  /**
+   * The key used to store the refresh token
+   */
+  private _tokenKey = 'refreshToken';
+
+  /**
+   * The currently stored refresh token
+   */
+  private _token: string | null = null;
+
+  /**
+   * API base URL
+   */
+  private _apiUrl: string;
+
+  /**
+   * Constructor
+   */
+  constructor(apiUrl: string) {
+    this._apiUrl = apiUrl;
+    // Initialize token from storage
+    this.getRefreshToken();
+  }
+
+  /**
+   * Retrieves the refresh token from storage
+   * 
+   * Implement using your platform's storage solution:
+   * - For web, use localStorage/sessionStorage
+   * - For React Native, use SecureStore or AsyncStorage
+   */
+  getRefreshToken = async () => {
+    // Replace with your storage implementation
+    // For example:
+    // const token = await storageService.getItem(this._tokenKey);
+    // this._token = token;
+    // return token;
+
+    // Placeholder - replace with your implementation
+    return this._token;
+  }
+
+  /**
+   * Sets a new refresh token in storage
+   * 
+   * Implement using your platform's storage solution
+   */
+  setRefreshToken = async (refreshToken: string) => {
+    // Replace with your storage implementation
+    // For example:
+    // this._token = refreshToken;
+    // await storageService.setItem(this._tokenKey, refreshToken);
+
+    // Placeholder - replace with your implementation
+    this._token = refreshToken;
+  }
+
+  /**
+   * Renews the access token using the refresh token
+   */
+  renewAccessToken = async () => {
+    try {
+      // Try to get the refresh token
+      let token = this._token;
+      if (!token) {
+        token = await this.getRefreshToken();
+      }
+
+      // If no refresh token, signout the user
+      if (!token) {
+        useAuthStore.getState().logout();
+      }
+
+      // Try to renew the access token - adjust the endpoint and payload to match your API
+      const response = await ky
+        .post('v1/auth/refresh-token', {
+          prefixUrl: this._apiUrl,
+          json: {
+            refreshToken: token,
+          },
+        })
+        .json<AuthResponse>();
+
+      if (response.success && response.data?.refreshToken) {
+        await this.setRefreshToken(response.data.refreshToken);
+        const { setUser, setToken } = useAuthStore.getState();
+
+        setUser(response.data.user);
+        setToken(response.data.token);
+      }
+    } catch (error) {
+      // Handle token refresh failure
+      const { logout } = useAuthStore.getState();
+      await logout();
+
+      // Clear stored refresh token
+      // Implement based on your storage method
+      // await storageService.removeItem(this._tokenKey);
+      this._token = null;
+
+      // Show notification to user - implement based on your platform
+      // For web: could be a toast notification, alert, or custom UI component
+      // For React Native: could be a Toast or Alert
+      // Example: notificationService.show('Please login again', 'Session Expired');
+
+      console.error('Session expired. Please login again.');
+    }
+  }
+}
+
+// Create and export the service instance
+// Get your API URL from environment or config
+const API_URL = process.env.API_URL || 'https://api.example.com';
+const refreshTokenService = new RefreshTokenService(API_URL);
+
+export default refreshTokenService;
+```
+
+## 5. Implementing the Token Refresh Queue
+
+To solve the parallel requests problem, let's create a token refresh queue manager:
+
+```typescript
+// TokenRefreshQueue.ts
+
+interface RefreshTokenService {
+  renewAccessToken(): Promise<void>;
+}
+
+type QueuedRequestCallback = () => void;
+
+/**
+ * TokenRefreshQueue - Manages token refresh operations to prevent multiple simultaneous refresh calls
+ */
+class TokenRefreshQueue {
+  private isRefreshing: boolean = false;
+  private waitingRequests: QueuedRequestCallback[] = [];
+  private refreshTokenService: RefreshTokenService;
+
+  constructor(refreshTokenService: RefreshTokenService) {
+    this.refreshTokenService = refreshTokenService;
+  }
+
+  /**
+   * Handles a 401 response by either refreshing the token or queuing the request
+   * @param request - The original request that received a 401
+   * @param getToken - Function to get the current token
+   * @param executeRequest - Function to execute a request with the given request object
+   * @returns Promise that resolves with the retried request response
+   */
+  async handleUnauthorizedRequest<T>(
+    request: Request, 
+    getToken: () => string | null, 
+    executeRequest: (req: Request) => Promise<T>
+  ): Promise<T> {
+    // Clone the original request for later use
+    const originalRequest = request.clone();
+
+    // If we're already refreshing, add this request to the queue
+    if (this.isRefreshing) {
+      return new Promise<T>((resolve) => {
+        this.waitingRequests.push(() => {
+          // When token refresh completes, retry with new token
+          const token = getToken();
+          if (token) {
+            originalRequest.headers.set('Authorization', `Bearer ${token}`);
+          }
+          resolve(executeRequest(originalRequest));
+        });
+      });
+    }
+
+    // Start the refresh process
+    this.isRefreshing = true;
+
+    try {
+      // Attempt to renew the token
+      await this.refreshTokenService.renewAccessToken();
+
+      // Set the new token for this request
+      const token = getToken();
+      if (token) {
+        originalRequest.headers.set('Authorization', `Bearer ${token}`);
+      }
+
+      // Execute all queued requests with the new token
+      this.waitingRequests.forEach(callback => callback());
+      // Clear the queue
+      this.waitingRequests = [];
+
+      // Return the retry of the original request
+      return await executeRequest(originalRequest);
+    } catch (error) {
+      // If token refresh fails, reject all waiting requests
+      this.waitingRequests.forEach(callback => callback());
+      this.waitingRequests = [];
+
+      // Rethrow the error
+      throw error;
+    } finally {
+      // Mark refresh as complete
+      this.isRefreshing = false;
+    }
+  }
+}
+
+export default TokenRefreshQueue;
+```
+
+## 6. Creating the Enhanced API Client
+
+Now, let's build our API client with automatic token refresh:
+
+```typescript
+// api.ts
+import ky, { Options, BeforeRequestHook, AfterResponseHook } from 'ky';
+
+import refreshTokenService from './refreshTokenService';
+import TokenRefreshQueue from './TokenRefreshQueue';
+import { useAuthStore } from './authStore';
+
+// Create a token refresh queue manager
+const tokenRefreshQueue = new TokenRefreshQueue(refreshTokenService);
+
+// API URL from environment
+const API_URL = process.env.API_URL || 'https://api.example.com';
+
+// Define the beforeRequest hook
+const beforeRequestHook: BeforeRequestHook = async (request) => {
+  // Add timestamp for tracking
+  request.headers.set('X-Request-Time', Date.now().toString());
+
+  // Attach the auth token
+  const token = useAuthStore.getState().token;
+  if (token) {
+    request.headers.set('Authorization', `Bearer ${token}`);
+  }
+};
+
+// Define the afterResponse hook
+const afterResponseHook: AfterResponseHook = async (request, _options, response) => {
+  if (response.status === 401) {
+    try {
+      // Delegate token refresh and request retry to the queue manager
+      return await tokenRefreshQueue.handleUnauthorizedRequest(
+        request,
+        () => useAuthStore.getState().token,
+        (req: Request) => ky(req) as Promise<Response>
+      );
+    } catch (error) {
+      // If token refresh ultimately fails, return the original 401 response
+      console.error('Token refresh failed:', error);
+      return response;
+    }
+  }
+  return response;
+};
+
+// Create the API client with typed options
+const apiOptions: Options = {
+  prefixUrl: API_URL,
+  timeout: 30000,
+  fetch,
+  throwHttpErrors: false,
+  cache: 'no-store',
+  hooks: {
+    beforeRequest: [beforeRequestHook],
+    afterResponse: [afterResponseHook],
+  },
+};
+
+const api = ky.create(apiOptions);
+
+export default api;
+```
+
+## 7. Using the API Client in Your Application
+
+Now you can use your enhanced API client throughout your application:
+
+```typescript
+// Example of using the API client in a React component
+import { useState, useEffect } from 'react';
+import api from './api';
+
+function UserProfile() {
+  const [profile, setProfile] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function fetchProfile() {
+      try {
+        setLoading(true);
+        const data = await api.get('v1/users/profile').json();
+        setProfile(data);
+        setError(null);
+      } catch (err) {
+        setError('Failed to load profile');
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchProfile();
+  }, []);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
+
+  return (
+    <div>
+      <h1>User Profile</h1>
+      {profile && (
+        <div>
+          <p>Name: {profile.name}</p>
+          <p>Email: {profile.email}</p>
+          {/* Other profile details */}
+        </div>
+      )}
+    </div>
+  );
+}
+```
+
+## How It Works
+
+**Platform Agnostic Abstractions:** We created abstract interfaces for storage and notifications to work across platforms.
+
+**Token Management:** The `RefreshTokenService` handles:
+- Secure token storage using the appropriate platform mechanism
+- Token refresh when expired
+- Updating the application state with new tokens
+
+**Queue Management:** When multiple API requests hit a 401 error:
+- Only one token refresh request is initiated
+- Other requests are queued until the refresh completes
+- All requests are retried with the new token
+
+**Clean Error Handling:** If token refresh fails:
+- User is logged out
+- Notification is shown
+- Storage is cleared
+
+## Benefits of This Approach
+
+- **Cross-Platform Compatibility:** Works for both web and mobile applications
+- **Efficient Token Handling:** Prevents redundant token refresh API calls
+- **Type Safety:** TypeScript provides better developer experience and catches errors early
+- **Dependency Injection:** Abstract interfaces make testing and switching implementations easier
+- **Clean Architecture:** Clear separation of concerns
+
+## Advanced Considerations
+
+### Security Best Practices
+
+- For web applications, consider using HTTP-only cookies for refresh tokens
+- For React Native, always use secure storage options
+- Implement token rotation on the server to prevent replay attacks
+- Add fingerprinting to tokens to detect potential theft
+
+### Performance Optimization
+
+- Implement token pre-emptive refresh when tokens are close to expiration
+- Add retry mechanisms with exponential backoff for network failures
+- Consider caching API responses based on your application needs
+
+## Conclusion
+
+This implementation provides a robust, cross-platform solution for handling authentication token refreshes. By abstracting platform-specific code and implementing a queue-based refresh mechanism, we've created a system that works reliably across both React and React Native applications.
+
+The architecture is designed to be maintainable and extensible, allowing you to adapt it to your specific authentication requirements while maintaining clean separation of concerns.
+
+## Additional Resources
+
+- [Ky.js documentation](https://github.com/sindresorhus/ky)
+- [Zustand state management](https://github.com/pmndrs/zustand)
+- JWT Authentication best practices

@@ -1,0 +1,97 @@
+---
+title: How to Deploy TGVCBot (<=v0.2.5) in a Ubuntu VPS
+description: Step-by-step guide to deploying TGVCBot — a Telegram bot+userbot to play music from JioSaavn and YouTube in group voice chats — on a Ubuntu VPS using PM2.
+pubDate: 2021-08-02
+updatedDate: 2022-05-01
+tags:
+  - tutorial
+  - typescript
+  - bot
+  - music
+  - nodejs
+---
+
+I wrote [TGVCBot](https://github.com/ArnabXD/TGVCBot), a Telegram bot+userbot to play music from JioSaavn and YouTube in the group voice chats. Here I am gonna explain how to make it work in your own VPS.
+
+## Deploy TGVCBot
+
+First SSH into your VPS and upgrade the packages:
+
+```bash
+sudo apt-get update
+
+sudo apt-get upgrade
+```
+
+## Install NodeJS Latest
+
+```bash
+curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+
+sudo apt-get install -y nodejs
+```
+
+## Install Yarn and PM2
+
+```bash
+sudo npm i -g yarn pm2
+```
+
+## Install FFMPEG & Git
+
+```bash
+sudo apt-get install git ffmpeg -y
+```
+
+## Clone The Repo & Install Dependencies of TGVCBot
+
+```bash
+git clone https://github.com/ArnabXD/TGVCBot.git
+cd TGVCBot
+yarn
+yarn build
+```
+
+## Setup ENV Variables
+
+### Knowing the Variables
+
+| Name | Description | Required |
+|------|-------------|----------|
+| API_ID | Your telegram app's API_ID. Get it from https://my.telegram.org/apps | True |
+| API_HASH | Your telegram app's API_HASH. Get it from https://my.telegram.org/apps | True |
+| BOT_TOKEN | Bot Token from @BotFather | True |
+| LOG_CHANNEL | Chat ID of Channel/Group to keep logs. (Make sure to add VC User and Bot to the group) | True |
+| SESSION | GramJS/Telethon session string of the VC User. | True |
+| MAX_DURATION | Set maximum duration of the stream. Default: 36000 seconds | False |
+| THUMBNAIL | Direct link for default thumbnail (used if audio has no thumbnails). | False |
+
+Simply copy the `.env.sample` to `.env`:
+
+```bash
+cp .env.sample .env
+```
+
+Now modify the `.env` with your values. Use your preferred text editor.
+
+## Run The Bot
+
+Once you followed all the previous steps, now it's time to run the bot. I will use pm2 to run the bot.
+
+```bash
+pm2 start npm --name "tgvc" -- run start --exp-backoff-restart-delay=1000
+```
+
+This will auto-restart bot on crashes.
+
+With PM2 we can start the bot automatically on VPS reboot too.
+
+```bash
+# save the pm2 list
+pm2 save
+
+# get startup command
+pm2 startup
+```
+
+This will return a command. Execute that to start bot on VPS startup.

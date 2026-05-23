@@ -1,0 +1,112 @@
+---
+title: Fade Image with background in React-Native with react-native-skia
+description: Learn how to create smooth image fade effects in React Native using react-native-skia's Mask and LinearGradient components.
+pubDate: 2022-04-24
+tags:
+  - react-native
+  - design
+  - ui
+  - skia
+---
+
+Creating fade effects on images in React Native can be challenging. While `LinearGradient` and `react-native-svg` offer solutions, `react-native-skia` provides a more efficient approach.
+
+## Installation
+
+```bash
+yarn add @shopify/react-native-skia
+```
+
+## Basic Setup
+
+Start with a boilerplate that loads and displays an image:
+
+```typescript
+import React from 'react';
+import { Dimensions, View } from 'react-native';
+import { Canvas, Image, useImage } from '@shopify/react-native-skia';
+
+const { height, width } = Dimensions.get('screen');
+
+export default function App() {
+  const photo = useImage(
+    'https://images.pexels.com/photos/1382734/pexels-photo-1382734.jpeg',
+  );
+  return (
+    <View style={{ flex: 1 }}>
+      <Canvas style={{ height: height / 2 }}>
+        {photo && (
+          <Image
+            image={photo}
+            x={0}
+            y={0}
+            height={height / 2}
+            width={width}
+            fit="cover"
+          />
+        )}
+      </Canvas>
+    </View>
+  );
+}
+```
+
+## Adding the Fade Effect
+
+Implement fading using the `Mask` and `LinearGradient` components. The `Mask` component hides an element by masking the content at specific points — by giving it a gradient that goes from opaque to transparent, the image fades smoothly at the bottom.
+
+```typescript
+import React from 'react';
+import { Dimensions, View } from 'react-native';
+import {
+  Canvas,
+  Image,
+  useImage,
+  Mask,
+  LinearGradient,
+  Rect,
+  vec,
+} from '@shopify/react-native-skia';
+
+const { height, width } = Dimensions.get('screen');
+
+export default function App() {
+  const photo = useImage(
+    'https://images.pexels.com/photos/1382734/pexels-photo-1382734.jpeg',
+  );
+  return (
+    <View style={{ flex: 1 }}>
+      <Canvas style={{ height: height / 2 }}>
+        <Mask
+          mask={
+            <Rect x={0} y={0} height={height / 2} width={width}>
+              <LinearGradient
+                start={vec(0, 0)}
+                end={vec(0, height / 2)}
+                colors={['white', 'white', 'white', 'transparent']}
+              />
+            </Rect>
+          }>
+          {photo && (
+            <Image
+              image={photo}
+              x={0}
+              y={0}
+              height={height / 2}
+              width={width}
+              fit="cover"
+            />
+          )}
+        </Mask>
+      </Canvas>
+    </View>
+  );
+}
+```
+
+The gradient mask transitions from opaque white to transparent, producing a smooth fade effect on the bottom of the image.
+
+## Credits
+
+- Photo from [Pexels](https://www.pexels.com)
+- [React Native Skia](https://github.com/shopify/react-native-skia)

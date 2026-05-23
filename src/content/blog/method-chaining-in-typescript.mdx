@@ -1,0 +1,168 @@
+---
+title: Method chaining in TypeScript
+description: Learn how method chaining works in TypeScript and JavaScript, and how to implement it in your own classes to write more readable and concise code.
+pubDate: 2023-02-10
+updatedDate: 2024-11-23
+tags:
+  - javascript
+  - typescript
+  - object-oriented-programming
+---
+
+Method chaining is a very useful and popular method in JavaScript and TypeScript which helps you write more readable and concise code. In this article, I will explain how method chaining works in JS/TS and how can you write your chainable methods.
+
+## What are methods in JavaScript/TypeScript
+
+A method is a function that is associated with an object or a class. Methods are used to encapsulate functionality that is related to a particular object or class and to provide a way to access and manipulate the data that the object or class contains.
+
+Methods are declared within an object literal or class definition, and they are called on an instance of the object or class. For example:
+
+```typescript
+class Person {
+  hobbies: Array<string> = [];
+
+  // A method that adds a hobby
+  addHobby(hobby: string) {
+    this.hobbies.push(hobby);
+  }
+}
+```
+
+## Example of method chaining
+
+Let's have a look at a popular example that uses method chaining:
+
+```typescript
+import express from "express";
+const app = express();
+
+app.route('/book')
+  .get((req, res) => {
+    res.send('Get a random book')
+  })
+  .post((req, res) => {
+    res.send('Add a book')
+  })
+  .put((req, res) => {
+    res.send('Update the book')
+  });
+```
+
+In the above example, you can see `app` is an express instance and it has four functions/methods chained: `route`, `get`, `post` & `put`. Looks cool right?
+
+## Understand & Create a class with chainable methods
+
+If we breakdown the express.js example it works the same as the below code:
+
+```typescript
+import express from "express";
+const app = express();
+
+app
+  .route('/book')
+  .get((req, res) => {
+    res.send('Get a random book')
+  });
+
+app
+  .route('/book')
+  .post((req, res) => {
+    res.send('Add a book')
+  });
+
+app
+  .route('/book')
+  .put((req, res) => {
+    res.send('Update the book')
+  });
+```
+
+So how does this work? The answer is pretty simple — each of the methods here returns the instance itself, thus you can continue adding new methods after using each of them, or chain the methods.
+
+Let's create one class with a few methods, a Calculator class for example:
+
+```typescript
+// Example without chaining methods
+class Calculator {
+  private n: number;
+  constructor(num = 0) {
+    this.n = num;
+  }
+
+  add(num: number) {
+    this.n += num;
+    return this.n;
+  }
+
+  sub(num: number) {
+    this.n -= num;
+    return this.n;
+  }
+
+  multiply(num: number) {
+    this.n *= num;
+    return this.n;
+  }
+
+  divide(num: number) {
+    this.n /= num;
+    return this.n;
+  }
+
+  get answer() {
+    return this.n;
+  }
+}
+
+// Usage
+const calc = new Calculator(10);
+calc.multiply(10); 
+calc.add(2);
+calc.divide(2);
+console.log(calc.answer); // Outputs 51
+```
+
+Now, let's make those methods chainable by returning `this` or the instance itself, so that it can handle chaining methods.
+
+```typescript
+// Example with chaining methods
+class Calculator {
+  private n: number;
+  constructor(num = 0) {
+    this.n = num;
+  }
+
+  add(num: number) {
+    this.n += num;
+    return this;
+  }
+
+  sub(num: number) {
+    this.n -= num;
+    return this;
+  }
+
+  multiply(num: number) {
+    this.n *= num;
+    return this;
+  }
+
+  divide(num: number) {
+    this.n /= num;
+    return this;
+  }
+
+  get answer() {
+    return this.n;
+  }
+}
+
+// Usage
+const calc = new Calculator(10);
+calc.multiply(10).add(2).divide(2);
+console.log(calc.answer); // Outputs 51
+```
+
+As you can see, now the methods are chainable and it looks much more concise.
+
+I hope you learned something new today, If you think I have made some mistakes please do let me know in the comments. Thanks, and see you again in my next post.

@@ -1,0 +1,232 @@
+---
+title: Building an NSFW Detection Telegram Bot with Bun and TypeScript
+description: A tutorial on creating an automated content moderation Telegram bot using Bun, @mtkruto/node, and @nsfwspy/node to detect and remove inappropriate images from group chats.
+pubDate: 2025-08-13
+tags:
+  - bun
+  - telegram
+  - telegram-bot
+  - typescript
+---
+
+Ever wondered how you can keep your Telegram groups or online communities safe from inappropriate content automatically? It's actually easier than you might think! In this article, I'll walk you through building your own NSFW (Not Safe For Work) detection bot using the super-fast Bun runtime, TypeScript, and a couple of awesome libraries.
+
+By the end of this guide, you'll have a bot that can automatically detect and delete NSFW images posted in a Telegram chat. Looks cool right?
+
+## What We'll Be Using
+
+- **Bun:** A fast all-in-one JavaScript runtime. We'll use it to run our TypeScript code directly.
+- **@mtkruto/node:** A modern and easy-to-use Telegram MTProto client for Node.js that lets us build powerful user and bot clients.
+- **@nsfwspy/node:** A library that uses a pre-trained TensorFlow.js model to classify images and detect NSFW content right on your machine.
+
+## Step 1: Setting Up the Project
+
+First things first, let's get our project set up. Make sure you have Bun installed.
+
+Create a new directory for your project and initialize it.
+
+```bash
+bun init
+```
+
+Next, we need to install our dependencies.
+
+```bash
+bun add @mtkruto/node @nsfwspy/node
+```
+
+Your `package.json` should look something like this:
+
+```json
+{
+  "name": "nsfw-bot",
+  "module": "index.ts",
+  "type": "module",
+  "dependencies": {
+    "@mtkruto/node": "^0.67.1",
+    "@nsfwspy/node": "^1.2.0"
+  },
+  "devDependencies": {
+    "bun-types": "latest"
+  }
+}
+```
+
+## Step 2: Creating the Telegram Bot Client
+
+We need a way to connect to Telegram's services. This is where `@mtkruto/node` comes in. Let's create a file `src/bot.ts` to handle our bot client.
+
+```typescript
+// src/bot.ts
+import { Client } from "@mtkruto/node";
+import env from "./env"; // We'll create this file next!
+
+const bot = new Client({
+  apiId: env.TELEGRAM_APP_ID,
+  apiHash: env.TELEGRAM_APP_HASH,
+});
+
+export default bot;
+```
+
+You'll notice we're importing `env`. You'll need to get your `TELEGRAM_APP_ID` and `API_HASH` from [my.telegram.org](https://my.telegram.org). For the bot token, talk to @BotFather on Telegram.
+
+Let's create the `src/env.ts` file to manage these secrets safely with validation:
+
+```typescript
+// src/env.ts
+import { cleanEnv, str, num } from "envalid";
+
+const env = cleanEnv(Bun.env, {
+  TELEGRAM_APP_ID: num(),
+  TELEGRAM_APP_HASH: str(),
+  TELEGRAM_BOT_TOKEN: str(),
+});
+
+export default env;
+```
+
+You'll also need to install `envalid` for environment variable validation:
+
+```bash
+bun add envalid
+```
+
+## Step 3: Building the NSFW Detector
+
+This is the core of our bot! We'll create a simple class to wrap the `@nsfwspy/node` library. This makes our code cleaner and easier to manage.
+
+Let's create a file at `src/nsfw-detector.ts`.
+
+```typescript
+// src/nsfw-detector.ts
+import { NsfwSpy } from "@nsfwspy/node";
+import { join } from "path";
+
+class NsfwDetector {
+  private nsfwSpy: NsfwSpy;
+  private modelLoaded = false;
+
+  constructor() {
+    // Make sure the model path is correct.
+    // You'll need to download the model files first!
+    const modelPath = `file://${join(
+      process.cwd(),
+      "models",
+      "mobilenet-v1.0.0",
+      "model.json"
+    )}`;
+    this.nsfwSpy = new NsfwSpy(modelPath);
+  }
+
+  // We need to load the model into memory before we can use it.
+  async initialize() {
+    if (!this.modelLoaded) {
+      console.log("Loading NSFW detection model...");
+      await this.nsfwSpy.load();
+      this.modelLoaded = true;
+      console.log("NSFW detection model loaded successfully!");
+    }
+  }
+
+  // This function will take an image and return if it's NSFW.
+  async analyzeImage(imageBuffer: Buffer) {
+    if (!this.modelLoaded) {
+      throw new Error("Model not loaded. Call initialize() first.");
+    }
+
+    const result = await this.nsfwSpy.classifyImageFromByteArray(imageBuffer);
+    const nsfwScore = result.pornography + result.sexy + result.hentai;
+
+    // We'll consider an image NSFW if the score is above 65%
+    const isNsfw = nsfwScore > 0.65;
+
+    return {
+      isNsfw,
+      confidence: Math.round(nsfwScore * 100),
+      result,
+    };
+  }
+}
+
+// We'll export a single instance of the class (Singleton Pattern)
+export default new NsfwDetector();
+```
+
+So how does this work? The answer is pretty simple. The `NsfwSpy` class loads a pre-trained machine learning model. The `analyzeImage` method takes the raw data of an image (as a Buffer), runs it through the model, and gets back scores for different categories (pornography, sexy, hentai, neutral). We just add up the scores for the NSFW categories to get a final confidence score.
+
+## Step 4: Handling Incoming Photos
+
+Now we need to connect our bot to our detector. Let's create a file at `src/media/photos.ts` that will listen for any photo messages sent to the chat.
+
+```typescript
+// src/media/photos.ts
+import bot from "../bot";
+import nsfwDetector from "../nsfw-detector";
+import { readFileSync } from "fs";
+
+// Listen for any message that contains a photo
+bot.on("message:photo", async (ctx) => {
+  console.log("Received a photo, analyzing...");
+
+  // Download the photo file from Telegram's servers
+  // We download the smallest thumbnail for faster processing
+  const file = await ctx.download("smallest");
+  if (!file) return;
+
+  const imageBuffer = readFileSync(file);
+  const analysis = await nsfwDetector.analyzeImage(imageBuffer);
+
+  console.log(`Analysis complete. NSFW: ${analysis.isNsfw}, Confidence: ${analysis.confidence}%`);
+
+  if (analysis.isNsfw) {
+    try {
+      // If it's NSFW, delete the message
+      await ctx.deleteMessage();
+      // And send a warning message to the user
+      await ctx.reply(
+        `Hey ${ctx.sender.firstName}! Please avoid sending inappropriate content.`
+      );
+    } catch (error) {
+      console.error("Failed to delete message or reply:", error);
+    }
+  }
+});
+```
+
+In the code above, we set up a listener using `bot.on("message:photo", ...)`. When a photo is posted, we download it, read it into a buffer, and pass it to our `nsfwDetector`. If it comes back as NSFW, we delete the original message and send a little warning. Pretty simple, right?
+
+## Step 5: Bringing It All Together
+
+Finally, let's create our main entry point, `src/index.ts`, to start the bot.
+
+```typescript
+// src/index.ts
+import bot from "./bot";
+import nsfwDetector from "./nsfw-detector";
+import env from "./env";
+
+// Import the photo handler so the listener gets registered
+import "./media/photos";
+
+async function main() {
+  // First, initialize the NSFW model
+  await nsfwDetector.initialize();
+
+  // Then, start the bot
+  await bot.start({ botToken: env.TELEGRAM_BOT_TOKEN });
+  console.log("Bot started successfully!");
+}
+
+main().catch((err) => console.error(err));
+```
+
+Now, all you have to do is run the bot!
+
+```bash
+bun run src/index.ts
+```
+
+Your bot will log in and immediately start watching for any new photos.
+
+I hope you learned something new today and see how easy it can be to build powerful and practical bots. If you think I have made some mistakes or have any questions, please do let me know. Thanks, and see you again in my next post.
