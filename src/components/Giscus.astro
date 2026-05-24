@@ -26,13 +26,18 @@
 <script is:inline>
 	function initGiscus() {
 		const isProduction = window.location.hostname === "arnabxd.me";
+		const isLocal =
+			window.location.hostname === "localhost" ||
+			window.location.hostname === "127.0.0.1";
 
-		// We serve the CSS via jsDelivr CDN in both development and production.
-		// This guarantees Access-Control-Allow-Origin (CORS) headers are always present,
-		// preventing browser CORS policy blocks in all environments without complex server config.
+		// 1. Production: Direct custom CSS with Cloudflare CORS headers.
+		// 2. Localhost: Fallback to jsDelivr CDN preview (since Giscus cannot reach localhost).
+		// 3. Tunnels (ngrok, etc.): Live local CSS from the tunnel origin with a timestamp for real-time updates.
 		const theme = isProduction
-			? "https://cdn.jsdelivr.net/gh/ArnabXD/arnabxd.me@main/public/css/giscus.css?v=1.1.0"
-			: "https://cdn.jsdelivr.net/gh/ArnabXD/arnabxd.me@preview/public/css/giscus.css?v=1.1.0";
+			? "https://arnabxd.me/css/giscus.css?v=1.1.0"
+			: isLocal
+				? "https://cdn.jsdelivr.net/gh/ArnabXD/arnabxd.me@preview/public/css/giscus.css?v=1.1.0"
+				: `${window.location.origin}/css/giscus.css?v=${new Date().getTime()}`;
 
 		const script = document.createElement("script");
 		script.src = "https://giscus.app/client.js";
