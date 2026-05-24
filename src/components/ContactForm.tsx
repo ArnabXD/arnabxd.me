@@ -56,7 +56,7 @@ export default function ContactForm() {
 			<Field
 				id={nameId}
 				name="name"
-				label="Your name"
+				label="client_identity"
 				index="01"
 				placeholder="e.g. Ada Lovelace"
 				autoComplete="name"
@@ -65,7 +65,7 @@ export default function ContactForm() {
 				id={emailId}
 				name="email"
 				type="email"
-				label="Return address"
+				label="client_endpoint"
 				index="02"
 				placeholder="you@domain.tld"
 				autoComplete="email"
@@ -73,25 +73,27 @@ export default function ContactForm() {
 			<Field
 				id={messageId}
 				name="message"
-				label="Message"
+				label="transmission_payload"
 				index="03"
-				placeholder="Tell me about your project, role, or idea…"
+				placeholder="Provide transaction details, role descriptions, or system queries..."
 				textarea
 			/>
 
-			<div className="flex items-center justify-between gap-4 pt-2">
+			<div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2 border-t border-rule-soft/50">
 				<StatusLine status={status} error={error} />
 				<button
 					type="submit"
 					disabled={status === "submitting"}
-					className="group inline-flex items-center gap-3 bg-ink text-paper px-5 py-3 hover:bg-mark transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+					className="group inline-flex items-center gap-3 bg-paper-2 border border-rule hover:border-mark hover:shadow-[0_0_12px_rgba(20,184,166,0.2)] text-ink px-5 py-3 transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed shrink-0 w-full sm:w-auto justify-center sm:justify-start"
 				>
-					<span className="font-display text-[14px] font-medium tracking-[-0.01em]">
-						{status === "submitting" ? "Sending" : "Send letter"}
+					<span className="font-mono text-[13px] font-medium tracking-tight text-mark">
+						{status === "submitting"
+							? "transmitting..."
+							: "broadcast_packets()"}
 					</span>
 					<span
 						aria-hidden="true"
-						className="transition-transform group-hover:translate-x-1"
+						className="transition-transform group-hover:translate-x-1 text-mark"
 					>
 						→
 					</span>
@@ -123,16 +125,16 @@ function Field({
 	textarea,
 }: FieldProps) {
 	const baseClass =
-		"mt-2 block w-full bg-transparent border-0 border-b border-rule-soft px-0 py-2.5 text-[16px] text-ink placeholder:text-ink-4 outline-none transition-colors focus:border-ink focus:ring-0";
+		"mt-2 block w-full bg-transparent border-0 border-b border-rule-soft px-0 py-2.5 text-[15px] text-ink placeholder:text-ink-4 outline-none transition-colors focus:border-mark focus:ring-0 font-mono";
 
 	return (
 		<div>
 			<label htmlFor={id} className="flex items-baseline justify-between gap-2">
-				<span className="font-display text-[15px] text-ink font-medium tracking-[-0.01em]">
+				<span className="font-mono text-[13px] text-ink-2 font-medium tracking-tight">
 					{label}
 				</span>
 				<span className="font-mono text-[10px] tabular text-ink-4 tracking-[0.14em] uppercase">
-					- {index}
+					[0{index}]
 				</span>
 			</label>
 			{textarea ? (
@@ -169,21 +171,21 @@ function StatusLine({
 	const text = (() => {
 		switch (status) {
 			case "submitting":
-				return "Sealing the envelope…";
+				return "COMPILING DATA & BROADCASTING PACKETS...";
 			case "ok":
-				return "Sent. Reply within 24h.";
+				return "TRANSMITTED SUCCESSFULLY. UPLINK ACKNOWLEDGED.";
 			case "error":
-				return error ?? "Something went wrong.";
+				return `ERROR: ${error || "TRANSMISSION FAILURE."}`;
 			default:
-				return "Ready.";
+				return "UPLINK STATUS: IDLE";
 		}
 	})();
 	const tone =
 		status === "ok"
-			? "text-mark"
+			? "text-success"
 			: status === "error"
-				? "text-mark-2"
-				: "text-ink-3";
+				? "text-alert font-bold"
+				: "text-ink-4";
 
 	return (
 		<span
@@ -191,7 +193,7 @@ function StatusLine({
 			aria-live="polite"
 			className={`font-mono text-[11px] tabular tracking-[0.06em] ${tone}`}
 		>
-			// {text}
+			&gt; {text}
 		</span>
 	);
 }

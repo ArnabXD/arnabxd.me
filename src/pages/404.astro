@@ -1,0 +1,132 @@
+---
+import Base from "~/layouts/Base.astro";
+
+const today = new Date().toLocaleDateString("en-US", {
+	year: "numeric",
+	month: "long",
+	day: "2-digit",
+});
+---
+
+<Base title="404: Not Found" noIndex={true}>
+	<section
+		aria-label="404 Error Screen"
+		class="relative pt-8 md:pt-16 pb-16 md:pb-28"
+	>
+		<!-- top meta row -->
+		<div
+			class="grid grid-cols-[auto_1fr_auto] md:grid-cols-12 items-center gap-3 md:gap-6 rise"
+			style="--d: 60ms"
+		>
+			<div
+				class="md:col-span-3 eyebrow inline-flex items-center whitespace-nowrap text-alert font-mono text-[10.5px]"
+			>
+				<span class="relative flex h-2 w-2 mr-2">
+					<span
+						class="animate-ping absolute inline-flex h-full w-full rounded-full bg-alert opacity-75"
+					></span>
+					<span class="relative inline-flex rounded-full h-2 w-2 bg-alert"
+					></span>
+				</span>
+				<span>[err_diagnostic]</span>
+			</div>
+			<div class="hairline-soft md:col-span-6" aria-hidden="true"></div>
+			<div
+				class="md:col-span-3 eyebrow md:text-right tabular whitespace-nowrap font-mono text-[10.5px]"
+			>
+				{today}
+			</div>
+		</div>
+
+		<!-- Name / Huge Error Code -->
+		<h1
+			class="mt-8 md:mt-14 leading-[0.95] tracking-[-0.045em] text-ink relative"
+		>
+			<!-- Dynamic atmospheric color mesh spots -->
+			<div
+				class="absolute -top-10 -left-10 w-48 h-48 bg-alert/5 rounded-full blur-[80px] pointer-events-none"
+				aria-hidden="true"
+			>
+			</div>
+
+			<span
+				class="block font-display font-light text-[clamp(64px,16vw,200px)] pb-4 mt-[-0.05em] rise text-ink"
+				style="--d: 140ms"
+			>
+				404<span class="text-alert animate-pulse">.</span>
+			</span>
+		</h1>
+
+		<!-- Diagnostic Console Feed -->
+		<div
+			class="mt-10 md:mt-16 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10 rise"
+			style="--d: 220ms"
+		>
+			<div class="md:col-span-7">
+				<p
+					class="eyebrow mb-4 inline-flex items-center gap-2 font-mono text-alert"
+				>
+					<span class="hairline w-6 bg-alert" aria-hidden="true"></span>
+					<span>SYS_ALERT: ROUTE_NOT_RESOLVED</span>
+				</p>
+				<p
+					class="font-display text-[20px] sm:text-[24px] md:text-[28px] leading-tight text-ink-2 tracking-tight font-normal max-w-[34ch] md:max-w-none"
+				>
+					The requested coordinates do not exist in this domain namespace. It
+					may have been relocated, deleted, or was never initialized.
+				</p>
+			</div>
+
+			<div class="md:col-span-5 md:pl-10 md:border-l border-rule-soft relative">
+				<div
+					class="absolute top-0 right-0 flex gap-1.5 opacity-60"
+					aria-hidden="true"
+				>
+					<span class="w-2.5 h-2.5 rounded-full bg-alert/30"></span>
+					<span class="w-2.5 h-2.5 rounded-full bg-alert/20"></span>
+					<span class="w-2.5 h-2.5 rounded-full bg-alert/10"></span>
+				</div>
+				<p class="eyebrow mb-5 font-mono text-alert">
+					<span>[sys_error_diag]</span>
+				</p>
+				<dl class="space-y-4 md:space-y-5 text-[13.5px] md:text-[14px]">
+					<div class="grid grid-cols-[88px_1fr] gap-4">
+						<dt class="eyebrow pt-0.5 font-mono">Status</dt>
+						<dd class="text-alert font-mono">404 Not Found</dd>
+					</div>
+					<div class="hairline-soft"></div>
+					<div class="grid grid-cols-[88px_1fr] gap-4">
+						<dt class="eyebrow pt-0.5 font-mono">Domain</dt>
+						<dd class="text-ink font-mono">arnabxd.me</dd>
+					</div>
+					<div class="hairline-soft"></div>
+					<div class="grid grid-cols-[88px_1fr] gap-4">
+						<dt class="eyebrow pt-0.5 font-mono">Diagnostic</dt>
+						<dd class="text-ink-3 font-mono">RESOLVE_FAILED</dd>
+					</div>
+				</dl>
+			</div>
+		</div>
+
+		<!-- Action CTA -->
+		<div
+			class="mt-12 md:mt-16 flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-x-8 gap-y-5 rise"
+			style="--d: 300ms"
+		>
+			<a
+				href="/"
+				class="group inline-flex items-center gap-3 bg-paper-2 border border-rule hover:border-accent hover:shadow-[0_0_15px_rgba(20,184,166,0.25)] text-ink px-5 sm:px-6 py-3.5 transition-all duration-300 w-full sm:w-auto justify-between sm:justify-start"
+			>
+				<span
+					class="font-mono text-[13px] font-medium tracking-tight text-accent"
+					>return_to_home()</span
+				>
+				<span
+					aria-hidden="true"
+					class="text-[16px] text-accent transition-transform group-hover:-translate-x-1 shrink-0"
+					>←</span
+				>
+			</a>
+		</div>
+	</section>
+</Base>

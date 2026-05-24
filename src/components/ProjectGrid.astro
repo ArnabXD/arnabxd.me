@@ -21,17 +21,15 @@ const projects = limit ? data.projects.slice(0, limit) : data.projects;
 			return (
 				<Tag
 					{...tagProps}
-					class={`group relative grid grid-cols-12 gap-3 py-7 md:py-8 border-b border-rule-soft items-baseline transition-colors -mx-2 px-2 ${!isClient ? "hover:bg-paper-2/40" : ""}`}
+					class={`group relative grid grid-cols-12 gap-3 py-7 md:py-8 border-b border-rule-soft items-baseline transition-all duration-300 -mx-3 px-3 hover:bg-paper-2/20 hover:border-mark/30 hover:shadow-[0_0_15px_rgba(20,184,166,0.05)]`}
 				>
-					<span class="col-span-2 font-mono text-[11px] tabular text-ink-4 self-start mt-2 tracking-widest">
-						{String(i + 1).padStart(2, "0")}
+					<span class="col-span-12 md:col-span-2 font-mono text-[11px] tabular text-mark self-start mt-2 tracking-widest">
+						[build_0{i + 1}]
 					</span>
 
-					<div class="col-span-10">
+					<div class="col-span-12 md:col-span-10">
 						<div class="flex items-baseline justify-between gap-3">
-							<h3
-								class={`font-display text-[24px] md:text-[28px] leading-[1.05] tracking-[-0.03em] text-ink font-semibold transition-colors ${!isClient ? "group-hover:text-mark" : ""}`}
-							>
+							<h3 class="font-display text-[24px] md:text-[28px] leading-[1.05] tracking-[-0.03em] text-ink font-semibold transition-colors group-hover:text-mark">
 								{p.title}
 							</h3>
 							<span class="shrink-0 font-mono text-[11px] tabular text-ink-4 tracking-[0.04em]">
@@ -41,44 +39,43 @@ const projects = limit ? data.projects.slice(0, limit) : data.projects;
 
 						{(p.client || p.role) && (
 							<p class="mt-2 font-mono text-[10px] tabular tracking-[0.12em] uppercase text-ink-4 leading-relaxed">
-								<span class="text-mark">◆</span>
+								<span class="text-mark-2 mr-1">✦</span>
 								{[p.client?.industry, p.client?.region, p.role]
 									.filter(Boolean)
-									.join(" · ")}
+									.join(" // ")}
 							</p>
 						)}
 
-						<p class="mt-3 text-[14.5px] text-ink-2 leading-relaxed line-clamp-4 max-w-[58ch]">
+						<p class="mt-3 text-[14px] text-ink-2 leading-relaxed line-clamp-4 max-w-[58ch]">
 							{p.description}
 						</p>
 
 						{p.outcome && (
 							<p class="mt-2 font-mono text-[11px] tabular tracking-wider text-ink-3">
-								<span class="text-mark">↳</span> {p.outcome}
+								<span class="text-mark-2">↳</span> status: {p.outcome}
 							</p>
 						)}
 
-						<div class="mt-4 flex items-center justify-between gap-4">
-							<ul class="flex flex-wrap gap-x-3 gap-y-1 text-[11px] font-mono tabular text-ink-3 tracking-wider">
-								{p.tech.map((t, ti) => (
-									<li class="inline-flex items-center gap-3">
-										{ti > 0 && (
-											<span aria-hidden="true" class="text-ink-5">
-												/
-											</span>
-										)}
+						<div class="mt-4 flex flex-wrap items-center justify-between gap-4">
+							<ul class="flex flex-wrap gap-x-2 gap-y-1 text-[10px] font-mono tabular text-ink-3 tracking-wider">
+								{p.tech.map((t) => (
+									<li class="px-2 py-0.5 rounded border border-rule-soft bg-paper-3/45 text-ink-2">
 										{t}
 									</li>
 								))}
 							</ul>
 							{isClient ? (
-								<span class="font-mono text-[10px] tabular text-clay tracking-[0.12em] uppercase">
-									NDA
+								<span class="font-mono text-[10px] tabular text-alert tracking-[0.12em] uppercase flex items-center gap-1.5">
+									<span class="relative flex h-2 w-2">
+										<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-alert opacity-75" />
+										<span class="relative inline-flex rounded-full h-2 w-2 bg-alert" />
+									</span>
+									NDA_RESTRICTED
 								</span>
 							) : (
 								<span
 									aria-hidden="true"
-									class="font-mono text-[11px] tabular text-ink-3 tracking-widest uppercase inline-flex items-center gap-1.5 transition-transform group-hover:translate-x-1 group-hover:text-mark"
+									class="font-mono text-[11px] tabular text-mark tracking-widest uppercase inline-flex items-center gap-1.5 transition-transform group-hover:translate-x-1"
 								>
 									source <span>↗</span>
 								</span>

@@ -9,9 +9,9 @@ type Props = {
 const { tone = "note", label } = Astro.props;
 
 const palette: Record<string, { border: string; text: string }> = {
-	note: { border: "border-l-mark", text: "text-mark" },
-	tip: { border: "border-l-mark", text: "text-mark" },
-	warn: { border: "border-l-clay", text: "text-clay" },
+	note: { border: "border-l-accent", text: "text-accent" },
+	tip: { border: "border-l-accent", text: "text-accent" },
+	warn: { border: "border-l-alert", text: "text-alert" },
 	info: { border: "border-l-ink", text: "text-ink" },
 };
 

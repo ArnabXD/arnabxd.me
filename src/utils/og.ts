@@ -17,7 +17,7 @@ export function buildOgElement(data: OgData) {
 	const { title, description, tags = [], date, type = "page" } = data;
 
 	const fontSize =
-		title.length > 60 ? "54px" : title.length > 40 ? "64px" : "76px";
+		title.length > 60 ? "64px" : title.length > 40 ? "76px" : "88px";
 
 	return h(
 		"div",
@@ -25,7 +25,7 @@ export function buildOgElement(data: OgData) {
 			style: {
 				width: "1200px",
 				height: "630px",
-				background: "#15140f",
+				background: "#07080a",
 				display: "flex",
 				flexDirection: "column",
 				fontFamily: "'Space Grotesk'",
@@ -39,11 +39,11 @@ export function buildOgElement(data: OgData) {
 				position: "absolute",
 				inset: "0px",
 				backgroundImage:
-					"linear-gradient(rgba(243,237,226,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(243,237,226,0.03) 1px, transparent 1px)",
+					"linear-gradient(rgba(20,184,166,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(20,184,166,0.03) 1px, transparent 1px)",
 				backgroundSize: "60px 60px",
 			},
 		}),
-		// Right glow
+		// Right glow (Cyber Cyan)
 		h("div", {
 			style: {
 				position: "absolute",
@@ -52,11 +52,11 @@ export function buildOgElement(data: OgData) {
 				width: "500px",
 				height: "500px",
 				background:
-					"radial-gradient(circle, rgba(255,59,24,0.12) 0%, transparent 70%)",
+					"radial-gradient(circle, rgba(20,184,166,0.12) 0%, transparent 70%)",
 				borderRadius: "50%",
 			},
 		}),
-		// Left bottom glow
+		// Left bottom glow (Active Lime)
 		h("div", {
 			style: {
 				position: "absolute",
@@ -65,11 +65,11 @@ export function buildOgElement(data: OgData) {
 				width: "360px",
 				height: "360px",
 				background:
-					"radial-gradient(circle, rgba(255,59,24,0.07) 0%, transparent 70%)",
+					"radial-gradient(circle, rgba(57,255,20,0.05) 0%, transparent 70%)",
 				borderRadius: "50%",
 			},
 		}),
-		// Top accent bar
+		// Top accent bar (Cyber Teal)
 		h("div", {
 			style: {
 				position: "absolute",
@@ -78,7 +78,7 @@ export function buildOgElement(data: OgData) {
 				right: "0px",
 				height: "3px",
 				background:
-					"linear-gradient(90deg, #ff3b18 0%, rgba(255,59,24,0.3) 40%, transparent 70%)",
+					"linear-gradient(90deg, #14b8a6 0%, rgba(20,184,166,0.3) 40%, transparent 70%)",
 			},
 		}),
 		// Main layout
@@ -89,7 +89,7 @@ export function buildOgElement(data: OgData) {
 					display: "flex",
 					flexDirection: "column",
 					justifyContent: "space-between",
-					padding: "56px 72px 52px",
+					padding: "60px 76px 56px",
 					height: "100%",
 					position: "relative",
 				},
@@ -97,21 +97,21 @@ export function buildOgElement(data: OgData) {
 			// Top label
 			h(
 				"div",
-				{ style: { display: "flex", alignItems: "center", gap: "12px" } },
+				{ style: { display: "flex", alignItems: "center", gap: "14px" } },
 				h("div", {
 					style: {
-						width: "8px",
-						height: "8px",
+						width: "12px",
+						height: "12px",
 						borderRadius: "50%",
-						background: "#ff3b18",
+						background: "#14b8a6",
 					},
 				}),
 				h(
 					"div",
 					{
 						style: {
-							color: "#ff3b18",
-							fontSize: "13px",
+							color: "#14b8a6",
+							fontSize: "18px",
 							fontWeight: 500,
 							letterSpacing: "0.12em",
 							textTransform: "uppercase",
@@ -123,25 +123,26 @@ export function buildOgElement(data: OgData) {
 			// Center: tags + title + description
 			h(
 				"div",
-				{ style: { display: "flex", flexDirection: "column", gap: "20px" } },
+				{ style: { display: "flex", flexDirection: "column", gap: "24px" } },
 				type === "post" && tags.length > 0
 					? h(
 							"div",
-							{ style: { display: "flex", gap: "8px", flexWrap: "wrap" } },
+							{ style: { display: "flex", gap: "10px", flexWrap: "wrap" } },
 							...tags.slice(0, 4).map((tag) =>
 								h(
 									"div",
 									{
 										key: tag,
 										style: {
-											color: "#9b9485",
-											fontSize: "12px",
+											color: "#14b8a6",
+											fontSize: "15px",
 											fontWeight: 500,
 											letterSpacing: "0.1em",
 											textTransform: "uppercase",
-											border: "1px solid rgba(155,148,133,0.25)",
-											padding: "4px 10px",
-											borderRadius: "4px",
+											border: "1px solid rgba(20,184,166,0.25)",
+											padding: "6px 14px",
+											borderRadius: "6px",
+											background: "rgba(20,184,166,0.03)",
 										},
 									},
 									tag,
@@ -153,12 +154,12 @@ export function buildOgElement(data: OgData) {
 					"div",
 					{
 						style: {
-							color: "#f3ede2",
+							color: "#f3f4f6",
 							fontSize,
 							fontWeight: 700,
 							lineHeight: 1.05,
 							letterSpacing: "-0.03em",
-							maxWidth: "900px",
+							maxWidth: "960px",
 						},
 					},
 					title,
@@ -168,11 +169,11 @@ export function buildOgElement(data: OgData) {
 							"div",
 							{
 								style: {
-									color: "#6b6456",
-									fontSize: "20px",
-									lineHeight: 1.5,
+									color: "#9ca3af",
+									fontSize: "26px",
+									lineHeight: 1.45,
 									letterSpacing: "-0.01em",
-									maxWidth: "780px",
+									maxWidth: "880px",
 								},
 							},
 							truncateWords(description, 130),
@@ -187,27 +188,28 @@ export function buildOgElement(data: OgData) {
 						display: "flex",
 						justifyContent: "space-between",
 						alignItems: "center",
-						borderTop: "1px solid rgba(243,237,226,0.08)",
-						paddingTop: "24px",
+						borderTop: "1px solid rgba(31,41,55,0.4)",
+						paddingTop: "28px",
 					},
 				},
 				h(
 					"div",
-					{ style: { display: "flex", alignItems: "center", gap: "14px" } },
+					{ style: { display: "flex", alignItems: "center", gap: "16px" } },
 					h(
 						"div",
 						{
 							style: {
-								width: "40px",
-								height: "40px",
-								background: "#f3ede2",
+								width: "52px",
+								height: "52px",
+								background: "#0d0f14",
+								border: "1px solid rgba(20,184,166,0.2)",
 								borderRadius: "8px",
 								display: "flex",
 								alignItems: "center",
 								justifyContent: "center",
-								fontSize: "22px",
+								fontSize: "28px",
 								fontWeight: 700,
-								color: "#15140f",
+								color: "#14b8a6",
 								letterSpacing: "-0.04em",
 							},
 						},
@@ -216,14 +218,14 @@ export function buildOgElement(data: OgData) {
 					h(
 						"div",
 						{
-							style: { display: "flex", flexDirection: "column", gap: "2px" },
+							style: { display: "flex", flexDirection: "column", gap: "4px" },
 						},
 						h(
 							"div",
 							{
 								style: {
-									color: "#f3ede2",
-									fontSize: "17px",
+									color: "#f3f4f6",
+									fontSize: "22px",
 									fontWeight: 600,
 									letterSpacing: "-0.02em",
 								},
@@ -234,8 +236,8 @@ export function buildOgElement(data: OgData) {
 							"div",
 							{
 								style: {
-									color: "#6b6456",
-									fontSize: "12px",
+									color: "#9ca3af",
+									fontSize: "15px",
 									letterSpacing: "0.06em",
 									textTransform: "uppercase",
 								},
@@ -249,14 +251,14 @@ export function buildOgElement(data: OgData) {
 							"div",
 							{
 								style: {
-									color: "#6b6456",
-									fontSize: "13px",
+									color: "#9ca3af",
+									fontSize: "16px",
 									letterSpacing: "0.06em",
 									textTransform: "uppercase",
-									background: "rgba(243,237,226,0.05)",
-									padding: "8px 16px",
+									background: "rgba(20,184,166,0.04)",
+									padding: "10px 20px",
 									borderRadius: "6px",
-									border: "1px solid rgba(243,237,226,0.08)",
+									border: "1px solid rgba(20,184,166,0.1)",
 								},
 							},
 							date,

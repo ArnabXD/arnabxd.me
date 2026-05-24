@@ -26,7 +26,7 @@
 }
 
 /* ============================================================================
-   editorial / architectural - light paper, deep ink, single vermilion accent
+   technical / digital - deep obsidian, silver ink, glowing cyber-teal accent
    ============================================================================ */
 
 @theme {
@@ -38,29 +38,41 @@
 	--font-mono:
 		"JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
-	/* paper & ink */
-	--color-paper: #f3ede2;
-	--color-paper-2: #ece4d4;
-	--color-paper-3: #e2d8c5;
-	--color-ink: #15140f;
-	--color-ink-2: #2c2a23;
-	--color-ink-3: #5b574c;
-	--color-ink-4: #6b6659;
-	--color-ink-5: #b4ad9c;
+	/* ========================================================================
+	   BASE BACKGROUNDS & TYPOGRAPHY CODES
+	   ======================================================================== */
+	--color-paper: #07080a; /* Deep Obsidian: Main Page Background */
+	--color-paper-2: #0d0f14; /* Card Backgrounds */
+	--color-paper-3: #161920; /* Inner Card / Elevated Section Backgrounds */
 
-	/* lines */
-	--color-rule: #1a1815;
-	--color-rule-soft: #cdc5b3;
+	--color-ink: #f3f4f6; /* High-Contrast Primary Text (Silver White) */
+	--color-ink-2: #d1d5db; /* Standard Secondary Text */
+	--color-ink-3: #9ca3af; /* Muted Text & Tertiary Details */
+	--color-ink-4: #808896; /* Subtle Metadata (Optimized for Accessible Contrast >4.5:1) */
+	--color-ink-5: #374151; /* Inactive States & Grid lines */
 
-	/* single accent */
-	--color-mark: #ff3b18;
-	--color-mark-2: #d62b08;
+	/* ========================================================================
+	   BORDERS & SEPARATORS
+	   ======================================================================== */
+	--color-rule: #1f2937; /* Hard Divider Line Color */
+	--color-rule-soft: #374151; /* Soft Subtle Divider Line Color */
 
-	/* secondary tints used sparingly */
-	--color-clay: #c25a3b;
+	/* ========================================================================
+	   SEMANTIC CYBER ACCENTS (Base Tokens)
+	   ======================================================================== */
+	--color-mark: #14b8a6; /* Brand Accent: Cyber-Teal (Focus, Highlights, Action CTAs) */
+	--color-mark-2: #39ff14; /* Success Accent: Neon-Green (Online, Live, Success Statuses) */
+	--color-clay: #ff2a5f; /* Alert Accent: Neon-Crimson (Errors, Warnings, NDA Restrictions) */
+
+	/* ========================================================================
+	   SEMANTIC ALIASES FOR HIGH-VISIBILITY READABILITY
+	   ======================================================================== */
+	--color-accent: var(--color-mark); /* Primary Brand Accent (Cyber-Teal) */
+	--color-success: var(--color-mark-2); /* Success Accent (Neon-Green) */
+	--color-alert: var(--color-clay); /* Alert Accent (Neon-Crimson) */
 
 	--shadow-card:
-		0 1px 0 rgba(21, 20, 15, 0.04), 0 24px 60px -32px rgba(21, 20, 15, 0.18);
+		0 1px 0 rgba(7, 8, 10, 0.2), 0 24px 60px -32px rgba(7, 8, 10, 0.6);
 }
 
 /* ============================================================================
@@ -87,20 +99,21 @@
 		letter-spacing: 0;
 	}
 
-	/* paper grain */
+	/* technical grid overlay */
 	body::before {
 		content: "";
 		position: fixed;
 		inset: 0;
-		background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.082  0 0 0 0 0.078  0 0 0 0 0.058  0 0 0 0.55 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/></svg>");
-		opacity: 0.55;
-		mix-blend-mode: multiply;
+		background-image:
+			linear-gradient(to right, rgba(20, 184, 166, 0.04) 1px, transparent 1px),
+			linear-gradient(to bottom, rgba(20, 184, 166, 0.04) 1px, transparent 1px);
+		background-size: 40px 40px;
 		pointer-events: none;
 		z-index: -2;
 	}
 
 	::selection {
-		background: var(--color-ink);
+		background: var(--color-mark);
 		color: var(--color-paper);
 	}
 
@@ -209,20 +222,18 @@
 
 @keyframes rise {
 	from {
-		opacity: 0;
+		opacity: 0.01;
 		transform: translate3d(0, 18px, 0);
-		filter: blur(6px);
 	}
 	to {
 		opacity: 1;
 		transform: translate3d(0, 0, 0);
-		filter: blur(0);
 	}
 }
 
 @keyframes fade {
 	from {
-		opacity: 0;
+		opacity: 0.01;
 	}
 	to {
 		opacity: 1;
@@ -310,7 +321,7 @@
 }
 
 /* ============================================================================
-   prose (blog body) - editorial paper variant
+   prose (blog body) - technical digital variant
    ============================================================================ */
 
 .prose-paper {
@@ -326,8 +337,8 @@
 	--tw-prose-quote-borders: var(--color-mark);
 	--tw-prose-captions: var(--color-ink-3);
 	--tw-prose-code: var(--color-ink);
-	--tw-prose-pre-code: #e7e1d3;
-	--tw-prose-pre-bg: #1a1815;
+	--tw-prose-pre-code: #e5e7eb;
+	--tw-prose-pre-bg: #0d0f14;
 	--tw-prose-th-borders: var(--color-rule);
 	--tw-prose-td-borders: var(--color-rule-soft);
 

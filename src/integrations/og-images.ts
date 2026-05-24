@@ -80,9 +80,9 @@ export function ogImages(): AstroIntegration {
 					{
 						name: "works",
 						data: {
-							title: "Things I've built",
+							title: "Selected shipments",
 							description:
-								"Bots, libraries, CLIs, and the occasional rabbit hole. Most started as a small problem worth fixing.",
+								"Commercial mobile applications, web platforms, open-source libraries, and command-line scripts.",
 							type: "page",
 						},
 					},
