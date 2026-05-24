@@ -9,7 +9,6 @@
 			"~/*": ["./src/*"]
 		},
 		"resolveJsonModule": true,
-		"verbatimModuleSyntax": true,
-		"allowImportingTsExtensions": false
+		"verbatimModuleSyntax": true
 	}
 }
