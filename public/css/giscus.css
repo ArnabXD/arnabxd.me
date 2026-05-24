@@ -64,24 +64,90 @@ main {
 	--color-primer-shadow-focus: 0 0 0 3px rgba(20, 184, 166, 0.3);
 }
 
-/* Ensure typography and fonts match website theme */
-.giscus,
-.giscus-frame {
+/* ============================================================================
+   IFRAME COMPONENT OVERRIDES
+   Injecting typography, sharp corners, and cyber-teal focus rings into the Giscus iframe.
+   ============================================================================ */
+
+/* Force all text inside Giscus to use the website's technical Monospace typography */
+main,
+input,
+textarea,
+button,
+.giscus-comment,
+.giscus-comments,
+.giscus-reactions,
+.btn,
+.Link--primary,
+.Link--secondary {
 	font-family:
 		"JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace !important;
 }
 
-/* Styling links inside Giscus */
-.giscus .Link--primary,
-.giscus .Link--secondary {
-	transition: color 0.15s ease;
+/* Remove all rounded corners to match the sharp technical terminal aesthetic */
+.Box,
+.Box-header,
+.Box-footer,
+.form-control,
+.btn,
+.giscus-comment,
+.giscus-comment-box,
+.timeline-comment,
+.timeline-comment-group {
+	border-radius: 0px !important;
 }
-.giscus .Link--primary:hover,
-.giscus .Link--secondary:hover {
+
+/* Style the textarea and input elements inside Giscus */
+.form-control {
+	background-color: #0d0f14 !important;
+	border: 1px solid #1f2937 !important;
+	color: #f3f4f6 !important;
+	transition:
+		border-color 0.2s ease,
+		box-shadow 0.2s ease !important;
+}
+
+/* Cyber-Teal glow on focus for all inputs and textareas */
+.form-control:focus {
+	border-color: #14b8a6 !important;
+	box-shadow: 0 0 0 1px #14b8a6 !important;
+	outline: none !important;
+}
+
+/* Styling links inside Giscus to hover with Cyber-Teal */
+.Link--primary,
+.Link--secondary {
+	transition: color 0.15s ease !important;
+}
+
+.Link--primary:hover,
+.Link--secondary:hover {
 	color: #14b8a6 !important;
 }
 
-/* Customize comments container padding and general spacing */
-.giscus .giscus-comments {
-	margin-top: 2rem;
+/* Premium styling for primary buttons (e.g. "Sign in with GitHub" or submit button) */
+.btn-primary {
+	text-transform: uppercase !important;
+	letter-spacing: 0.05em !important;
+	font-weight: 600 !important;
+	background-color: #14b8a6 !important;
+	color: #07080a !important;
+	border: 1px solid #14b8a6 !important;
+	transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.btn-primary:hover:not([disabled]) {
+	background-color: #0d9488 !important;
+	border-color: #0d9488 !important;
+	color: #07080a !important;
+}
+
+.btn-primary:active:not([disabled]) {
+	background-color: #0f766e !important;
+	border-color: #0f766e !important;
+}
+
+/* Customize comments container padding and spacing */
+.giscus-comments {
+	margin-top: 2rem !important;
 }
