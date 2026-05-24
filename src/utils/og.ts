@@ -17,7 +17,7 @@ export function buildOgElement(data: OgData) {
 	const { title, description, tags = [], date, type = "page" } = data;
 
 	const fontSize =
-		title.length > 60 ? "54px" : title.length > 40 ? "64px" : "76px";
+		title.length > 60 ? "64px" : title.length > 40 ? "76px" : "88px";
 
 	return h(
 		"div",
@@ -89,7 +89,7 @@ export function buildOgElement(data: OgData) {
 					display: "flex",
 					flexDirection: "column",
 					justifyContent: "space-between",
-					padding: "56px 72px 52px",
+					padding: "60px 76px 56px",
 					height: "100%",
 					position: "relative",
 				},
@@ -97,11 +97,11 @@ export function buildOgElement(data: OgData) {
 			// Top label
 			h(
 				"div",
-				{ style: { display: "flex", alignItems: "center", gap: "12px" } },
+				{ style: { display: "flex", alignItems: "center", gap: "14px" } },
 				h("div", {
 					style: {
-						width: "8px",
-						height: "8px",
+						width: "12px",
+						height: "12px",
 						borderRadius: "50%",
 						background: "#14b8a6",
 					},
@@ -111,7 +111,7 @@ export function buildOgElement(data: OgData) {
 					{
 						style: {
 							color: "#14b8a6",
-							fontSize: "13px",
+							fontSize: "18px",
 							fontWeight: 500,
 							letterSpacing: "0.12em",
 							textTransform: "uppercase",
@@ -123,11 +123,11 @@ export function buildOgElement(data: OgData) {
 			// Center: tags + title + description
 			h(
 				"div",
-				{ style: { display: "flex", flexDirection: "column", gap: "20px" } },
+				{ style: { display: "flex", flexDirection: "column", gap: "24px" } },
 				type === "post" && tags.length > 0
 					? h(
 							"div",
-							{ style: { display: "flex", gap: "8px", flexWrap: "wrap" } },
+							{ style: { display: "flex", gap: "10px", flexWrap: "wrap" } },
 							...tags.slice(0, 4).map((tag) =>
 								h(
 									"div",
@@ -135,13 +135,13 @@ export function buildOgElement(data: OgData) {
 										key: tag,
 										style: {
 											color: "#14b8a6",
-											fontSize: "12px",
+											fontSize: "15px",
 											fontWeight: 500,
 											letterSpacing: "0.1em",
 											textTransform: "uppercase",
 											border: "1px solid rgba(20,184,166,0.25)",
-											padding: "4px 10px",
-											borderRadius: "4px",
+											padding: "6px 14px",
+											borderRadius: "6px",
 											background: "rgba(20,184,166,0.03)",
 										},
 									},
@@ -159,7 +159,7 @@ export function buildOgElement(data: OgData) {
 							fontWeight: 700,
 							lineHeight: 1.05,
 							letterSpacing: "-0.03em",
-							maxWidth: "900px",
+							maxWidth: "960px",
 						},
 					},
 					title,
@@ -170,10 +170,10 @@ export function buildOgElement(data: OgData) {
 							{
 								style: {
 									color: "#9ca3af",
-									fontSize: "20px",
-									lineHeight: 1.5,
+									fontSize: "26px",
+									lineHeight: 1.45,
 									letterSpacing: "-0.01em",
-									maxWidth: "780px",
+									maxWidth: "880px",
 								},
 							},
 							truncateWords(description, 130),
@@ -189,25 +189,25 @@ export function buildOgElement(data: OgData) {
 						justifyContent: "space-between",
 						alignItems: "center",
 						borderTop: "1px solid rgba(31,41,55,0.4)",
-						paddingTop: "24px",
+						paddingTop: "28px",
 					},
 				},
 				h(
 					"div",
-					{ style: { display: "flex", alignItems: "center", gap: "14px" } },
+					{ style: { display: "flex", alignItems: "center", gap: "16px" } },
 					h(
 						"div",
 						{
 							style: {
-								width: "40px",
-								height: "40px",
+								width: "52px",
+								height: "52px",
 								background: "#0d0f14",
 								border: "1px solid rgba(20,184,166,0.2)",
 								borderRadius: "8px",
 								display: "flex",
 								alignItems: "center",
 								justifyContent: "center",
-								fontSize: "22px",
+								fontSize: "28px",
 								fontWeight: 700,
 								color: "#14b8a6",
 								letterSpacing: "-0.04em",
@@ -218,14 +218,14 @@ export function buildOgElement(data: OgData) {
 					h(
 						"div",
 						{
-							style: { display: "flex", flexDirection: "column", gap: "2px" },
+							style: { display: "flex", flexDirection: "column", gap: "4px" },
 						},
 						h(
 							"div",
 							{
 								style: {
 									color: "#f3f4f6",
-									fontSize: "17px",
+									fontSize: "22px",
 									fontWeight: 600,
 									letterSpacing: "-0.02em",
 								},
@@ -237,7 +237,7 @@ export function buildOgElement(data: OgData) {
 							{
 								style: {
 									color: "#9ca3af",
-									fontSize: "12px",
+									fontSize: "15px",
 									letterSpacing: "0.06em",
 									textTransform: "uppercase",
 								},
@@ -252,11 +252,11 @@ export function buildOgElement(data: OgData) {
 							{
 								style: {
 									color: "#9ca3af",
-									fontSize: "13px",
+									fontSize: "16px",
 									letterSpacing: "0.06em",
 									textTransform: "uppercase",
 									background: "rgba(20,184,166,0.04)",
-									padding: "8px 16px",
+									padding: "10px 20px",
 									borderRadius: "6px",
 									border: "1px solid rgba(20,184,166,0.1)",
 								},
