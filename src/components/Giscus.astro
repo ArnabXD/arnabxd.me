@@ -25,14 +25,14 @@
 
 <script is:inline>
 	function initGiscus() {
-		const isLocal =
-			window.location.hostname.includes("localhost") ||
-			window.location.hostname.includes("127.0.0.1") ||
-			window.location.hostname.includes("ngrok");
+		const isProduction = window.location.hostname === "arnabxd.me";
 
-		const theme = isLocal
-			? "https://cdn.jsdelivr.net/gh/ArnabXD/arnabxd.me@preview/public/css/giscus.css?v=1.1.0"
-			: "https://arnabxd.me/css/giscus.css?v=1.1.0";
+		// We serve the CSS via jsDelivr CDN in both development and production.
+		// This guarantees Access-Control-Allow-Origin (CORS) headers are always present,
+		// preventing browser CORS policy blocks in all environments without complex server config.
+		const theme = isProduction
+			? "https://cdn.jsdelivr.net/gh/ArnabXD/arnabxd.me@main/public/css/giscus.css?v=1.1.0"
+			: "https://cdn.jsdelivr.net/gh/ArnabXD/arnabxd.me@preview/public/css/giscus.css?v=1.1.0";
 
 		const script = document.createElement("script");
 		script.src = "https://giscus.app/client.js";
