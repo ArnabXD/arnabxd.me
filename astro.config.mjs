@@ -27,7 +27,7 @@ export default defineConfig({
 			},
 		},
 		server: {
-			allowedHosts: ["40da-45-250-244-187.ngrok-free.app"],
+			allowedHosts: ["*.ngrok-free.app"],
 			watch: {
 				ignored: ["**/.wrangler/**"],
 			},
