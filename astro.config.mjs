@@ -33,6 +33,7 @@ export default defineConfig({
 		},
 	},
 	build: {
+		format: "file",
 		inlineStylesheets: "auto",
 	},
 	prefetch: {
@@ -41,7 +42,7 @@ export default defineConfig({
 	},
 	markdown: {
 		shikiConfig: {
-			theme: "poimandres",
+			theme: "github-dark-high-contrast",
 			wrap: true,
 		},
 	},
