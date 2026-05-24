@@ -4,6 +4,8 @@ import { Image } from "astro:assets";
 
 import Base from "~/layouts/Base.astro";
 import ViewCounter from "~/components/ViewCounter";
+import ShareBar from "~/components/ShareBar";
+import Giscus from "~/components/Giscus.astro";
 import { fmtDate, getReadTime } from "~/utils/date";
 
 export async function getStaticPaths() {
@@ -35,6 +37,8 @@ const jsonLd = {
 	"keywords": post.data.tags.join(", "),
 	"image": `https://arnabxd.me/og/${post.id}.png`,
 };
+
+const postUrl = `https://arnabxd.me/blog/${post.id}`;
 ---
 
 <Base
@@ -58,7 +62,7 @@ const jsonLd = {
 				class="inline-flex items-center gap-2 font-mono text-[11px] tabular tracking-[0.08em] uppercase text-ink-3 hover:text-mark transition-colors"
 			>
 				<span aria-hidden="true">←</span>
-				Back to journal
+				Back to blog
 			</a>
 		</nav>
 
@@ -131,14 +135,17 @@ const jsonLd = {
 		</div>
 
 		<footer
-			class="mt-20 pt-6 border-t border-rule flex items-center justify-between font-mono text-[11px] tabular tracking-[0.06em] text-ink-3"
+			class="mt-20 pt-6 border-t border-rule flex flex-wrap items-center justify-between gap-4 font-mono text-[11px] tabular tracking-[0.06em] text-ink-3"
 		>
 			<a href="/blog" class="hover:text-mark transition-colors">
-				← Back to journal
+				← Back to blog
 			</a>
+			<ShareBar client:only="react" url={postUrl} title={post.data.title} />
 			<span>
 				End of entry · {fmtDate(post.data.updatedDate ?? post.data.pubDate)}
 			</span>
 		</footer>
+
+		<Giscus />
 	</article>
 </Base>
