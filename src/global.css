@@ -38,26 +38,38 @@
 	--font-mono:
 		"JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
-	/* deep obsidian & silver */
-	--color-paper: #07080a;
-	--color-paper-2: #0d0f14;
-	--color-paper-3: #161920;
-	--color-ink: #f3f4f6;
-	--color-ink-2: #d1d5db;
-	--color-ink-3: #9ca3af;
-	--color-ink-4: #6b7280;
-	--color-ink-5: #374151;
+	/* ========================================================================
+	   BASE BACKGROUNDS & TYPOGRAPHY CODES
+	   ======================================================================== */
+	--color-paper: #07080a; /* Deep Obsidian: Main Page Background */
+	--color-paper-2: #0d0f14; /* Card Backgrounds */
+	--color-paper-3: #161920; /* Inner Card / Elevated Section Backgrounds */
 
-	/* lines */
-	--color-rule: #1f2937;
-	--color-rule-soft: #374151;
+	--color-ink: #f3f4f6; /* High-Contrast Primary Text (Silver White) */
+	--color-ink-2: #d1d5db; /* Standard Secondary Text */
+	--color-ink-3: #9ca3af; /* Muted Text & Tertiary Details */
+	--color-ink-4: #808896; /* Subtle Metadata (Optimized for Accessible Contrast >4.5:1) */
+	--color-ink-5: #374151; /* Inactive States & Grid lines */
 
-	/* cyber accents */
-	--color-mark: #14b8a6;
-	--color-mark-2: #39ff14;
+	/* ========================================================================
+	   BORDERS & SEPARATORS
+	   ======================================================================== */
+	--color-rule: #1f2937; /* Hard Divider Line Color */
+	--color-rule-soft: #374151; /* Soft Subtle Divider Line Color */
 
-	/* dynamic secondary accents (warning/alert) */
-	--color-clay: #f97316;
+	/* ========================================================================
+	   SEMANTIC CYBER ACCENTS (Base Tokens)
+	   ======================================================================== */
+	--color-mark: #14b8a6; /* Brand Accent: Cyber-Teal (Focus, Highlights, Action CTAs) */
+	--color-mark-2: #39ff14; /* Success Accent: Neon-Green (Online, Live, Success Statuses) */
+	--color-clay: #ff2a5f; /* Alert Accent: Neon-Crimson (Errors, Warnings, NDA Restrictions) */
+
+	/* ========================================================================
+	   SEMANTIC ALIASES FOR HIGH-VISIBILITY READABILITY
+	   ======================================================================== */
+	--color-accent: var(--color-mark); /* Primary Brand Accent (Cyber-Teal) */
+	--color-success: var(--color-mark-2); /* Success Accent (Neon-Green) */
+	--color-alert: var(--color-clay); /* Alert Accent (Neon-Crimson) */
 
 	--shadow-card:
 		0 1px 0 rgba(7, 8, 10, 0.2), 0 24px 60px -32px rgba(7, 8, 10, 0.6);
@@ -210,7 +222,7 @@
 
 @keyframes rise {
 	from {
-		opacity: 0;
+		opacity: 0.01;
 		transform: translate3d(0, 18px, 0);
 	}
 	to {
@@ -221,7 +233,7 @@
 
 @keyframes fade {
 	from {
-		opacity: 0;
+		opacity: 0.01;
 	}
 	to {
 		opacity: 1;

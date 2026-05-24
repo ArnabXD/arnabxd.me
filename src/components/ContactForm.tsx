@@ -182,9 +182,9 @@ function StatusLine({
 	})();
 	const tone =
 		status === "ok"
-			? "text-mark-2"
+			? "text-success"
 			: status === "error"
-				? "text-clay font-bold"
+				? "text-alert font-bold"
 				: "text-ink-4";
 
 	return (
