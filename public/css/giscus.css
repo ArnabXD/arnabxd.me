@@ -1,0 +1,87 @@
+/* ============================================================================
+   GISCUS CUSTOM THEME: "Signal Observatory"
+   Deep Obsidian (#07080a) background, silver ink typography, glowing cyber-teal accents.
+   ============================================================================ */
+
+main {
+	/* Preloader & Layout color */
+	--color-preload-color: #07080a;
+
+	/* Primary Button (Cyber-Teal Accent) */
+	--color-btn-primary-bg: #14b8a6;
+	--color-btn-primary-text: #07080a;
+	--color-btn-primary-border: #14b8a6;
+	--color-btn-primary-hover-bg: #0d9488;
+	--color-btn-primary-hover-border: #0d9488;
+	--color-btn-primary-active-bg: #0f766e;
+	--color-btn-primary-active-border: #0f766e;
+	--color-btn-primary-disabled-bg: rgba(20, 184, 166, 0.4);
+	--color-btn-primary-disabled-text: rgba(7, 8, 10, 0.5);
+	--color-btn-primary-disabled-border: transparent;
+
+	/* Card and Iframe Backgrounds */
+	--color-canvas-default: transparent;
+	--color-canvas-overlay: #0d0f14;
+	--color-canvas-inset: #0d0f14;
+
+	/* Borders & Dividers */
+	--color-border-default: #1f2937;
+	--color-border-muted: #374151;
+	--color-border-subtle: #1f2937;
+
+	/* Typography / Text Colors */
+	--color-fg-default: #f3f4f6;
+	--color-fg-muted: #9ca3af;
+	--color-fg-subtle: #808896;
+	--color-fg-on-emphasis: #07080a;
+
+	/* Accent Foreground & UI elements */
+	--color-accent-fg: #14b8a6;
+	--color-accent-emphasis: #14b8a6;
+	--color-accent-muted: rgba(20, 184, 166, 0.4);
+	--color-accent-subtle: rgba(20, 184, 166, 0.1);
+
+	/* Success Accents (Neon Green) */
+	--color-success-fg: #39ff14;
+	--color-success-emphasis: #39ff14;
+	--color-success-muted: rgba(57, 255, 20, 0.4);
+	--color-success-subtle: rgba(57, 255, 20, 0.1);
+
+	/* Attention Accents (Orange) */
+	--color-attention-fg: #ff9f1c;
+	--color-attention-emphasis: #ff9f1c;
+	--color-attention-muted: rgba(255, 159, 28, 0.4);
+	--color-attention-subtle: rgba(255, 159, 28, 0.1);
+
+	/* Alert / Danger Accents (Neon Crimson) */
+	--color-danger-fg: #ff2a5f;
+	--color-danger-emphasis: #ff2a5f;
+	--color-danger-muted: rgba(255, 42, 95, 0.4);
+	--color-danger-subtle: rgba(255, 42, 95, 0.1);
+
+	/* Focus rings & UI markers */
+	--color-primer-border-active: #14b8a6;
+	--color-primer-shadow-focus: 0 0 0 3px rgba(20, 184, 166, 0.3);
+}
+
+/* Ensure typography and fonts match website theme */
+.giscus,
+.giscus-frame {
+	font-family:
+		"JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace !important;
+}
+
+/* Styling links inside Giscus */
+.giscus .Link--primary,
+.giscus .Link--secondary {
+	transition: color 0.15s ease;
+}
+.giscus .Link--primary:hover,
+.giscus .Link--secondary:hover {
+	color: #14b8a6 !important;
+}
+
+/* Customize comments container padding and general spacing */
+.giscus .giscus-comments {
+	margin-top: 2rem;
+}

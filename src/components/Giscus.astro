@@ -1,0 +1,70 @@
+---
+
+---
+
+<div
+	class="giscus-wrapper mt-16 border-t border-rule pt-10 fade"
+	style="--d: 280ms"
+>
+	<div
+		class="flex items-center gap-2 mb-4 font-mono text-[10.5px] tracking-widest uppercase text-ink-3"
+	>
+		<span class="text-mark font-semibold">//</span>
+		<span>[SYS_COMMENTS_MODULE]</span>
+		<span class="text-ink-5">//</span>
+		<span class="text-ink-4">status: listening</span>
+	</div>
+	<h3
+		class="font-display text-[26px] md:text-[34px] leading-tight tracking-tight text-ink font-semibold mb-8"
+	>
+		comments<span class="text-mark font-mono">()</span>
+	</h3>
+
+	<div class="giscus"></div>
+</div>
+
+<script is:inline>
+	function initGiscus() {
+		// During local development, the Giscus server cannot fetch a stylesheet from localhost.
+		// Therefore, we fall back to a built-in clean transparent theme ('transparent_dark').
+		// Once you deploy the custom CSS to production, Giscus will load it perfectly,
+		// even when previewing on localhost!
+		const isLocal =
+			window.location.hostname === "localhost" ||
+			window.location.hostname === "127.0.0.1";
+
+		const theme = isLocal
+			? "transparent_dark"
+			: "https://arnabxd.me/css/giscus.css";
+
+		const script = document.createElement("script");
+		script.src = "https://giscus.app/client.js";
+		script.setAttribute("data-repo", "ArnabXD/arnabxd.me");
+		script.setAttribute("data-repo-id", "R_kgDOIrqTRQ");
+		script.setAttribute("data-category", "Comment");
+		script.setAttribute("data-category-id", "DIC_kwDOIrqTRc4C9wW8");
+		script.setAttribute("data-mapping", "pathname");
+		script.setAttribute("data-strict", "0");
+		script.setAttribute("data-reactions-enabled", "1");
+		script.setAttribute("data-emit-metadata", "0");
+		script.setAttribute("data-input-position", "bottom");
+		script.setAttribute("data-theme", theme);
+		script.setAttribute("data-lang", "en");
+		script.setAttribute("crossorigin", "anonymous");
+		script.setAttribute("async", "true");
+
+		const container = document.querySelector(".giscus");
+		if (container) {
+			// Clear any previous script or iframe if loaded (safety precaution for hot reloads)
+			container.innerHTML = "";
+			container.appendChild(script);
+		}
+	}
+
+	// Run on initial load
+	if (document.readyState === "loading") {
+		document.addEventListener("DOMContentLoaded", initGiscus);
+	} else {
+		initGiscus();
+	}
+</script>
