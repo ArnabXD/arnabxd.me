@@ -20,7 +20,7 @@ const today = new Date().toLocaleDateString("en-US", {
 ---
 
 <Base
-	title="Writing · Arnab Paryali"
+	title="Blog · Arnab Paryali"
 	description="Field notes, logs, and half-formed ideas about React Native, TypeScript, and the web."
 	image="/og/blog.png"
 >
@@ -33,8 +33,8 @@ const today = new Date().toLocaleDateString("en-US", {
 			<div
 				class="md:col-span-3 eyebrow inline-flex items-center whitespace-nowrap"
 			>
-				<span class="text-mark">§</span>
-				<span class="ml-1.5">the journal</span>
+				<span class="text-accent">§</span>
+				<span class="ml-1.5">blog</span>
 			</div>
 			<div class="hairline-soft md:col-span-6" aria-hidden="true"></div>
 			<div
@@ -49,13 +49,13 @@ const today = new Date().toLocaleDateString("en-US", {
 				class="block font-display font-light text-[clamp(48px,12vw,140px)] text-ink rise"
 				style="--d: 140ms"
 			>
-				Field notes
+				Technical
 			</span>
 			<span
 				class="block font-display font-semibold text-[clamp(52px,13vw,150px)] text-ink -mt-1 rise"
 				style="--d: 220ms"
 			>
-				& <span class="text-mark">transmissions</span>
+				blog & <span class="text-accent">articles.</span>
 			</span>
 		</h1>
 
@@ -84,14 +84,14 @@ const today = new Date().toLocaleDateString("en-US", {
 			<div class="md:col-span-7">
 				<p class="eyebrow mb-4 inline-flex items-center gap-2">
 					<span class="hairline w-6" aria-hidden="true"></span>
-					<span><span class="text-mark">§</span> 00 - preface</span>
+					<span><span class="text-accent">§</span> 00 - preface</span>
 				</p>
 				<p
 					class="font-display text-[22px] sm:text-[26px] md:text-[32px] leading-[1.22] text-ink-2 tracking-tight font-normal max-w-[34ch] md:max-w-none"
 				>
 					Half-formed thoughts, post-mortems, and the occasional{" "}
 					<span
-						class="underline decoration-mark decoration-2 underline-offset-[6px] text-ink"
+						class="underline decoration-accent decoration-2 underline-offset-[6px] text-ink"
 						>useful pattern</span
 					>. Notes from the keyboard, written when the dust{" "}
 					<span class="font-mono italic text-[0.82em]">finally</span> settles.
@@ -100,7 +100,7 @@ const today = new Date().toLocaleDateString("en-US", {
 
 			<div class="md:col-span-5 md:pl-10 md:border-l border-rule-soft">
 				<p class="eyebrow mb-5 md:hidden">
-					<span class="text-mark">§</span> archive index
+					<span class="text-accent">§</span> archive index
 				</p>
 				<dl class="space-y-4 md:space-y-5 text-[13.5px] md:text-[14px]">
 					<div
@@ -127,7 +127,7 @@ const today = new Date().toLocaleDateString("en-US", {
 					<div class="hairline-soft"></div>
 					<div class="grid grid-cols-[72px_1fr] md:grid-cols-[88px_1fr] gap-4">
 						<dt class="eyebrow pt-0.5">Latest</dt>
-						<dd class="font-mono text-mark tabular text-[13px]">
+						<dd class="font-mono text-accent tabular text-[13px]">
 							{
 								posts[0]
 									? posts[0].data.pubDate.toLocaleDateString("en-US", {
@@ -142,7 +142,14 @@ const today = new Date().toLocaleDateString("en-US", {
 					<div class="hairline-soft"></div>
 					<div class="grid grid-cols-[72px_1fr] md:grid-cols-[88px_1fr] gap-4">
 						<dt class="eyebrow pt-0.5">Feed</dt>
-						<dd class="font-mono text-ink-3 tabular text-[13px]">rss · soon</dd>
+						<dd class="font-mono tabular text-[13px]">
+							<a
+								href="/rss.xml"
+								class="text-accent hover:underline inline-flex items-center gap-1"
+							>
+								rss.xml <span aria-hidden="true">↗</span>
+							</a>
+						</dd>
 					</div>
 				</dl>
 			</div>
@@ -162,7 +169,7 @@ const today = new Date().toLocaleDateString("en-US", {
 				<div class="mt-12 border border-dashed border-rule-soft p-8 md:p-12 text-center">
 					<p class="font-display text-[18px] md:text-[20px] text-ink-3 tracking-[-0.02em]">
 						The buffer is empty - check back soon, or{" "}
-						<a href="/#contact" class="text-mark hover:underline">
+						<a href="/#contact" class="text-accent hover:underline">
 							ping me
 						</a>{" "}
 						with a topic.
