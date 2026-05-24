@@ -44,7 +44,19 @@ const today = new Date().toLocaleDateString("en-US", {
 			</div>
 		</div>
 
-		<h1 class="mt-8 md:mt-14 leading-[0.95] tracking-tighter">
+		<h1 class="mt-8 md:mt-14 leading-[0.95] tracking-tighter relative">
+			<!-- Dynamic atmospheric color mesh spots -->
+			<div
+				class="absolute -top-10 -left-10 w-48 h-48 bg-mark/10 rounded-full blur-[80px] pointer-events-none"
+				aria-hidden="true"
+			>
+			</div>
+			<div
+				class="absolute top-20 right-10 w-64 h-64 bg-mark-2/5 rounded-full blur-[100px] pointer-events-none"
+				aria-hidden="true"
+			>
+			</div>
+
 			<span
 				class="block font-display font-light text-[clamp(48px,12vw,140px)] text-ink-2 rise"
 				style="--d: 140ms"
