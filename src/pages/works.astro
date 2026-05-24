@@ -31,31 +31,31 @@ const today = new Date().toLocaleDateString("en-US", {
 			style="--d: 60ms"
 		>
 			<div
-				class="md:col-span-3 eyebrow inline-flex items-center whitespace-nowrap"
+				class="md:col-span-3 eyebrow inline-flex items-center whitespace-nowrap font-mono"
 			>
-				<span class="text-mark">§</span>
-				<span class="ml-1.5">the workshop</span>
+				<span class="text-mark-2 animate-pulse mr-1.5">●</span>
+				<span class="text-mark-2">[works_index]</span>
 			</div>
 			<div class="hairline-soft md:col-span-6" aria-hidden="true"></div>
 			<div
-				class="md:col-span-3 eyebrow md:text-right tabular whitespace-nowrap"
+				class="md:col-span-3 eyebrow md:text-right tabular whitespace-nowrap font-mono text-[10.5px]"
 			>
 				{today}
 			</div>
 		</div>
 
-		<h1 class="mt-8 md:mt-14 leading-[0.86] tracking-tighter">
+		<h1 class="mt-8 md:mt-14 leading-[0.95] tracking-tighter">
 			<span
 				class="block font-display font-light text-[clamp(48px,12vw,140px)] text-ink rise"
 				style="--d: 140ms"
 			>
-				Things I've
+				Production
 			</span>
 			<span
-				class="block font-display font-semibold text-[clamp(52px,13vw,150px)] text-ink -mt-1 rise"
+				class="block font-display font-semibold text-[clamp(52px,13vw,150px)] -mt-1 rise text-transparent bg-clip-text bg-linear-to-r from-ink via-ink to-mark"
 				style="--d: 220ms"
 			>
-				<span class="text-mark">built</span> on weekends.
+				<span class="text-mark animate-pulse">systems</span> & side builds.
 			</span>
 		</h1>
 
@@ -65,7 +65,8 @@ const today = new Date().toLocaleDateString("en-US", {
 			style="--d: 280ms"
 		>
 			<span
-				><span class="text-ink-5">[</span> repo <span class="text-ink-5">]</span
+				><span class="text-ink-5">[</span> archive.git <span class="text-ink-5"
+					>]</span
 				></span
 			>
 			<span class="text-ink-5">·</span>
@@ -73,7 +74,7 @@ const today = new Date().toLocaleDateString("en-US", {
 			<span class="text-ink-5">·</span>
 			<span>{techSet.size} tech</span>
 			<span class="text-ink-5">·</span>
-			<span>open source</span>
+			<span>public / nda</span>
 		</div>
 
 		<!-- intro grid -->
@@ -82,34 +83,43 @@ const today = new Date().toLocaleDateString("en-US", {
 			style="--d: 360ms"
 		>
 			<div class="md:col-span-7">
-				<p class="eyebrow mb-4 inline-flex items-center gap-2">
-					<span class="hairline w-6" aria-hidden="true"></span>
-					<span><span class="text-mark">§</span> 00 - preface</span>
+				<p class="eyebrow mb-4 inline-flex items-center gap-2 font-mono">
+					<span class="hairline w-6 bg-mark" aria-hidden="true"></span>
+					<span><span class="text-mark">§</span> 00_preface</span>
 				</p>
 				<p
 					class="font-display text-[22px] sm:text-[26px] md:text-[32px] leading-[1.22] text-ink-2 tracking-tight font-normal max-w-[34ch] md:max-w-none"
 				>
-					Bots, libraries, CLIs, and the{" "}
+					Commercial mobile architectures, web platforms, open-source libraries,
+					and command-line scripts.{" "}
 					<span
 						class="underline decoration-mark decoration-2 underline-offset-[6px] text-ink"
-						>occasional rabbit hole</span
-					>. Most of these started as a problem worth fixing{" "}
-					<span class="font-mono italic text-[0.82em]">just once</span> - then refused
-					to stay small.
+						>Shipped to production servers</span
+					> or published to registry nodes.
 				</p>
 			</div>
 
-			<div class="md:col-span-5 md:pl-10 md:border-l border-rule-soft">
-				<p class="eyebrow mb-5 md:hidden">
-					<span class="text-mark">§</span> shop index
+			<div class="md:col-span-5 md:pl-10 md:border-l border-rule-soft relative">
+				<div
+					class="absolute top-0 right-0 flex gap-1.5 opacity-60"
+					aria-hidden="true"
+				>
+					<span class="w-2.5 h-2.5 rounded-full bg-red-500/30"></span>
+					<span class="w-2.5 h-2.5 rounded-full bg-yellow-500/30"></span>
+					<span class="w-2.5 h-2.5 rounded-full bg-green-500/30"></span>
+				</div>
+				<p class="eyebrow mb-5 font-mono">
+					<span class="text-mark">[workshop_diag]</span> status: active
 				</p>
-				<dl class="space-y-4 md:space-y-5 text-[13.5px] md:text-[14px]">
+				<dl
+					class="space-y-4 md:space-y-5 text-[13.5px] md:text-[14px] font-mono"
+				>
 					<div
 						class="grid grid-cols-[72px_1fr] md:grid-cols-[88px_1fr] gap-4 items-baseline"
 					>
-						<dt class="eyebrow pt-0.5">Builds</dt>
+						<dt class="eyebrow pt-0.5">// builds</dt>
 						<dd
-							class="font-display text-ink text-[28px] md:text-[36px] leading-none tabular font-semibold tracking-tighter"
+							class="text-[24px] md:text-[28px] leading-none tabular font-semibold tracking-tight text-mark"
 						>
 							{String(count).padStart(2, "0")}
 						</dd>
@@ -118,22 +128,22 @@ const today = new Date().toLocaleDateString("en-US", {
 					<div
 						class="grid grid-cols-[72px_1fr] md:grid-cols-[88px_1fr] gap-4 items-baseline"
 					>
-						<dt class="eyebrow pt-0.5">Tech</dt>
+						<dt class="eyebrow pt-0.5">// tech</dt>
 						<dd
-							class="font-display text-ink text-[28px] md:text-[36px] leading-none tabular font-semibold tracking-tighter"
+							class="text-[24px] md:text-[28px] leading-none tabular font-semibold tracking-tight text-mark"
 						>
 							{techSet.size}
 						</dd>
 					</div>
 					<div class="hairline-soft"></div>
 					<div class="grid grid-cols-[72px_1fr] md:grid-cols-[88px_1fr] gap-4">
-						<dt class="eyebrow pt-0.5">License</dt>
-						<dd class="font-mono text-mark tabular text-[13px]">open source</dd>
+						<dt class="eyebrow pt-0.5">// license</dt>
+						<dd class="text-mark-2 tabular text-[13px]">mit / proprietary</dd>
 					</div>
 					<div class="hairline-soft"></div>
 					<div class="grid grid-cols-[72px_1fr] md:grid-cols-[88px_1fr] gap-4">
-						<dt class="eyebrow pt-0.5">Source</dt>
-						<dd class="font-mono text-ink-3 tabular text-[13px]">
+						<dt class="eyebrow pt-0.5">// source</dt>
+						<dd class="tabular text-[13px] text-ink-2">
 							<a
 								href="https://github.com/ArnabXD"
 								target="_blank"
@@ -149,9 +159,9 @@ const today = new Date().toLocaleDateString("en-US", {
 
 	<section class="mt-16 md:mt-28">
 		<SectionLabel
-			index="01"
+			index="1"
 			name="catalog"
-			meta={`${count} ${count === 1 ? "build" : "builds"}`}
+			meta={`${count} ${count === 1 ? "entry" : "entries"}`}
 		/>
 		<ProjectGrid />
 	</section>

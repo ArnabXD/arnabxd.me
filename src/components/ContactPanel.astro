@@ -11,24 +11,26 @@ const { contact } = data;
 >
 	<!-- Info -->
 	<aside class="lg:col-span-5">
-		<p class="eyebrow mb-3">
-			<span class="text-mark">●</span><span class="ml-1.5">Channel open</span>
+		<p class="eyebrow mb-3 font-mono">
+			<span class="text-mark-2 animate-pulse">●</span><span
+				class="ml-1.5 text-mark-2">[socket_connected]</span
+			>
 		</p>
 
 		<h3
 			class="font-display text-[42px] md:text-[54px] leading-[0.95] tracking-[-0.04em] text-ink font-semibold"
 		>
-			Send a <span class="text-mark">letter</span>.
+			Establish an <span class="text-mark">uplink</span>.
 		</h3>
 
 		<p class="mt-5 text-[15px] text-ink-2 leading-relaxed max-w-[42ch]">
-			Freelance work, full-time roles, or just want to talk about something
-			you're building - I'm around.
+			Freelance contracts, full-time engineering placements, or just wanting to
+			talk shop about performance optimizations - my channel is open.
 		</p>
 
 		<dl class="mt-10 space-y-6 text-[14px]">
 			<div>
-				<dt class="eyebrow mb-1">Direct</dt>
+				<dt class="eyebrow mb-1 font-mono">// direct</dt>
 				<dd>
 					<a
 						href={`mailto:${contact.email}`}
@@ -40,8 +42,8 @@ const { contact } = data;
 			</div>
 			<div class="hairline-soft"></div>
 			<div>
-				<dt class="eyebrow mb-1">Located</dt>
-				<dd class="text-ink">
+				<dt class="eyebrow mb-1 font-mono">// located</dt>
+				<dd class="text-ink font-mono">
 					<a
 						href={contact.location.url}
 						target="_blank"
@@ -57,8 +59,8 @@ const { contact } = data;
 			</div>
 			<div class="hairline-soft"></div>
 			<div>
-				<dt class="eyebrow mb-1">Elsewhere</dt>
-				<dd class="flex flex-wrap gap-x-4 gap-y-1 text-ink">
+				<dt class="eyebrow mb-1 font-mono">// network</dt>
+				<dd class="flex flex-wrap gap-x-4 gap-y-1 text-ink font-mono">
 					<a
 						href={contact.socials.github}
 						target="_blank"
@@ -88,7 +90,7 @@ const { contact } = data;
 		</dl>
 
 		<p
-			class="mt-10 text-[12px] font-mono tabular text-ink-3 max-w-[36ch] leading-relaxed"
+			class="mt-10 text-[11px] font-mono tabular text-ink-4 max-w-[36ch] leading-relaxed"
 		>
 			{contact.notice}
 		</p>
@@ -96,16 +98,29 @@ const { contact } = data;
 
 	<!-- Form -->
 	<div class="lg:col-span-7 relative">
-		<div class="relative bg-paper-2/60 border border-rule p-7 md:p-10">
-			<span
+		<div
+			class="relative bg-paper-2/65 border border-rule p-7 md:p-10 hover:border-mark/20 hover:shadow-[0_0_20px_rgba(20,184,166,0.03)] transition-all duration-300"
+		>
+			<!-- Terminal window status dots -->
+			<div
+				class="absolute top-3 left-4 flex gap-1.5 opacity-60"
 				aria-hidden="true"
-				class="absolute -top-px left-0 right-0 h-px bg-ink"></span>
-			<div class="flex items-center justify-between mb-5">
-				<p class="eyebrow">- form 01 / message</p>
+			>
+				<span class="w-2 h-2 rounded-full bg-red-500/40"></span>
+				<span class="w-2 h-2 rounded-full bg-yellow-500/40"></span>
+				<span class="w-2 h-2 rounded-full bg-green-500/40"></span>
+			</div>
+			<div
+				class="flex items-center justify-between mb-6 border-b border-rule-soft pb-4 pt-1"
+			>
+				<p class="font-mono text-[10.5px] text-ink-4">
+					[TERMINAL_SESSION] msg_post_client
+				</p>
 				<p
-					class="font-mono text-[10px] tabular text-ink-4 tracking-[0.14em] uppercase"
+					class="font-mono text-[9px] tabular text-mark-2 tracking-[0.14em] uppercase flex items-center gap-1 font-semibold"
 				>
-					Encrypted
+					<span class="h-1.5 w-1.5 rounded-full bg-mark-2 animate-pulse"></span>
+					secure_tunnel
 				</p>
 			</div>
 			<ContactForm client:only="react" />

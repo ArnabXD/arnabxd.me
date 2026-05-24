@@ -25,7 +25,7 @@ export function buildOgElement(data: OgData) {
 			style: {
 				width: "1200px",
 				height: "630px",
-				background: "#15140f",
+				background: "#07080a",
 				display: "flex",
 				flexDirection: "column",
 				fontFamily: "'Space Grotesk'",
@@ -39,11 +39,11 @@ export function buildOgElement(data: OgData) {
 				position: "absolute",
 				inset: "0px",
 				backgroundImage:
-					"linear-gradient(rgba(243,237,226,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(243,237,226,0.03) 1px, transparent 1px)",
+					"linear-gradient(rgba(20,184,166,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(20,184,166,0.03) 1px, transparent 1px)",
 				backgroundSize: "60px 60px",
 			},
 		}),
-		// Right glow
+		// Right glow (Cyber Cyan)
 		h("div", {
 			style: {
 				position: "absolute",
@@ -52,11 +52,11 @@ export function buildOgElement(data: OgData) {
 				width: "500px",
 				height: "500px",
 				background:
-					"radial-gradient(circle, rgba(255,59,24,0.12) 0%, transparent 70%)",
+					"radial-gradient(circle, rgba(20,184,166,0.12) 0%, transparent 70%)",
 				borderRadius: "50%",
 			},
 		}),
-		// Left bottom glow
+		// Left bottom glow (Active Lime)
 		h("div", {
 			style: {
 				position: "absolute",
@@ -65,11 +65,11 @@ export function buildOgElement(data: OgData) {
 				width: "360px",
 				height: "360px",
 				background:
-					"radial-gradient(circle, rgba(255,59,24,0.07) 0%, transparent 70%)",
+					"radial-gradient(circle, rgba(57,255,20,0.05) 0%, transparent 70%)",
 				borderRadius: "50%",
 			},
 		}),
-		// Top accent bar
+		// Top accent bar (Cyber Teal)
 		h("div", {
 			style: {
 				position: "absolute",
@@ -78,7 +78,7 @@ export function buildOgElement(data: OgData) {
 				right: "0px",
 				height: "3px",
 				background:
-					"linear-gradient(90deg, #ff3b18 0%, rgba(255,59,24,0.3) 40%, transparent 70%)",
+					"linear-gradient(90deg, #14b8a6 0%, rgba(20,184,166,0.3) 40%, transparent 70%)",
 			},
 		}),
 		// Main layout
@@ -103,14 +103,14 @@ export function buildOgElement(data: OgData) {
 						width: "8px",
 						height: "8px",
 						borderRadius: "50%",
-						background: "#ff3b18",
+						background: "#14b8a6",
 					},
 				}),
 				h(
 					"div",
 					{
 						style: {
-							color: "#ff3b18",
+							color: "#14b8a6",
 							fontSize: "13px",
 							fontWeight: 500,
 							letterSpacing: "0.12em",
@@ -134,14 +134,15 @@ export function buildOgElement(data: OgData) {
 									{
 										key: tag,
 										style: {
-											color: "#9b9485",
+											color: "#14b8a6",
 											fontSize: "12px",
 											fontWeight: 500,
 											letterSpacing: "0.1em",
 											textTransform: "uppercase",
-											border: "1px solid rgba(155,148,133,0.25)",
+											border: "1px solid rgba(20,184,166,0.25)",
 											padding: "4px 10px",
 											borderRadius: "4px",
+											background: "rgba(20,184,166,0.03)",
 										},
 									},
 									tag,
@@ -153,7 +154,7 @@ export function buildOgElement(data: OgData) {
 					"div",
 					{
 						style: {
-							color: "#f3ede2",
+							color: "#f3f4f6",
 							fontSize,
 							fontWeight: 700,
 							lineHeight: 1.05,
@@ -168,7 +169,7 @@ export function buildOgElement(data: OgData) {
 							"div",
 							{
 								style: {
-									color: "#6b6456",
+									color: "#9ca3af",
 									fontSize: "20px",
 									lineHeight: 1.5,
 									letterSpacing: "-0.01em",
@@ -187,7 +188,7 @@ export function buildOgElement(data: OgData) {
 						display: "flex",
 						justifyContent: "space-between",
 						alignItems: "center",
-						borderTop: "1px solid rgba(243,237,226,0.08)",
+						borderTop: "1px solid rgba(31,41,55,0.4)",
 						paddingTop: "24px",
 					},
 				},
@@ -200,14 +201,15 @@ export function buildOgElement(data: OgData) {
 							style: {
 								width: "40px",
 								height: "40px",
-								background: "#f3ede2",
+								background: "#0d0f14",
+								border: "1px solid rgba(20,184,166,0.2)",
 								borderRadius: "8px",
 								display: "flex",
 								alignItems: "center",
 								justifyContent: "center",
 								fontSize: "22px",
 								fontWeight: 700,
-								color: "#15140f",
+								color: "#14b8a6",
 								letterSpacing: "-0.04em",
 							},
 						},
@@ -222,7 +224,7 @@ export function buildOgElement(data: OgData) {
 							"div",
 							{
 								style: {
-									color: "#f3ede2",
+									color: "#f3f4f6",
 									fontSize: "17px",
 									fontWeight: 600,
 									letterSpacing: "-0.02em",
@@ -234,7 +236,7 @@ export function buildOgElement(data: OgData) {
 							"div",
 							{
 								style: {
-									color: "#6b6456",
+									color: "#9ca3af",
 									fontSize: "12px",
 									letterSpacing: "0.06em",
 									textTransform: "uppercase",
@@ -249,14 +251,14 @@ export function buildOgElement(data: OgData) {
 							"div",
 							{
 								style: {
-									color: "#6b6456",
+									color: "#9ca3af",
 									fontSize: "13px",
 									letterSpacing: "0.06em",
 									textTransform: "uppercase",
-									background: "rgba(243,237,226,0.05)",
+									background: "rgba(20,184,166,0.04)",
 									padding: "8px 16px",
 									borderRadius: "6px",
-									border: "1px solid rgba(243,237,226,0.08)",
+									border: "1px solid rgba(20,184,166,0.1)",
 								},
 							},
 							date,
