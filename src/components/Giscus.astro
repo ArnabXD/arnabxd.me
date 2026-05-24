@@ -25,17 +25,14 @@
 
 <script is:inline>
 	function initGiscus() {
-		// During local development, the Giscus server cannot fetch a stylesheet from localhost.
-		// Therefore, we fall back to a built-in clean transparent theme ('transparent_dark').
-		// Once you deploy the custom CSS to production, Giscus will load it perfectly,
-		// even when previewing on localhost!
 		const isLocal =
-			window.location.hostname === "localhost" ||
-			window.location.hostname === "127.0.0.1";
+			window.location.hostname.includes("localhost") ||
+			window.location.hostname.includes("127.0.0.1") ||
+			window.location.hostname.includes("ngrok");
 
 		const theme = isLocal
-			? "transparent_dark"
-			: "https://arnabxd.me/css/giscus.css";
+			? "https://cdn.jsdelivr.net/gh/ArnabXD/arnabxd.me@preview/public/css/giscus.css?v=1.1.0"
+			: "https://arnabxd.me/css/giscus.css?v=1.1.0";
 
 		const script = document.createElement("script");
 		script.src = "https://giscus.app/client.js";
