@@ -1,0 +1,255 @@
+---
+title: Over-the-Air Updates for React Native with hot-updater, Tigris, and Astro
+description: Self-host React Native OTA updates without a paid plan - swap Cloudflare R2 for Tigris's free 5GB tier and run the update server on any Worker-compatible framework. This uses Astro.
+pubDate: 2026-06-16
+tags:
+  - react-native
+  - expo
+  - hot-updater
+  - tigris
+  - astro
+  - cloudflare-workers
+---
+
+Every JS-only fix in a React Native app shouldn't require a new binary, a store upload, and a review wait. OTA updates skip all of that - the app downloads a new JS bundle on launch and runs it.
+
+EAS Update does this well, but it's priced for teams. [hot-updater](https://hot-updater.dev) is open-source and self-hosted - no per-user pricing, no subscription.
+
+## Why not just use the R2 setup?
+
+hot-updater has a one-command Cloudflare setup, but it stores bundles in R2, which requires a paid Workers plan - a credit card on file. For a side project, that's more commitment than it deserves.
+
+[Tigris](https://www.tigrisdata.com) is S3-compatible object storage with 5GB free and no egress fees. R2 is also egress-free, but Tigris gets you there without the card.
+
+The setup: keep D1 (metadata) and Workers (server) from Cloudflare's free tier, put bundles on Tigris instead of R2. For the Worker, any Worker-compatible framework works - I already had an Astro site deployed there, so that's what I used.
+
+## How the pieces fit
+
+`hot-updater deploy` builds the JS bundle, pushes the zip to Tigris, and writes a row to D1. On launch, `@hot-updater/react-native` asks the Worker if there's a newer bundle. The Worker checks D1, and if there's a match, replies with a presigned Tigris download URL.
+
+The CLI lives with the React Native app; the update server is a separate project. Both point at the same bucket and database.
+
+## Requirements
+
+- An Expo / React Native app (Expo SDK 56, RN 0.85)
+- A Cloudflare Worker for the update server (I use Astro)
+- A [Tigris](https://www.tigrisdata.com) bucket with an access key
+- A Cloudflare account for D1 and Workers
+
+## The client
+
+```bash
+bun add @hot-updater/react-native
+bun add -D hot-updater @hot-updater/expo @hot-updater/aws @hot-updater/cloudflare
+```
+
+Wrap your root component:
+
+```tsx
+import { HotUpdater } from '@hot-updater/react-native';
+
+export default HotUpdater.wrap({
+  baseURL: 'https://your-site.com/api/check-update',
+  updateStrategy: 'appVersion',
+})(function App() {
+  return <YourApp />;
+});
+```
+
+`updateStrategy: 'appVersion'` targets bundles by version string - a bundle for `1.3.x` reaches every `1.3.*` build but never `1.4.0`.
+
+My versioning convention: `x.y` bumps mean native code changed, ship a new binary. `z` bumps are JS-only, deploy OTA. So `1.3.0`, `1.3.1`, `1.3.2` share the same binary, and OTA bundles target `1.3.x`.
+
+## The deploy config
+
+`hot-updater.config.ts` at the app root:
+
+```typescript
+import { expo } from '@hot-updater/expo';
+import { s3Storage } from '@hot-updater/aws';
+import { d1Database } from '@hot-updater/cloudflare';
+import { defineConfig } from 'hot-updater';
+
+export default defineConfig({
+  build: expo(),
+  updateStrategy: 'appVersion',
+  storage: s3Storage({
+    region: 'auto',
+    endpoint: process.env.TIGRIS_ENDPOINT!,
+    bucketName: process.env.TIGRIS_BUCKET!,
+    credentials: {
+      accessKeyId: process.env.TIGRIS_ACCESS_KEY_ID!,
+      secretAccessKey: process.env.TIGRIS_SECRET_ACCESS_KEY!,
+    },
+  }),
+  database: d1Database({
+    databaseId: process.env.CF_D1_DATABASE_ID!,
+    accountId: process.env.CF_ACCOUNT_ID!,
+    cloudflareApiToken: process.env.CF_API_TOKEN!,
+  }),
+});
+```
+
+Tigris speaks the S3 API, so the AWS plugin works - just point `endpoint` at Tigris and set `region` to `auto`. Create the Tigris bucket in the console; create the D1 database with `wrangler d1 create <name>`.
+
+Deploying a JS update. I pull the version from `package.json` to avoid reading fragile native build files:
+
+```bash
+MINOR=$(node -p "require('./package.json').version.split('.').slice(0,2).join('.')")
+bunx hot-updater deploy -p android -t "${MINOR}.x" --channel production
+# iOS: swap -p android for -p ios
+```
+
+## The update endpoint
+
+In your Worker project:
+
+```bash
+bun add @hot-updater/server @hot-updater/cloudflare aws4fetch
+```
+
+In Astro, a catch-all route at `src/pages/api/check-update/[...path].ts`:
+
+```typescript
+import type { APIRoute } from 'astro';
+import { env } from 'cloudflare:workers';
+import { createHotUpdater } from '@hot-updater/server/runtime';
+import { d1Database } from '@hot-updater/cloudflare/worker';
+import { tigrisStorage } from '../../../lib/tigris-storage-plugin';
+
+export const ALL: APIRoute = async ({ request }) => {
+  const hotUpdater = createHotUpdater({
+    database: d1Database(),
+    storages: [tigrisStorage({
+      endpoint: env.TIGRIS_ENDPOINT,
+      bucket: env.TIGRIS_BUCKET,
+      accessKeyId: env.TIGRIS_ACCESS_KEY_ID,
+      secretAccessKey: env.TIGRIS_SECRET_ACCESS_KEY,
+    })],
+    basePath: '/api/check-update',
+    routes: { updateCheck: true, bundles: false },
+  });
+  return hotUpdater.handler(request, { env });
+};
+```
+
+`bundles: false` means the Worker doesn't proxy file downloads - the storage plugin returns a presigned Tigris URL directly and the phone fetches the zip from Tigris. Bind D1 as `DB` in `wrangler.jsonc` and set Tigris keys with `wrangler secret put`.
+
+## Why you need a custom storage plugin
+
+`@hot-updater/aws` ships an `s3Storage` plugin that handles URL signing, but it drags in the full AWS SDK, which doesn't run on Cloudflare Workers. The first request throws `emitWarningIfUnsupportedVersion is not a function`.
+
+[`aws4fetch`](https://github.com/mhart/aws4fetch) signs S3 requests using only the Web Crypto API - no Node, no SDK. Drop this in `src/lib/tigris-storage-plugin.ts`:
+
+```typescript
+import { AwsClient } from 'aws4fetch';
+
+interface TigrisStorageConfig {
+  bucket: string;
+  accessKeyId: string;
+  secretAccessKey: string;
+  endpoint: string;
+}
+
+const EXPIRY_SECONDS = 3600;
+
+function parseKey(storageUri: string): string {
+  const u = new URL(storageUri);
+  if (u.protocol !== 's3:') throw new Error('Invalid s3 storage URI');
+  return u.pathname.replace(/^\/+/, '');
+}
+
+export function tigrisStorage(cfg: TigrisStorageConfig) {
+  const aws = new AwsClient({
+    accessKeyId: cfg.accessKeyId,
+    secretAccessKey: cfg.secretAccessKey,
+    service: 's3',
+    region: 'auto',
+  });
+
+  // Tigris objects are served from tigrisfiles.io, not storage.dev - signature must use this host
+  const downloadHost = `${cfg.bucket}.${cfg.endpoint
+    .replace(/^https?:\/\//, '')
+    .replace(/^([^.]+)\.storage\.dev$/, '$1.tigrisfiles.io')}`;
+
+  async function presign(key: string): Promise<string> {
+    // X-Amz-Expires must be in the URL before signing - appending it after invalidates the signature
+    const url = `https://${downloadHost}/${encodeURI(key)}?X-Amz-Expires=${EXPIRY_SECONDS}`;
+    const signed = await aws.sign(url, { method: 'GET', aws: { signQuery: true } });
+    return signed.url;
+  }
+
+  return () => ({
+    name: 'tigris-storage',
+    supportedProtocol: 's3',
+    profiles: {
+      runtime: {
+        async getDownloadUrl(storageUri: string) {
+          return { fileUrl: await presign(parseKey(storageUri)) };
+        },
+        async readText(storageUri: string) {
+          const res = await fetch(await presign(parseKey(storageUri)));
+          if (!res.ok) return null;
+          return res.text();
+        },
+      },
+    },
+  });
+}
+```
+
+One gotcha: presigned URLs are signed for `GET` - testing with `HEAD` returns 403.
+
+## The silent timeout
+
+An update check signs every changed asset. A full bundle is 20+ files. Tigris's own `getPresignedUrl` makes a network round-trip per call - twenty of those stack up to several seconds.
+
+The client times out after five. It aborts silently, nothing shows in your logs, and the device never updates. Local signing with `aws4fetch` costs microseconds instead, dropping the response from ~5s to under one.
+
+If updates deploy fine but never reach devices, time the endpoint:
+
+```bash
+curl -s -o /dev/null -w "%{time_total}s\n" \
+  "https://your-site.com/api/check-update/app-version/android/1.3.0/production/00000000-0000-0000-0000-000000000000/00000000-0000-0000-0000-000000000000"
+```
+
+## Testing locally
+
+Drop secrets in `.dev.vars` (gitignored) and start with `--remote` to hit the real D1 and Tigris:
+
+```
+TIGRIS_ENDPOINT=https://t3.storage.dev
+TIGRIS_BUCKET=your-bucket
+TIGRIS_ACCESS_KEY_ID=...
+TIGRIS_SECRET_ACCESS_KEY=...
+```
+
+```bash
+bunx wrangler dev --remote
+```
+
+Hit the endpoint:
+
+```bash
+curl "http://localhost:8787/api/check-update/app-version/android/1.3.0/production/00000000-0000-0000-0000-000000000000/00000000-0000-0000-0000-000000000000"
+```
+
+A working response has `"status": "UPDATE"` and a `fileUrl`. Paste that URL into another `curl` and confirm `200` - that proves signing is correct end to end.
+
+## Watching it land
+
+```bash
+adb logcat | grep -i bundleId
+```
+
+Launch once to download in the background, then again to apply. The bundle id flips from `null` to a real id:
+
+```
+BundleStorage: prepareLaunch: bundleId=019ecef2-... shouldRollback=false
+```
+
+`shouldRollback=false` means the bundle booted without crashing and is now the default. That's a successful OTA.
+
+---
+
+The whole thing runs on free tiers: Tigris, D1, Workers. No card required.
