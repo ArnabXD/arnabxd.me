@@ -1,0 +1,54 @@
+---
+import { getCollection } from "astro:content";
+
+import Base from "~/layouts/Base.astro";
+import SectionLabel from "~/components/SectionLabel.astro";
+import BlogFeed from "~/components/BlogFeed.astro";
+
+export async function getStaticPaths() {
+	const posts = await getCollection("blog", ({ data }) => !data.draft);
+	const tags = new Set(posts.flatMap((p) => p.data.tags));
+	return [...tags].map((tag) => ({
+		params: { tag },
+		props: {
+			posts: posts
+				.filter((p) => p.data.tags.includes(tag))
+				.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()),
+		},
+	}));
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+---
+
+<Base
+	title={`#${tag} · Blog · Arnab Paryali`}
+	description={`Posts tagged #${tag}.`}
+>
+	<section class="mt-10 md:mt-20">
+		<nav aria-label="breadcrumb" class="fade" style="--d: 40ms">
+			<a
+				href="/blog"
+				class="inline-flex items-center gap-2 font-mono text-[11px] tabular tracking-[0.08em] uppercase text-ink-3 hover:text-mark transition-colors"
+			>
+				<span aria-hidden="true">←</span>
+				Back to blog
+			</a>
+		</nav>
+
+		<h1
+			class="mt-7 md:mt-8 font-display text-[clamp(34px,8vw,68px)] leading-[0.98] tracking-tighter text-ink font-semibold"
+		>
+			#{tag}
+		</h1>
+
+		<SectionLabel
+			index="01"
+			name="archive"
+			meta={`${posts.length} ${posts.length === 1 ? "entry" : "entries"}`}
+		/>
+
+		<BlogFeed entries={posts} />
+	</section>
+</Base>
