@@ -6,24 +6,17 @@ const path = Astro.url.pathname;
 ---
 
 <div
-	data-nav-shell
-	class="sticky top-0 z-40 backdrop-blur-md transition-colors duration-300 border-b border-transparent"
+	class="sticky top-0 z-40 bg-paper/85 backdrop-blur-md border-b border-rule-soft"
 >
 	<header
-		class="relative mx-auto max-w-300 px-6 md:px-12 lg:px-16 flex items-center justify-between gap-3 py-6 md:py-7 fade"
+		class="mx-auto max-w-300 px-6 md:px-12 lg:px-16 h-16 flex items-center justify-between gap-4"
 	>
 		<a
 			href="/"
-			class="group inline-flex items-center gap-0.5 font-mono text-[16px] md:text-[18px] leading-none tracking-tight text-ink transition-colors shrink-0"
+			class="font-display text-[18px] text-ink hover:text-mark transition-colors shrink-0"
 			aria-label={site.name}
 		>
-			<span class="text-mark group-hover:text-ink transition-colors">&lt;</span>
-			<span
-				class="font-display font-semibold tracking-[-0.02em] text-[18px] md:text-[20px] group-hover:text-mark transition-colors"
-				>Arnab</span
-			>
-			<span class="text-mark group-hover:text-ink transition-colors">/&gt;</span
-			>
+			{site.name}
 		</a>
 
 		<nav aria-label="Primary" class="flex items-center gap-1 sm:gap-2">
@@ -33,19 +26,17 @@ const path = Astro.url.pathname;
 					return (
 						<a
 							href={item.href}
+							aria-current={active ? "page" : undefined}
 							class:list={[
-								"group relative inline-flex items-baseline gap-2 px-2.5 sm:px-3 py-1.5 text-[14px] sm:text-[15px] transition-colors",
-								active ? "text-ink" : "text-ink-3 hover:text-ink",
+								"relative px-3 py-2 text-[15px] transition-colors",
+								active ? "text-ink font-medium" : "text-ink-3 hover:text-ink",
 							]}
 						>
-							<span class="hidden sm:inline font-mono text-[11px] text-ink-4 tabular">
-								{item.short}
-							</span>
-							<span>{item.label}</span>
+							{item.label}
 							{active && (
 								<span
 									aria-hidden="true"
-									class="absolute left-2.5 right-2.5 sm:left-3 sm:right-3 -bottom-0.5 h-px bg-mark shadow-[0_0_8px_rgba(20,184,166,0.6)]"
+									class="absolute left-3 right-3 bottom-0.5 h-0.5 rounded-full bg-mark"
 								/>
 							)}
 						</a>
@@ -55,23 +46,3 @@ const path = Astro.url.pathname;
 		</nav>
 	</header>
 </div>
-
-<script is:inline>
-	(function () {
-		var shell = document.querySelector("[data-nav-shell]");
-		if (!shell) return;
-		var update = function () {
-			if (window.scrollY > 0) {
-				shell.style.backgroundColor = "rgba(7, 8, 10, 0.82)";
-				shell.style.borderBottomColor = "rgba(20, 184, 166, 0.15)";
-				shell.style.boxShadow = "0 4px 30px rgba(0, 0, 0, 0.4)";
-			} else {
-				shell.style.backgroundColor = "";
-				shell.style.borderBottomColor = "transparent";
-				shell.style.boxShadow = "";
-			}
-		};
-		update();
-		window.addEventListener("scroll", update, { passive: true });
-	})();
-</script>

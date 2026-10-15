@@ -15,15 +15,15 @@ function fmtDate(dateStr: string): string {
 }
 
 async function renderPng(data: OgData): Promise<Buffer> {
-	const fontMedium = readFileSync(join(fontsDir, "SpaceGrotesk-Medium.ttf"));
-	const fontBold = readFileSync(join(fontsDir, "SpaceGrotesk-Bold.ttf"));
+	const fontMedium = readFileSync(join(fontsDir, "Geist-Medium.woff"));
+	const fontBold = readFileSync(join(fontsDir, "Geist-Bold.woff"));
 
 	const svg = await satori(buildOgElement(data), {
 		width: 1200,
 		height: 630,
 		fonts: [
-			{ name: "Space Grotesk", data: fontMedium, weight: 500, style: "normal" },
-			{ name: "Space Grotesk", data: fontBold, weight: 700, style: "normal" },
+			{ name: "Geist", data: fontMedium, weight: 500, style: "normal" },
+			{ name: "Geist", data: fontBold, weight: 700, style: "normal" },
 		],
 	});
 

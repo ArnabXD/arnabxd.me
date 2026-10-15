@@ -3,126 +3,74 @@ import { data } from "~/data";
 import ContactForm from "~/components/ContactForm";
 
 const { contact } = data;
+const socials = [
+	["GitHub", contact.socials.github],
+	["LinkedIn", contact.socials.linkedin],
+	["Twitter", contact.socials.twitter],
+	["Upwork", contact.socials.upwork],
+] as const;
 ---
 
 <div
 	id="contact"
-	class="mt-12 md:mt-16 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 scroll-mt-24"
+	class="mt-10 md:mt-12 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 scroll-mt-24"
 >
-	<!-- Info -->
 	<aside class="lg:col-span-5">
-		<p class="eyebrow mb-3 font-mono">
-			<span class="text-mark-2 animate-pulse">●</span><span
-				class="ml-1.5 text-mark-2">[socket_connected]</span
-			>
-		</p>
-
-		<h3
-			class="font-display text-[42px] md:text-[54px] leading-[0.95] tracking-[-0.04em] text-ink font-semibold"
+		<p
+			class="text-[20px] md:text-[22px] leading-snug tracking-[-0.01em] text-ink-2 max-w-[30ch]"
 		>
-			Establish an <span class="text-mark">uplink</span>.
-		</h3>
-
-		<p class="mt-5 text-[15px] text-ink-2 leading-relaxed max-w-[42ch]">
-			Freelance contracts, full-time engineering placements, or just wanting to
-			talk shop about performance optimizations - my channel is open.
+			Freelance projects, full-time roles, or a chat about React Native
+			performance.
 		</p>
 
-		<dl class="mt-10 space-y-6 text-[14px]">
+		<dl class="mt-8 space-y-5 text-[16px]">
 			<div>
-				<dt class="eyebrow mb-1 font-mono">// direct</dt>
+				<dt class="text-[14px] text-ink-3">Email</dt>
 				<dd>
-					<a
-						href={`mailto:${contact.email}`}
-						class="font-mono text-[15px] text-ink hover:text-mark transition-colors tracking-tight"
-					>
+					<a href={`mailto:${contact.email}`} class="link text-ink">
 						{contact.email}
 					</a>
 				</dd>
 			</div>
-			<div class="hairline-soft"></div>
 			<div>
-				<dt class="eyebrow mb-1 font-mono">// located</dt>
-				<dd class="text-ink font-mono">
+				<dt class="text-[14px] text-ink-3">Based in</dt>
+				<dd>
 					<a
 						href={contact.location.url}
 						target="_blank"
 						rel="noreferrer"
-						class="hover:text-mark transition-colors"
+						class="link text-ink"
 					>
-						{contact.location.text}, India
+						{contact.location.text}, {contact.location.country}
 					</a>
-					<span class="text-ink-3 font-mono tabular text-[12px] ml-2"
-						>UTC+05:30</span
-					>
 				</dd>
 			</div>
-			<div class="hairline-soft"></div>
 			<div>
-				<dt class="eyebrow mb-1 font-mono">// network</dt>
-				<dd class="flex flex-wrap gap-x-4 gap-y-1 text-ink font-mono">
-					<a
-						href={contact.socials.github}
-						target="_blank"
-						rel="noreferrer"
-						class="hover:text-mark transition-colors">GitHub ↗</a
-					>
-					<a
-						href={contact.socials.linkedin}
-						target="_blank"
-						rel="noreferrer"
-						class="hover:text-mark transition-colors">LinkedIn ↗</a
-					>
-					<a
-						href={contact.socials.twitter}
-						target="_blank"
-						rel="noreferrer"
-						class="hover:text-mark transition-colors">Twitter ↗</a
-					>
-					<a
-						href={contact.socials.upwork}
-						target="_blank"
-						rel="noreferrer"
-						class="hover:text-mark transition-colors">Upwork ↗</a
-					>
+				<dt class="text-[14px] text-ink-3">Elsewhere</dt>
+				<dd class="flex flex-wrap gap-x-5 gap-y-1">
+					{
+						socials.map(([label, href]) => (
+							<a
+								href={href}
+								target="_blank"
+								rel="noreferrer"
+								class="link text-ink"
+							>
+								{label}
+							</a>
+						))
+					}
 				</dd>
 			</div>
 		</dl>
 
-		<p
-			class="mt-10 text-[11px] font-mono tabular text-ink-4 max-w-[36ch] leading-relaxed"
-		>
+		<p class="mt-8 text-[14px] text-ink-3 max-w-[40ch] leading-relaxed">
 			{contact.notice}
 		</p>
 	</aside>
 
-	<!-- Form -->
-	<div class="lg:col-span-7 relative">
-		<div
-			class="relative bg-paper-2/65 border border-rule p-7 md:p-10 hover:border-mark/20 hover:shadow-[0_0_20px_rgba(20,184,166,0.03)] transition-all duration-300"
-		>
-			<!-- Terminal window status dots -->
-			<div
-				class="absolute top-3 left-4 flex gap-1.5 opacity-60"
-				aria-hidden="true"
-			>
-				<span class="w-2 h-2 rounded-full bg-red-500/40"></span>
-				<span class="w-2 h-2 rounded-full bg-yellow-500/40"></span>
-				<span class="w-2 h-2 rounded-full bg-green-500/40"></span>
-			</div>
-			<div
-				class="flex items-center justify-between mb-6 border-b border-rule-soft pb-4 pt-1"
-			>
-				<p class="font-mono text-[10.5px] text-ink-4">
-					[TERMINAL_SESSION] msg_post_client
-				</p>
-				<p
-					class="font-mono text-[9px] tabular text-mark-2 tracking-[0.14em] uppercase flex items-center gap-1 font-semibold"
-				>
-					<span class="h-1.5 w-1.5 rounded-full bg-mark-2 animate-pulse"></span>
-					secure_tunnel
-				</p>
-			</div>
+	<div class="lg:col-span-7">
+		<div class="rounded-xl border border-rule-soft bg-paper-2 p-5 md:p-9">
 			<ContactForm client:only="react" />
 		</div>
 	</div>

@@ -40,63 +40,50 @@ export default function ContactForm() {
 			const data = (await res.json()) as { success: boolean; error?: string };
 			if (!res.ok || !data.success) {
 				setStatus("error");
-				setError(data.error ?? "Transmission failed.");
+				setError(data.error ?? "Could not send your message.");
 				return;
 			}
 			setStatus("ok");
 			form.reset();
 		} catch {
 			setStatus("error");
-			setError("Network unreachable.");
+			setError("Network error. Please try again.");
 		}
 	}
 
 	return (
-		<form onSubmit={onSubmit} className="space-y-6" noValidate>
+		<form onSubmit={onSubmit} className="space-y-5" noValidate>
 			<Field
 				id={nameId}
 				name="name"
-				label="client_identity"
-				index="01"
-				placeholder="e.g. Ada Lovelace"
+				label="Name"
+				placeholder="Ada Lovelace"
 				autoComplete="name"
 			/>
 			<Field
 				id={emailId}
 				name="email"
 				type="email"
-				label="client_endpoint"
-				index="02"
-				placeholder="you@domain.tld"
+				label="Email"
+				placeholder="you@example.com"
 				autoComplete="email"
 			/>
 			<Field
 				id={messageId}
 				name="message"
-				label="transmission_payload"
-				index="03"
-				placeholder="Provide transaction details, role descriptions, or system queries..."
+				label="Message"
+				placeholder="What are you working on?"
 				textarea
 			/>
 
-			<div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2 border-t border-rule-soft/50">
+			<div className="flex flex-col-reverse sm:flex-row sm:items-center justify-between gap-4 pt-1">
 				<StatusLine status={status} error={error} />
 				<button
 					type="submit"
 					disabled={status === "submitting"}
-					className="group inline-flex items-center gap-3 bg-paper-2 border border-rule hover:border-mark hover:shadow-[0_0_12px_rgba(20,184,166,0.2)] text-ink px-5 py-3 transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed shrink-0 w-full sm:w-auto justify-center sm:justify-start"
+					className="btn btn-primary disabled:opacity-60 disabled:cursor-not-allowed shrink-0 w-full sm:w-auto"
 				>
-					<span className="font-mono text-[13px] font-medium tracking-tight text-mark">
-						{status === "submitting"
-							? "transmitting..."
-							: "broadcast_packets()"}
-					</span>
-					<span
-						aria-hidden="true"
-						className="transition-transform group-hover:translate-x-1 text-mark"
-					>
-						→
-					</span>
+					{status === "submitting" ? "Sending..." : "Send message"}
 				</button>
 			</div>
 		</form>
@@ -107,7 +94,6 @@ type FieldProps = {
 	id: string;
 	name: string;
 	label: string;
-	index: string;
 	placeholder?: string;
 	type?: string;
 	autoComplete?: string;
@@ -118,32 +104,26 @@ function Field({
 	id,
 	name,
 	label,
-	index,
 	placeholder,
 	type = "text",
 	autoComplete,
 	textarea,
 }: FieldProps) {
-	const baseClass =
-		"mt-2 block w-full bg-transparent border-0 border-b border-rule-soft px-0 py-2.5 text-[15px] text-ink placeholder:text-ink-4 outline-none transition-colors focus:border-mark focus:ring-0 font-mono";
+	const cls =
+		"mt-2 block w-full rounded-xl border border-rule bg-paper px-4 py-3 text-[16px] text-ink placeholder:text-ink-4 outline-none transition-colors focus:border-mark focus:ring-2 focus:ring-mark/25";
 
 	return (
 		<div>
-			<label htmlFor={id} className="flex items-baseline justify-between gap-2">
-				<span className="font-mono text-[13px] text-ink-2 font-medium tracking-tight">
-					{label}
-				</span>
-				<span className="font-mono text-[10px] tabular text-ink-4 tracking-[0.14em] uppercase">
-					[0{index}]
-				</span>
+			<label htmlFor={id} className="text-[15px] font-medium text-ink">
+				{label}
 			</label>
 			{textarea ? (
 				<textarea
 					id={id}
 					name={name}
-					rows={4}
+					rows={5}
 					placeholder={placeholder}
-					className={`${baseClass} resize-none`}
+					className={`${cls} resize-none`}
 					required
 				/>
 			) : (
@@ -153,7 +133,7 @@ function Field({
 					type={type}
 					placeholder={placeholder}
 					autoComplete={autoComplete}
-					className={baseClass}
+					className={cls}
 					required
 				/>
 			)}
@@ -168,32 +148,22 @@ function StatusLine({
 	status: Status;
 	error: string | null;
 }) {
-	const text = (() => {
-		switch (status) {
-			case "submitting":
-				return "COMPILING DATA & BROADCASTING PACKETS...";
-			case "ok":
-				return "TRANSMITTED SUCCESSFULLY. UPLINK ACKNOWLEDGED.";
-			case "error":
-				return `ERROR: ${error || "TRANSMISSION FAILURE."}`;
-			default:
-				return "UPLINK STATUS: IDLE";
-		}
-	})();
+	const text =
+		status === "ok"
+			? "Message sent. Thanks, I'll reply soon."
+			: status === "error"
+				? error || "Something went wrong."
+				: "";
 	const tone =
 		status === "ok"
-			? "text-success"
+			? "text-mark"
 			: status === "error"
-				? "text-alert font-bold"
-				: "text-ink-4";
+				? "text-alert"
+				: "text-ink-3";
 
 	return (
-		<span
-			role="status"
-			aria-live="polite"
-			className={`font-mono text-[11px] tabular tracking-[0.06em] ${tone}`}
-		>
-			&gt; {text}
+		<span role="status" aria-live="polite" className={`text-[14px] ${tone}`}>
+			{text}
 		</span>
 	);
 }

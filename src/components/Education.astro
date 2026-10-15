@@ -4,35 +4,17 @@ import { data } from "~/data";
 const items = data.education;
 ---
 
-<div class="mt-12 md:mt-16">
+<div class="mt-10 md:mt-12 divide-y divide-rule-soft">
 	{
-		items.map((edu, i) => (
-			<article class="group grid grid-cols-12 gap-4 md:gap-6 py-8 md:py-10 border-b border-rule-soft last:border-b-0 hover:bg-paper-2/20 backdrop-blur-[1px] transition-all duration-300 -mx-3 md:-mx-6 px-3 md:px-6">
-				<div class="col-span-12 md:col-span-2">
-					<span class="font-mono text-[11px] tabular text-mark tracking-widest">
-						[edu_0{i + 1}]
-					</span>
-				</div>
-
-				<div class="col-span-12 md:col-span-6">
-					<p class="eyebrow mb-1.5 font-mono text-ink-3">// institution</p>
-					<h3 class="font-display text-[26px] md:text-[30px] leading-[1.05] tracking-[-0.03em] text-ink font-semibold group-hover:text-mark transition-colors">
+		items.map((edu) => (
+			<article class="grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-8 py-6 first:pt-0">
+				<p class="md:col-span-3 text-[15px] text-ink-3 tabular">{edu.period}</p>
+				<div class="md:col-span-9">
+					<h3 class="font-display text-[22px] md:text-[24px] leading-tight text-ink">
 						{edu.institution}
 					</h3>
-					<p class="mt-2 text-[13px] text-ink-2 font-mono">
-						degree: <span class="text-mark">{edu.degree}</span>
-					</p>
-				</div>
-
-				<div class="col-span-6 md:col-span-2 md:text-right">
-					<p class="eyebrow mb-1.5 font-mono text-ink-3">period</p>
-					<p class="font-mono text-[13px] tabular text-ink-2">{edu.period}</p>
-				</div>
-
-				<div class="col-span-6 md:col-span-2 md:text-right">
-					<p class="eyebrow mb-1.5 font-mono text-ink-3">score_gpa</p>
-					<p class="font-mono text-[24px] text-mark-2 leading-none font-semibold tabular tracking-[-0.02em] mt-1">
-						{edu.cgpa}
+					<p class="mt-1 text-[16px] text-ink-2">
+						{edu.degree}, CGPA {edu.cgpa}
 					</p>
 				</div>
 			</article>

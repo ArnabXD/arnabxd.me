@@ -4,38 +4,21 @@ import { data } from "~/data";
 const items = data.experience;
 ---
 
-<ol class="mt-12 md:mt-16">
+<ol class="mt-10 md:mt-12 divide-y divide-rule-soft">
 	{
-		items.map((exp, i) => (
-			<li class="group relative grid grid-cols-12 gap-4 md:gap-6 py-8 md:py-10 border-b border-rule-soft last:border-b-0 hover:bg-paper-2/20 backdrop-blur-[1px] transition-all duration-300 -mx-3 md:-mx-6 px-3 md:px-6">
-				<div class="col-span-12 md:col-span-2">
-					<span class="font-mono text-[11px] tabular text-mark tracking-widest">
-						[job_0{i + 1}]
-					</span>
-				</div>
-
-				<div class="col-span-12 md:col-span-4">
-					<p class="eyebrow mb-1.5 font-mono text-ink-3">// {exp.title}</p>
-					<h3 class="font-display text-[30px] md:text-[34px] leading-none tracking-[-0.03em] text-ink font-semibold group-hover:text-mark transition-colors">
+		items.map((exp) => (
+			<li class="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-8 py-8 first:pt-0">
+				<p class="md:col-span-3 text-[15px] text-ink-3 tabular md:pt-1.5">
+					{exp.period}
+				</p>
+				<div class="md:col-span-9">
+					<h3 class="font-display text-[24px] md:text-[28px] leading-tight text-ink">
 						{exp.company}
 					</h3>
-					<p class="mt-2 font-mono text-[11px] tabular text-ink-4 tracking-[0.04em]">
-						{exp.period}
-					</p>
-				</div>
-
-				<div class="col-span-12 md:col-span-6">
-					<ul class="space-y-3 text-[14.5px] text-ink-2 leading-relaxed">
+					<p class="mt-1 text-[15px] text-ink-3">{exp.title}</p>
+					<ul class="mt-4 space-y-2 text-[16px] text-ink-2 max-w-[62ch] list-disc pl-5 marker:text-mark">
 						{exp.responsibilities.map((r) => (
-							<li class="flex items-start gap-2.5">
-								<span
-									aria-hidden="true"
-									class="mt-1.5 text-mark-2 font-bold shrink-0 text-[11px]"
-								>
-									↳
-								</span>
-								<span>{r}</span>
-							</li>
+							<li>{r}</li>
 						))}
 					</ul>
 				</div>

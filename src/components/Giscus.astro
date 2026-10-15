@@ -6,19 +6,11 @@
 	class="giscus-wrapper mt-16 border-t border-rule pt-10 fade"
 	style="--d: 280ms"
 >
-	<div
-		class="flex items-center gap-2 mb-4 font-mono text-[10.5px] tracking-widest uppercase text-ink-3"
+	<h2
+		class="font-display text-[28px] md:text-[32px] leading-tight text-ink mb-8"
 	>
-		<span class="text-mark font-semibold">//</span>
-		<span>[SYS_COMMENTS_MODULE]</span>
-		<span class="text-ink-5">//</span>
-		<span class="text-ink-4">status: listening</span>
-	</div>
-	<h3
-		class="font-display text-[26px] md:text-[34px] leading-tight tracking-tight text-ink font-semibold mb-8"
-	>
-		comments<span class="text-mark font-mono">()</span>
-	</h3>
+		Comments
+	</h2>
 
 	<div class="giscus"></div>
 </div>
@@ -34,9 +26,9 @@
 		// 2. Localhost: Fallback to jsDelivr CDN preview (since Giscus cannot reach localhost).
 		// 3. Tunnels (ngrok, etc.): Live local CSS from the tunnel origin with a timestamp for real-time updates.
 		const theme = isProduction
-			? "https://arnabxd.me/css/giscus.css?v=1.1.0"
+			? "https://arnabxd.me/css/giscus.css?v=1.2.0"
 			: isLocal
-				? "https://cdn.jsdelivr.net/gh/ArnabXD/arnabxd.me@preview/public/css/giscus.css?v=1.1.0"
+				? "https://cdn.jsdelivr.net/gh/ArnabXD/arnabxd.me@preview/public/css/giscus.css?v=1.2.0"
 				: `${window.location.origin}/css/giscus.css?v=${new Date().getTime()}`;
 
 		const script = document.createElement("script");

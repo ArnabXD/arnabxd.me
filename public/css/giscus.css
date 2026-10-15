@@ -1,75 +1,102 @@
-/* ============================================================================
-   GISCUS CUSTOM THEME: "Signal Observatory"
-   Deep Obsidian (#07080a) background, silver ink typography, glowing cyber-teal accents.
-   ============================================================================ */
-
+/* Giscus theme: light by default, dark via prefers-color-scheme.
+   Mirrors the tokens in src/global.css. */
 main {
-	/* Preloader & Layout color */
-	--color-preload-color: #07080a;
+	--color-preload-color: #f7f8f9;
 
-	/* Primary Button (Cyber-Teal Accent) */
-	--color-btn-primary-bg: #14b8a6;
-	--color-btn-primary-text: #07080a;
-	--color-btn-primary-border: #14b8a6;
-	--color-btn-primary-hover-bg: #0d9488;
-	--color-btn-primary-hover-border: #0d9488;
-	--color-btn-primary-active-bg: #0f766e;
-	--color-btn-primary-active-border: #0f766e;
-	--color-btn-primary-disabled-bg: rgba(20, 184, 166, 0.4);
-	--color-btn-primary-disabled-text: rgba(7, 8, 10, 0.5);
+	--color-btn-primary-bg: #0b7a70;
+	--color-btn-primary-text: #ffffff;
+	--color-btn-primary-border: #0b7a70;
+	--color-btn-primary-hover-bg: #09665e;
+	--color-btn-primary-hover-border: #09665e;
+	--color-btn-primary-active-bg: #07524c;
+	--color-btn-primary-active-border: #07524c;
+	--color-btn-primary-disabled-bg: rgba(11, 122, 112, 0.4);
+	--color-btn-primary-disabled-text: rgba(255, 255, 255, 0.7);
 	--color-btn-primary-disabled-border: transparent;
 
-	/* Card and Iframe Backgrounds */
 	--color-canvas-default: transparent;
-	--color-canvas-overlay: #0d0f14;
-	--color-canvas-inset: #0d0f14;
+	--color-canvas-overlay: #eff2f4;
+	--color-canvas-inset: #eff2f4;
 
-	/* Borders & Dividers */
-	--color-border-default: #1f2937;
-	--color-border-muted: #374151;
-	--color-border-subtle: #1f2937;
+	--color-border-default: #dde2e6;
+	--color-border-muted: #e7ebee;
+	--color-border-subtle: #dde2e6;
 
-	/* Typography / Text Colors */
-	--color-fg-default: #f3f4f6;
-	--color-fg-muted: #9ca3af;
-	--color-fg-subtle: #808896;
-	--color-fg-on-emphasis: #07080a;
+	--color-fg-default: #12161a;
+	--color-fg-muted: #56606b;
+	--color-fg-subtle: #667079;
+	--color-fg-on-emphasis: #ffffff;
 
-	/* Accent Foreground & UI elements */
-	--color-accent-fg: #14b8a6;
-	--color-accent-emphasis: #14b8a6;
-	--color-accent-muted: rgba(20, 184, 166, 0.4);
-	--color-accent-subtle: rgba(20, 184, 166, 0.1);
+	--color-accent-fg: #0b7a70;
+	--color-accent-emphasis: #0b7a70;
+	--color-accent-muted: rgba(11, 122, 112, 0.4);
+	--color-accent-subtle: rgba(11, 122, 112, 0.1);
 
-	/* Success Accents (Neon Green) */
-	--color-success-fg: #39ff14;
-	--color-success-emphasis: #39ff14;
-	--color-success-muted: rgba(57, 255, 20, 0.4);
-	--color-success-subtle: rgba(57, 255, 20, 0.1);
+	--color-success-fg: #0b7a70;
+	--color-success-emphasis: #0b7a70;
+	--color-success-muted: rgba(11, 122, 112, 0.4);
+	--color-success-subtle: rgba(11, 122, 112, 0.1);
 
-	/* Attention Accents (Orange) */
-	--color-attention-fg: #ff9f1c;
-	--color-attention-emphasis: #ff9f1c;
-	--color-attention-muted: rgba(255, 159, 28, 0.4);
-	--color-attention-subtle: rgba(255, 159, 28, 0.1);
+	--color-attention-fg: #9a5b00;
+	--color-attention-emphasis: #9a5b00;
+	--color-attention-muted: rgba(154, 91, 0, 0.4);
+	--color-attention-subtle: rgba(154, 91, 0, 0.1);
 
-	/* Alert / Danger Accents (Neon Crimson) */
-	--color-danger-fg: #ff2a5f;
-	--color-danger-emphasis: #ff2a5f;
-	--color-danger-muted: rgba(255, 42, 95, 0.4);
-	--color-danger-subtle: rgba(255, 42, 95, 0.1);
+	--color-danger-fg: #b3203f;
+	--color-danger-emphasis: #b3203f;
+	--color-danger-muted: rgba(179, 32, 63, 0.4);
+	--color-danger-subtle: rgba(179, 32, 63, 0.1);
 
-	/* Focus rings & UI markers */
-	--color-primer-border-active: #14b8a6;
-	--color-primer-shadow-focus: 0 0 0 3px rgba(20, 184, 166, 0.3);
+	--color-primer-border-active: #0b7a70;
+	--color-primer-shadow-focus: 0 0 0 3px rgba(11, 122, 112, 0.3);
 }
 
-/* ============================================================================
-   IFRAME COMPONENT OVERRIDES
-   Injecting typography, sharp corners, and cyber-teal focus rings into the Giscus iframe.
-   ============================================================================ */
+@media (prefers-color-scheme: dark) {
+	main {
+		--color-preload-color: #0e1113;
 
-/* Force all text inside Giscus to use the website's technical Monospace typography */
+		--color-btn-primary-bg: #2dd4bf;
+		--color-btn-primary-text: #05201c;
+		--color-btn-primary-border: #2dd4bf;
+		--color-btn-primary-hover-bg: #5eead4;
+		--color-btn-primary-hover-border: #5eead4;
+		--color-btn-primary-active-bg: #14b8a6;
+		--color-btn-primary-active-border: #14b8a6;
+		--color-btn-primary-disabled-bg: rgba(45, 212, 191, 0.4);
+		--color-btn-primary-disabled-text: rgba(5, 32, 28, 0.6);
+
+		--color-canvas-overlay: #151a1d;
+		--color-canvas-inset: #151a1d;
+
+		--color-border-default: #252d32;
+		--color-border-muted: #1d2428;
+		--color-border-subtle: #252d32;
+
+		--color-fg-default: #eef1f3;
+		--color-fg-muted: #98a2ab;
+		--color-fg-subtle: #8a949d;
+		--color-fg-on-emphasis: #05201c;
+
+		--color-accent-fg: #2dd4bf;
+		--color-accent-emphasis: #2dd4bf;
+		--color-accent-muted: rgba(45, 212, 191, 0.4);
+		--color-accent-subtle: rgba(45, 212, 191, 0.1);
+
+		--color-success-fg: #2dd4bf;
+		--color-success-emphasis: #2dd4bf;
+
+		--color-attention-fg: #fbbf24;
+		--color-attention-emphasis: #fbbf24;
+
+		--color-danger-fg: #fb7185;
+		--color-danger-emphasis: #fb7185;
+
+		--color-primer-border-active: #2dd4bf;
+		--color-primer-shadow-focus: 0 0 0 3px rgba(45, 212, 191, 0.3);
+	}
+}
+
+/* Component overrides */
 main,
 input,
 textarea,
@@ -81,10 +108,14 @@ button,
 .Link--primary,
 .Link--secondary {
 	font-family:
-		"JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace !important;
+		"Geist",
+		ui-sans-serif,
+		system-ui,
+		-apple-system,
+		"Helvetica Neue",
+		sans-serif !important;
 }
 
-/* Remove all rounded corners to match the sharp technical terminal aesthetic */
 .Box,
 .Box-header,
 .Box-footer,
@@ -94,27 +125,24 @@ button,
 .giscus-comment-box,
 .timeline-comment,
 .timeline-comment-group {
-	border-radius: 0px !important;
+	border-radius: 12px !important;
 }
 
-/* Style the textarea and input elements inside Giscus */
 .form-control {
-	background-color: #0d0f14 !important;
-	border: 1px solid #1f2937 !important;
-	color: #f3f4f6 !important;
+	background-color: var(--color-canvas-inset) !important;
+	border: 1px solid var(--color-border-default) !important;
+	color: var(--color-fg-default) !important;
 	transition:
 		border-color 0.2s ease,
 		box-shadow 0.2s ease !important;
 }
 
-/* Cyber-Teal glow on focus for all inputs and textareas */
 .form-control:focus {
-	border-color: #14b8a6 !important;
-	box-shadow: 0 0 0 1px #14b8a6 !important;
+	border-color: var(--color-accent-fg) !important;
+	box-shadow: 0 0 0 1px var(--color-accent-fg) !important;
 	outline: none !important;
 }
 
-/* Styling links inside Giscus to hover with Cyber-Teal */
 .Link--primary,
 .Link--secondary {
 	transition: color 0.15s ease !important;
@@ -122,32 +150,27 @@ button,
 
 .Link--primary:hover,
 .Link--secondary:hover {
-	color: #14b8a6 !important;
+	color: var(--color-accent-fg) !important;
 }
 
-/* Premium styling for primary buttons (e.g. "Sign in with GitHub" or submit button) */
 .btn-primary {
-	text-transform: uppercase !important;
-	letter-spacing: 0.05em !important;
 	font-weight: 600 !important;
-	background-color: #14b8a6 !important;
-	color: #07080a !important;
-	border: 1px solid #14b8a6 !important;
-	transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+	background-color: var(--color-btn-primary-bg) !important;
+	color: var(--color-btn-primary-text) !important;
+	border: 1px solid var(--color-btn-primary-border) !important;
+	transition: background-color 0.2s ease !important;
 }
 
 .btn-primary:hover:not([disabled]) {
-	background-color: #0d9488 !important;
-	border-color: #0d9488 !important;
-	color: #07080a !important;
+	background-color: var(--color-btn-primary-hover-bg) !important;
+	border-color: var(--color-btn-primary-hover-border) !important;
 }
 
 .btn-primary:active:not([disabled]) {
-	background-color: #0f766e !important;
-	border-color: #0f766e !important;
+	background-color: var(--color-btn-primary-active-bg) !important;
+	border-color: var(--color-btn-primary-active-border) !important;
 }
 
-/* Customize comments container padding and spacing */
 .giscus-comments {
 	margin-top: 2rem !important;
 }

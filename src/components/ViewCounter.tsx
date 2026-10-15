@@ -36,12 +36,10 @@ export default function ViewCounter({ slug, increment = false }: Props) {
 			className="inline-flex items-center gap-1.5 tabular"
 			aria-live="polite"
 		>
-			<span className="text-ink-4 text-[10px] tracking-[0.14em] uppercase">
-				Views
-			</span>
-			<span className="text-mark">
+			<span className="text-ink">
 				{failed ? "-" : views === null ? "…" : fmt(views)}
 			</span>
+			<span>views</span>
 		</span>
 	);
 }

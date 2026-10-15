@@ -15,111 +15,76 @@ import { data } from "~/data";
 const posts = (await getCollection("blog", ({ data }) => !data.draft))
 	.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
 	.slice(0, 3);
-
-const counts = {
-	experience: data.experience.length,
-	projects: data.projects.length,
-	skills: data.skills.reduce((n, g) => n + g.skills.length, 0),
-};
 ---
 
 <Base image="/og/home.png">
 	<Hero />
 
-	<section class="mt-20 md:mt-32">
-		<SectionLabel
-			index="01"
-			name="experience"
-			meta={`${counts.experience} engagements`}
-			id="experience"
-		/>
+	<section class="mt-12 md:mt-24" aria-label="About">
+		<div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
+			<p
+				class="md:col-span-8 text-[18px] md:text-[20px] leading-relaxed text-ink-2 max-w-[60ch]"
+			>
+				{data.site.tagline}
+			</p>
+			<dl class="md:col-span-4 space-y-4 text-[16px]">
+				<div>
+					<dt class="text-[14px] text-ink-3">Now</dt>
+					<dd class="text-ink">Software Engineer at Metafic</dd>
+				</div>
+				<div>
+					<dt class="text-[14px] text-ink-3">Stack</dt>
+					<dd class="text-ink">React Native, Next.js, TypeScript</dd>
+				</div>
+				<div>
+					<dt class="text-[14px] text-ink-3">Status</dt>
+					<dd class="text-ink">Open to freelance and full-time</dd>
+				</div>
+			</dl>
+		</div>
+	</section>
+
+	<section class="mt-16 md:mt-32">
+		<SectionLabel name="Experience" id="experience" />
 		<ExperienceList />
 	</section>
 
-	<section class="mt-24 md:mt-36">
-		<SectionLabel
-			index="02"
-			name="education"
-			meta="formal training"
-			id="education"
-		/>
+	<section class="mt-16 md:mt-32">
+		<SectionLabel name="Education" id="education" />
 		<Education />
 	</section>
 
-	<section class="mt-24 md:mt-36">
-		<SectionLabel
-			index="03"
-			name="projects"
-			meta={`${counts.projects} open-source builds`}
-			id="projects"
-		/>
+	<section class="mt-16 md:mt-32">
+		<SectionLabel name="Selected projects" id="projects" />
 		<ProjectGrid limit={4} />
-		<div class="mt-10 flex justify-end">
-			<a
-				href="/works"
-				class="group inline-flex items-baseline gap-3 font-mono text-[12px] tabular tracking-[0.08em] uppercase text-ink hover:text-accent transition-colors"
-			>
-				<span
-					class="hairline w-10 group-hover:bg-accent transition-colors"
-					aria-hidden="true"></span>
-				View all works
-				<span
-					aria-hidden="true"
-					class="transition-transform group-hover:translate-x-1">→</span
-				>
+		<div class="mt-8">
+			<a href="/works" class="link-more">
+				All projects <span aria-hidden="true">→</span>
 			</a>
 		</div>
 	</section>
 
-	<section class="mt-24 md:mt-36">
-		<SectionLabel
-			index="04"
-			name="skills"
-			meta={`${counts.skills} entries`}
-			id="skills"
-		/>
+	<section class="mt-16 md:mt-32">
+		<SectionLabel name="Skills" id="skills" />
 		<SkillMatrix />
 	</section>
 
 	{
 		posts.length > 0 && (
-			<section class="mt-24 md:mt-36">
-				<SectionLabel
-					index="05"
-					name="blog"
-					meta={`${posts.length} recent`}
-					id="blog"
-				/>
+			<section class="mt-16 md:mt-32">
+				<SectionLabel name="Writing" id="blog" />
 				<BlogFeed entries={posts} compact />
-				<div class="mt-10 flex justify-end">
-					<a
-						href="/blog"
-						class="group inline-flex items-baseline gap-3 font-mono text-[12px] tabular tracking-[0.08em] uppercase text-ink hover:text-accent transition-colors"
-					>
-						<span
-							class="hairline w-10 group-hover:bg-accent transition-colors"
-							aria-hidden="true"
-						/>
-						View all entries
-						<span
-							aria-hidden="true"
-							class="transition-transform group-hover:translate-x-1"
-						>
-							→
-						</span>
+				<div class="mt-2">
+					<a href="/blog" class="link-more">
+						All posts <span aria-hidden="true">→</span>
 					</a>
 				</div>
 			</section>
 		)
 	}
 
-	<section class="mt-24 md:mt-36">
-		<SectionLabel
-			index="06"
-			name="contact"
-			meta="open channel"
-			id="contact-label"
-		/>
+	<section class="mt-16 md:mt-32">
+		<SectionLabel name="Contact" id="contact-label" />
 		<ContactPanel />
 	</section>
 </Base>

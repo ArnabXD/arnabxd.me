@@ -1,47 +1,15 @@
 ---
 type Props = {
-	index: string;
 	name: string;
-	meta?: string;
 	id?: string;
 };
 
-const { index, name, meta, id } = Astro.props;
+const { name, id } = Astro.props;
 ---
 
-<div id={id} class="scroll-mt-24">
-	<div class="grid grid-cols-12 gap-4 items-end">
-		<div class="col-span-12 md:col-span-2">
-			<span
-				aria-hidden="true"
-				class="font-mono font-semibold text-[64px] md:text-[88px] leading-[0.85] text-mark block tabular tracking-tighter shadow-sm"
-			>
-				0{index}
-			</span>
-		</div>
-		<div class="col-span-12 md:col-span-10 md:pb-3">
-			<div
-				class="flex items-center gap-2 mb-2 font-mono text-[10.5px] tracking-widest uppercase text-ink-3"
-			>
-				<span class="text-mark-2 animate-pulse">●</span>
-				<span>[sys_module_0{index}]</span>
-				<span class="text-ink-5">//</span>
-				<span class="text-ink-4">status: active</span>
-			</div>
-			<h2
-				class="font-display text-[44px] md:text-[64px] leading-[0.95] tracking-[-0.035em] text-ink font-semibold"
-			>
-				{name.toLowerCase()}<span class="text-mark font-mono">()</span>
-				{
-					meta && (
-						<span class="text-ink-4 font-mono text-[13px] md:text-[14px] ml-3 align-middle tracking-normal font-normal">
-							{" "}
-							// {meta}
-						</span>
-					)
-				}
-			</h2>
-		</div>
-	</div>
-	<span class="hairline block mt-6 border-b border-rule-soft"></span>
-</div>
+<h2
+	id={id}
+	class="scroll-mt-24 font-display text-[32px] md:text-[40px] leading-[1.1] text-ink"
+>
+	{name}
+</h2>

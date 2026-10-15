@@ -1,22 +1,6 @@
 ---
 import Base from "~/layouts/Base.astro";
-import SectionLabel from "~/components/SectionLabel.astro";
 import ProjectGrid from "~/components/ProjectGrid.astro";
-import { data } from "~/data";
-
-const projects = data.projects;
-const count = projects.length;
-
-const techSet = new Set<string>();
-for (const p of projects) {
-	for (const t of p.tech) techSet.add(t);
-}
-
-const today = new Date().toLocaleDateString("en-US", {
-	year: "numeric",
-	month: "long",
-	day: "2-digit",
-});
 ---
 
 <Base
@@ -24,157 +8,19 @@ const today = new Date().toLocaleDateString("en-US", {
 	description="Open-source builds, side projects, and tools - across React Native, Next.js, Go, Rust, and TypeScript."
 	image="/og/works.png"
 >
-	<section class="mt-8 md:mt-20 pb-4 md:pb-10">
-		<!-- top meta row -->
-		<div
-			class="grid grid-cols-[auto_1fr_auto] md:grid-cols-12 items-center gap-3 md:gap-6 rise"
-			style="--d: 60ms"
+	<section class="pt-14 md:pt-20">
+		<h1
+			class="rise font-display text-[clamp(40px,8vw,80px)] leading-[1.04] text-ink"
 		>
-			<div
-				class="md:col-span-3 eyebrow inline-flex items-center whitespace-nowrap font-mono"
-			>
-				<span class="text-mark-2 animate-pulse mr-1.5">●</span>
-				<span class="text-mark-2">[works_index]</span>
-			</div>
-			<div class="hairline-soft md:col-span-6" aria-hidden="true"></div>
-			<div
-				class="md:col-span-3 eyebrow md:text-right tabular whitespace-nowrap font-mono text-[10.5px]"
-			>
-				{today}
-			</div>
-		</div>
-
-		<h1 class="mt-8 md:mt-14 leading-[0.95] tracking-tighter relative">
-			<!-- Dynamic atmospheric color mesh spots -->
-			<div
-				class="absolute -top-10 -left-10 w-48 h-48 bg-mark/10 rounded-full blur-[80px] pointer-events-none"
-				aria-hidden="true"
-			>
-			</div>
-			<div
-				class="absolute top-20 right-10 w-64 h-64 bg-mark-2/5 rounded-full blur-[100px] pointer-events-none"
-				aria-hidden="true"
-			>
-			</div>
-
-			<span
-				class="block font-display font-light text-[clamp(48px,12vw,140px)] text-ink-2 rise"
-				style="--d: 140ms"
-			>
-				Production
-			</span>
-			<span
-				class="block font-display font-semibold text-[clamp(52px,13vw,150px)] -mt-1 rise text-ink"
-				style="--d: 220ms"
-			>
-				<span class="text-mark animate-pulse">systems</span> & side builds.
-			</span>
+			Works
 		</h1>
-
-		<!-- spec strip -->
-		<div
-			class="mt-6 md:mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[10.5px] tabular tracking-widest uppercase text-ink-3 rise"
-			style="--d: 280ms"
+		<p
+			class="rise mt-5 max-w-[36ch] text-[20px] md:text-[24px] leading-snug tracking-[-0.015em] text-ink-2"
+			style="--d: 100ms"
 		>
-			<span
-				><span class="text-ink-5">[</span> archive.git <span class="text-ink-5"
-					>]</span
-				></span
-			>
-			<span class="text-ink-5">·</span>
-			<span>{String(count).padStart(2, "0")} builds</span>
-			<span class="text-ink-5">·</span>
-			<span>{techSet.size} tech</span>
-			<span class="text-ink-5">·</span>
-			<span>public / nda</span>
-		</div>
-
-		<!-- intro grid -->
-		<div
-			class="mt-12 md:mt-20 grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-10 rise"
-			style="--d: 360ms"
-		>
-			<div class="md:col-span-7">
-				<p class="eyebrow mb-4 inline-flex items-center gap-2 font-mono">
-					<span class="hairline w-6 bg-mark" aria-hidden="true"></span>
-					<span><span class="text-mark">§</span> 00_preface</span>
-				</p>
-				<p
-					class="font-display text-[22px] sm:text-[26px] md:text-[32px] leading-[1.22] text-ink-2 tracking-tight font-normal max-w-[34ch] md:max-w-none"
-				>
-					Commercial mobile architectures, web platforms, open-source libraries,
-					and command-line scripts.{" "}
-					<span
-						class="underline decoration-mark decoration-2 underline-offset-[6px] text-ink"
-						>Shipped to production servers</span
-					> or published to registry nodes.
-				</p>
-			</div>
-
-			<div class="md:col-span-5 md:pl-10 md:border-l border-rule-soft relative">
-				<div
-					class="absolute top-0 right-0 flex gap-1.5 opacity-60"
-					aria-hidden="true"
-				>
-					<span class="w-2.5 h-2.5 rounded-full bg-red-500/30"></span>
-					<span class="w-2.5 h-2.5 rounded-full bg-yellow-500/30"></span>
-					<span class="w-2.5 h-2.5 rounded-full bg-green-500/30"></span>
-				</div>
-				<p class="eyebrow mb-5 font-mono">
-					<span class="text-mark">[workshop_diag]</span> status: active
-				</p>
-				<dl
-					class="space-y-4 md:space-y-5 text-[13.5px] md:text-[14px] font-mono"
-				>
-					<div
-						class="grid grid-cols-[72px_1fr] md:grid-cols-[88px_1fr] gap-4 items-baseline"
-					>
-						<dt class="eyebrow pt-0.5">// builds</dt>
-						<dd
-							class="text-[24px] md:text-[28px] leading-none tabular font-semibold tracking-tight text-mark"
-						>
-							{String(count).padStart(2, "0")}
-						</dd>
-					</div>
-					<div class="hairline-soft"></div>
-					<div
-						class="grid grid-cols-[72px_1fr] md:grid-cols-[88px_1fr] gap-4 items-baseline"
-					>
-						<dt class="eyebrow pt-0.5">// tech</dt>
-						<dd
-							class="text-[24px] md:text-[28px] leading-none tabular font-semibold tracking-tight text-mark"
-						>
-							{techSet.size}
-						</dd>
-					</div>
-					<div class="hairline-soft"></div>
-					<div class="grid grid-cols-[72px_1fr] md:grid-cols-[88px_1fr] gap-4">
-						<dt class="eyebrow pt-0.5">// license</dt>
-						<dd class="text-mark-2 tabular text-[13px]">mit / proprietary</dd>
-					</div>
-					<div class="hairline-soft"></div>
-					<div class="grid grid-cols-[72px_1fr] md:grid-cols-[88px_1fr] gap-4">
-						<dt class="eyebrow pt-0.5">// source</dt>
-						<dd class="tabular text-[13px] text-ink-2">
-							<a
-								href="https://github.com/ArnabXD"
-								target="_blank"
-								rel="noreferrer"
-								class="hover:text-mark transition-colors">github ↗</a
-							>
-						</dd>
-					</div>
-				</dl>
-			</div>
-		</div>
-	</section>
-
-	<section class="mt-16 md:mt-28">
-		<SectionLabel
-			index="1"
-			name="catalog"
-			meta={`${count} ${count === 1 ? "entry" : "entries"}`}
-		/>
+			Mobile apps, web platforms, open-source libraries and command-line tools,
+			shipped to production or published to registries.
+		</p>
 		<ProjectGrid />
 	</section>
 </Base>

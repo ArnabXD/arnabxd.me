@@ -83,7 +83,7 @@ const IconCheck = () => (
 // ─── Share Button Wrapper ─────────────────────────────────────────────────────
 
 const btnCls =
-	"inline-flex items-center justify-center w-8 h-8 border border-rule text-ink-3 hover:border-mark hover:text-mark hover:shadow-[0_0_10px_rgba(20,184,166,0.2)] transition-all duration-200";
+	"inline-flex items-center justify-center w-9 h-9 rounded-xl border border-rule text-ink-3 hover:border-mark hover:text-mark transition-colors duration-200";
 
 type ShareButtonProps = {
 	id: string;
