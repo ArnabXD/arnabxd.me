@@ -13,29 +13,29 @@
 		"generate-types": "wrangler types"
 	},
 	"dependencies": {
-		"@astrojs/cloudflare": "^14.0.2",
-		"@astrojs/mdx": "^7.0.0",
-		"@astrojs/react": "^6.0.0",
+		"@astrojs/cloudflare": "14.3.4",
+		"@astrojs/mdx": "8.0.3",
+		"@astrojs/react": "7.0.1",
 		"@astrojs/rss": "^4.0.19",
-		"@astrojs/sitemap": "^3.7.3",
+		"@astrojs/sitemap": "3.7.4",
 		"@resvg/resvg-js": "^2.6.2",
 		"@tailwindcss/vite": "^4.3.2",
 		"@types/react": "^19.2.17",
 		"@types/react-dom": "^19.2.3",
-		"astro": "^7.0.4",
+		"astro": "7.3.8",
 		"react": "^19.2.7",
 		"react-dom": "^19.2.7",
 		"satori": "^0.26.0",
 		"tailwindcss": "^4.3.2",
-		"wrangler": "^4.106.0"
+		"wrangler": "^4.151.0"
 	},
-	"packageManager": "pnpm@11.9.0+sha512.bd682d5d03fe525ef7c9fd6780c6884d1e756ac4c9c9fe00c538782824310dcf90e3ddc4f53835f06dfaebd5085e41855e0bcbb3b60de2ac5bbab89e5036f03b",
+	"packageManager": "pnpm@12.11.2+sha512.25a51652a196785af5f28bda6dfe8dc582ebefa4ac1d180221ce1390231c5fb76637822ea4b6e4633ce74acdcb0a77f725af11bad38177fdeddaee818a955cb9",
 	"overrides": {
 		"vite": "^7"
 	},
 	"devDependencies": {
-		"@astrojs/check": "^0.9.9",
-		"@astrojs/ts-plugin": "^1.10.9",
+		"@astrojs/check": "0.9.10",
+		"@astrojs/ts-plugin": "1.10.12",
 		"@eslint/js": "^10.0.1",
 		"@tailwindcss/typography": "^0.5.20",
 		"@typescript-eslint/parser": "^8.62.1",

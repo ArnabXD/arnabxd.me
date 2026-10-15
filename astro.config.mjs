@@ -21,6 +21,10 @@ export default defineConfig({
 	}),
 	vite: {
 		plugins: [tailwindcss()],
+		optimizeDeps: {
+			// The build-time OG renderer loads a native Node binary.
+			exclude: ["@resvg/resvg-js"],
+		},
 		resolve: {
 			alias: {
 				"~": fileURLToPath(new URL("./src", import.meta.url)),
